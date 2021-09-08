@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.sayut61.hockey.ui.players.HomeFragment"
+        android:name="com.sayut61.hockey.ui.players.PlayersFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_players" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.sayut61.hockey.ui.teams.DashboardFragment"
+        android:name="com.sayut61.hockey.ui.teams.TeamsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_navigation_dashboard_to_teamDetailsFragment"
             app:destination="@id/teamDetailsFragment" />
@@ -23,14 +23,14 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.sayut61.hockey.ui.map.NotificationsFragment"
+        android:name="com.sayut61.hockey.ui.map.MapFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_team_detail" />
     <fragment
         android:id="@+id/teamDetailsFragment"
-        android:name="com.sayut61.hockey.ui.teamdetails.TeamDetailsFragment"
+        android:name="com.sayut61.hockey.ui.teamdetail.TeamDetailsFragment"
         android:label="fragment_team_details"
-        tools:layout="@layout/fragment_team_details" >
+        tools:layout="@layout/fragment_teams" >
         <argument
             android:name="team"
             app:argType="com.sayut61.hockey.domain.entities.Team" />

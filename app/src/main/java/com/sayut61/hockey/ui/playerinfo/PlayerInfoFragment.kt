@@ -1,18 +1,19 @@
-package com.sayut61.hockey.ui.teams
+package com.sayut61.hockey.ui.playerinfo
 
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.sayut61.hockey.databinding.FragmentDashboardBinding
+import com.sayut61.hockey.databinding.FragmentPlayerInfoBinding
 
-class DashboardFragment : Fragment() {
 
-    private val dashboardViewModel: DashboardViewModel by viewModels()
-    private var _binding: FragmentDashboardBinding? = null
+class PlayerInfoFragment : Fragment() {
 
+    private val playersInfoViewModel: PlayerInfoViewModel by viewModels()
+    private var _binding: FragmentPlayerInfoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,15 +21,12 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentPlayerInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 
     override fun onDestroyView() {

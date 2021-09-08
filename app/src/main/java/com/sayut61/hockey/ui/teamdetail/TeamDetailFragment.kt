@@ -1,18 +1,18 @@
-package com.sayut61.hockey.ui.map
+package com.sayut61.hockey.ui.teamdetail
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.sayut61.hockey.databinding.FragmentNotificationsBinding
+import com.sayut61.hockey.databinding.FragmentTeamDetailBinding
 
-class NotificationsFragment : Fragment() {
 
-    private val notificationsViewModel: NotificationsViewModel by viewModels()
-    private var _binding: FragmentNotificationsBinding? = null
+class TeamDetailFragment : Fragment() {
 
+    private  val teamDetailViewModel: TeamDetailViewModel by viewModels()
+    private var _binding: FragmentTeamDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +20,8 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+
+        _binding = FragmentTeamDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -1,17 +1,17 @@
-package com.sayut61.hockey.ui.calendar
+package com.sayut61.hockey.ui.players
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.sayut61.hockey.databinding.FragmentCalendarBinding
+import com.sayut61.hockey.databinding.FragmentPlayersBinding
 
-class CalendarFragment : Fragment() {
+class PlayersFragment : Fragment() {
 
-    private val dashboardViewModel: CalendarViewModel by viewModels()
-    private var _binding: FragmentCalendarBinding? = null
+    private  val playersViewModel: PlayersViewModel by viewModels()
+    private var _binding: FragmentPlayersBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,15 +19,13 @@ class CalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+
+        _binding = FragmentPlayersBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
     }
 
     override fun onDestroyView() {
