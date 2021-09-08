@@ -1,18 +1,18 @@
-package com.sayut61.hockey.ui.players
+package com.sayut61.hockey.ui.teams.teamdetail
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.sayut61.hockey.databinding.FragmentHomeBinding
+import com.sayut61.hockey.databinding.FragmentTeamDetailBinding
 
-class HomeFragment : Fragment() {
 
-    private  val homeViewModel: HomeViewModel by viewModels()
-    private var _binding: FragmentHomeBinding? = null
+class TeamDetailFragment : Fragment() {
 
+    private  val teamDetailViewModel: TeamDetailViewModel by viewModels()
+    private var _binding: FragmentTeamDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentTeamDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 

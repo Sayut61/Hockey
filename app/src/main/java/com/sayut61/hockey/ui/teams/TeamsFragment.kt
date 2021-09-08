@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.sayut61.hockey.databinding.FragmentDashboardBinding
+import com.sayut61.hockey.databinding.FragmentTeamsBinding
 
-class DashboardFragment : Fragment() {
+class TeamsFragment : Fragment() {
 
-    private val dashboardViewModel: DashboardViewModel by viewModels()
-    private var _binding: FragmentDashboardBinding? = null
-
+    private val dashboardViewModel: TeamsViewModel by viewModels()
+    private var _binding: FragmentTeamsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +19,7 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentTeamsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
