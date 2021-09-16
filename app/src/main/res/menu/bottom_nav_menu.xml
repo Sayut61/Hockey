@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/teams_home_nav"
+        android:id="@+id/teamsFragment"
         android:icon="@drawable/ic_baseline_format_list_numbered_24"
         android:title="Teams" />
 
     <item
-        android:id="@+id/players_nav"
+        android:id="@+id/playersFragment"
         android:icon="@drawable/ic_baseline_people_alt_24"
         android:title="Players" />
 
     <item
-        android:id="@+id/map_nav"
-        android:icon="@drawable/ic_baseline_chalet_24"
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_baseline_location_on_24"
         android:title="Map" />
     <item
-        android:id="@+id/calendar_nav"
+        android:id="@+id/calendarFragment"
         android:icon="@drawable/ic_baseline_calendar_today_24"
         android:title="Calendar" />
     <item
-        android:id="@+id/favorite_nav"
+        android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_baseline_star_border_24"
         android:title="Favorite" />
 
