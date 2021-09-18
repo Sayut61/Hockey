@@ -20,7 +20,7 @@ class RemoteDataSource @Inject constructor()  {
     }
     private interface RestNHLLogosAPI{
         @GET(value = "franchise?include=teams.logos")
-        suspend fun getTeamLogoNameInfo(): DataResponse
+        suspend fun getLogos(): DataResponse
     }
 
     private var retrofit = Retrofit.Builder()
@@ -38,7 +38,15 @@ class RemoteDataSource @Inject constructor()  {
     suspend fun getAllTeams(): List<TeamInfoFromApi> {
         return service.getAllTeams().teamInfo
     }
-    suspend fun getTeamLogoInfo(): List<LogoFromApi>{
-        return serviceForLogos.getTeamLogoNameInfo().teams
+    suspend fun getAllLogos(): List<LogoFromApi>{
+        return serviceForLogos.getLogos().data.flatMap { it.teams.flatMap { it.logos } }
     }
 }
+
+
+//    suspend fun getTeamLogo(teamId: Int): String?{
+//        val listLogos = serviceForLogos.getLogos().data.flatMap { it.teams.flatMap { it.logos } }
+//        val teamLogos = listLogos.filter { it.teamId == teamId }
+//        val logo = teamLogos.maxByOrNull { it.endSeason }
+//        return logo?.url
+//    }

@@ -26,7 +26,7 @@ private val teamUseCases: TeamUseCases
     fun refreshTeamsFragment(){
         viewModelScope.launch(Dispatchers.Main){
             try {
-                val nameTeam = teamUseCases.getTeamsInfo()
+                val nameTeam: List<Team> = teamUseCases.getTeamsInfo()
                 _teamInfoLiveData.value = nameTeam
             }catch (ex: Exception){
                 _errorLiveData.value = ex

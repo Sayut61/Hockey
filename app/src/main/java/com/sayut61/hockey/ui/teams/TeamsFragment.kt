@@ -33,7 +33,9 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerViewTeams.layoutManager = GridLayoutManager(requireContext(), 2)
+
         teamsViewModel.refreshTeamsFragment()
+
         teamsViewModel.teamInfoLiveData.observe(viewLifecycleOwner){
             showTeamsNames(it)
         }
@@ -47,7 +49,7 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
     }
 
     override fun onTeamClick(team: Team) {
-        val action = TeamsFragmentDirections.actionTeamsFragmentToTeamDetailFragment(team.name)
+        val action = TeamsFragmentDirections.actionTeamsFragmentToTeamDetailFragment(team)
         findNavController().navigate(action)
     }
 
