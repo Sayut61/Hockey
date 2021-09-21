@@ -8,6 +8,7 @@ import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.TeamItemBinding
 import com.sayut61.hockey.domain.entities.Team
 import com.sayut61.hockey.ui.utils.loadSvg
+import com.sayut61.hockey.ui.utils.loadSvgOrOthers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -38,7 +39,7 @@ class TeamsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val url = team.logo
         url?.let{
             GlobalScope.launch {
-                binding.logoImageView.loadSvg(it)
+                binding.logoImageView.loadSvgOrOthers(it)
             }
         }
     }
