@@ -15,7 +15,7 @@ class TeamRepositoriesImpl @Inject constructor(
         val allInfoFromTeamInfoApi: List<TeamInfoFromApi> = remoteDataSource.getAllTeams()
            return allInfoFromTeamInfoApi.map {team->
                val teamLogos = allLogos.filter { it.teamId == team.id }
-               val lastLogo = teamLogos.maxByOrNull { it.endSeason }
+               val lastLogo = teamLogos.maxByOrNull{ it.endSeason }
                Team(
                    name = team.name,
                    id = team.id,

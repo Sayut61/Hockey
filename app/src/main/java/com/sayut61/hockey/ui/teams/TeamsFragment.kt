@@ -58,7 +58,6 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
         binding.recyclerViewTeams.adapter = adapter
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

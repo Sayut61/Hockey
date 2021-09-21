@@ -11,12 +11,11 @@ import javax.inject.Inject
 
 
 
-class RemoteDataSource @Inject constructor()  {
+class RemoteDataSource @Inject constructor() {
     //Retrofit
     private interface RestNHLStatisticAPI {
         @GET(value = "v1/teams")
         suspend fun getAllTeams(): TeamsResponse
-
     }
     private interface RestNHLLogosAPI{
         @GET(value = "franchise?include=teams.logos")
@@ -36,12 +35,13 @@ class RemoteDataSource @Inject constructor()  {
     private var serviceForLogos = retrofitForLogos.create(RestNHLLogosAPI::class.java)
 
     suspend fun getAllTeams(): List<TeamInfoFromApi> {
-        return service.getAllTeams().teamInfo
+        return service.getAllTeams().teams
     }
-    suspend fun getAllLogos(): List<LogoFromApi>{
-        return serviceForLogos.getLogos().data.flatMap { it.teams.flatMap { it.logos } }
+        suspend fun getAllLogos(): List<LogoFromApi> {
+            return serviceForLogos.getLogos().data.flatMap { it.teams.flatMap { it.logos } }
+        }
     }
-}
+
 
 
 //    suspend fun getTeamLogo(teamId: Int): String?{
