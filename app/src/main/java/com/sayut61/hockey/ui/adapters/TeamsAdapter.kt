@@ -21,7 +21,6 @@ class TeamsAdapter (private val getTeamName: List<Team>, private val listener: T
         return TeamsViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.team_item, parent, false))
     }
     override fun onBindViewHolder(holder: TeamsViewHolder, position: Int) {
-
         val team = getTeamName[position]
         holder.itemView.setOnClickListener{
             listener.onTeamClick(team)

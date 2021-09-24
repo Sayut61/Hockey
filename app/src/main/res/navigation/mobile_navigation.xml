@@ -71,5 +71,8 @@
         <action
             android:id="@+id/action_calendarDetailFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />
+        <argument
+            android:name="game"
+            app:argType="com.sayut61.hockey.domain.entities.Calendar" />
     </fragment>
 </navigation>
