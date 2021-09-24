@@ -5,6 +5,6 @@ import androidx.room.RoomDatabase
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoriteTeam
 
 @Database(entities = [FavoriteTeam::class], version = 1)
-abstract class CovidDB: RoomDatabase(){
+abstract class TeamDB: RoomDatabase() {
     abstract fun teamsInfoDao(): TeamsInfoDao
 }

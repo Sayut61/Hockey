@@ -10,5 +10,6 @@ data class Team(
     val firstYearOfPlay: String,
     val teamName: String,
     val officialSiteUrl: String,
-    var logo: String?
+    val urlLogoTeam: String?,
+    val isInFavorite: Boolean
 ) : Parcelable

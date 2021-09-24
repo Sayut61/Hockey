@@ -26,21 +26,21 @@ suspend fun ImageView.loadSvg(url: String) {
 }
 
 
-suspend fun AppCompatImageView.loadSvgOrOthers(myUrl: String?) {
-    myUrl?.let {
-        if (it.lowercase(Locale.ENGLISH).endsWith("svg")) {
-            val imageLoader = ImageLoader.Builder(this.context)
-                .componentRegistry {
-                    add(SvgDecoder(this@loadSvgOrOthers.context))
-                }
-                .build()
-            val request = ImageRequest.Builder(this.context)
-                .data(it)
-                .target(this)
-                .build()
-            imageLoader.execute(request)
-        } else {
-            this.load(myUrl)
-        }
-    }
-}
+//suspend fun AppCompatImageView.loadSvgOrOthers(myUrl: String?) {
+//    myUrl?.let {
+//        if (it.lowercase(Locale.ENGLISH).endsWith("svg")) {
+//            val imageLoader = ImageLoader.Builder(this.context)
+//                .componentRegistry {
+//                    add(SvgDecoder(this@loadSvgOrOthers.context))
+//                }
+//                .build()
+//            val request = ImageRequest.Builder(this.context)
+//                .data(it)
+//                .target(this)
+//                .build()
+//            imageLoader.execute(request)
+//        } else {
+//            this.load(myUrl)
+//        }
+//    }
+//}
