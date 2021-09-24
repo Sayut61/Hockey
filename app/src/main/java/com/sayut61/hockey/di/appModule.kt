@@ -1,7 +1,9 @@
 package com.sayut61.hockey.di
 
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
+import com.sayut61.hockey.datalayer.repositories.CalendarRepositoriesImpl
 import com.sayut61.hockey.datalayer.repositories.TeamRepositoriesImpl
+import com.sayut61.hockey.domain.CalendarRepositories
 import com.sayut61.hockey.domain.TeamRepositories
 import dagger.Module
 import dagger.Provides
@@ -28,4 +30,10 @@ object AppModule{
     fun providesTeamRepositories(remoteDataSource: RemoteDataSource): TeamRepositories{
         return TeamRepositoriesImpl(remoteDataSource)
     }
+    @Singleton
+    @Provides
+    fun providesCalendarRepositories(remoteDataSource: RemoteDataSource): CalendarRepositories{
+        return CalendarRepositoriesImpl(remoteDataSource)
+    }
 }
+
