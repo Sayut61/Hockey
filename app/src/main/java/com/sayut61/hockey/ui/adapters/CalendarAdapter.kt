@@ -32,5 +32,11 @@ class CalendarViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         binding.firstTeamTextView.text = game.homeTeamName
         binding.secondTeamTextView.text = game.awayTeamName
         binding.dateTimeTextView.text = game.gameDate
+
+        binding.favoriteButton.setImageResource(
+            if(game.inInFavorite)
+            R.drawable.ic_baseline_favorite_gameplus
+        else
+            R.drawable.ic_baseline_favorite_gameminus)
     }
 }
