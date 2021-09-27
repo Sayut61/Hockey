@@ -11,4 +11,10 @@ class CalendarUseCases @Inject constructor(
     suspend fun getCalendarInfo(date: LocalDate): List<Calendar>{
         return calendarRepositories.getCalendarInfo(date)
     }
+    suspend fun addToFavorite(calendar: Calendar){
+        calendarRepositories.addToFavorite(calendar)
+    }
+    suspend fun removeFromFavorite(calendar: Calendar){
+        calendarRepositories.removeFromFavorite(calendar)
+    }
 }

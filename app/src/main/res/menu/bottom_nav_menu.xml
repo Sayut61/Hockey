@@ -12,7 +12,7 @@
         android:title="Players" />
 
     <item
-        android:id="@+id/mapFragment"
+        android:id="@+id/mapsFragment"
         android:icon="@drawable/ic_baseline_location_on_24"
         android:title="Map" />
     <item

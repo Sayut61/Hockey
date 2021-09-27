@@ -9,6 +9,8 @@ data class DateByGames(
     val games: List<InfoByGame>
 )
 data class InfoByGame(
+    @SerializedName(value = "gamePk")
+    val gameId: Int,
     val gameDate: String,
     val content: LinkByGame,
     val teams: HomeOrAway
