@@ -1,5 +1,7 @@
 package com.sayut61.hockey.datalayer.datasource.remotedatasource
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.CalendarResponse
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.InfoByGame
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromApi
@@ -9,6 +11,8 @@ import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teamslogos.L
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
+import java.time.LocalDate
 import javax.inject.Inject
 
 
@@ -21,8 +25,8 @@ class RemoteDataSource @Inject constructor() {
         @GET(value = "v1/teams")
         suspend fun getAllTeams(): TeamsResponse
 
-        @GET(value = "v1/schedule?date=2021-10-12")
-        suspend fun getInfoByGameDay(): CalendarResponse
+        @GET(value = "v1/schedule")
+        suspend fun getInfoByGameDay(@Query("date") date: String): CalendarResponse
     }
     private interface RestNHLLogosAPI{
         @GET(value = "franchise?include=teams.logos")
@@ -50,8 +54,10 @@ class RemoteDataSource @Inject constructor() {
     suspend fun getAllTeams(): List<TeamInfoFromApi> {
         return service.getAllTeams().teams
     }
-    suspend fun getInfoByGameDay(): List<InfoByGame>{
-        return service.getInfoByGameDay().dates.flatMap { it.games }
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun getInfoByGameDay(date: LocalDate): List<InfoByGame>{
+        val stringDate = "${date.year}-${date.monthValue+1}-${date.dayOfMonth}"
+        return service.getInfoByGameDay(stringDate).dates.flatMap { it.games }
     }
     suspend fun getAllLogos(): List<LogoFromApi> {
             return serviceForLogos.getLogos().data.flatMap { it.teams.flatMap { it.logos } }

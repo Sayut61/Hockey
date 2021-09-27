@@ -1,7 +1,8 @@
 package com.sayut61.hockey.domain
 
 import com.sayut61.hockey.domain.entities.Calendar
+import java.time.LocalDate
 
 interface CalendarRepositories {
-    suspend fun getCalendarInfo(): List<Calendar>
+    suspend fun getCalendarInfo(date: LocalDate): List<Calendar>
 }

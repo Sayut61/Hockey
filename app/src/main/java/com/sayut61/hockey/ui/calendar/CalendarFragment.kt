@@ -1,11 +1,13 @@
 package com.sayut61.hockey.ui.calendar
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sayut61.hockey.databinding.FragmentCalendarBinding
@@ -14,11 +16,11 @@ import com.sayut61.hockey.ui.adapters.CalendarAdapter
 import com.sayut61.hockey.ui.adapters.CalendarAdapterListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
-import java.lang.reflect.GenericArrayType
+import java.time.LocalDate
 
 @AndroidEntryPoint
 class CalendarFragment : Fragment(), CalendarAdapterListener {
-    private val calendarViewModel: CalendarViewModel by viewModels()
+    private val viewModel: CalendarViewModel by viewModels()
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -27,15 +29,19 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
         setHasOptionsMenu(true)
         return binding.root
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        calendarViewModel.refreshViewModel()
-        calendarViewModel.calendarLiveData.observe(viewLifecycleOwner){
+        viewModel.calendarLiveData.observe(viewLifecycleOwner){
             showCalendarInfo(it)
         }
-        calendarViewModel.errorLiveData.observe(viewLifecycleOwner){
+        viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
+        }
+
+        binding.calendarView.setOnDateChangeListener { calendarView, year, month, day ->
+            viewModel.changeDate(LocalDate.of(year, month, day))
         }
     }
     private fun showError(ex: Exception){
