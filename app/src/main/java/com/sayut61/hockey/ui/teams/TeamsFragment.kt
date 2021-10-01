@@ -1,5 +1,6 @@
 package com.sayut61.hockey.ui.teams
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,7 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
     }
 
     private fun showTeamsNames(team: List<Team>){
-        val adapter = TeamsAdapter(team, this)
+        val adapter = TeamsAdapter(team, this, activity as? Activity)
         binding.recyclerViewTeams.adapter = adapter
     }
 

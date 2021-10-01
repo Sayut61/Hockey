@@ -6,7 +6,7 @@ import dagger.multibindings.IntoMap
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class Calendar(
+data class Calendar(
     val gameDate: String,
     val linkOnDetailInfoByGame: String,
     val awayTeamName: String,
@@ -14,5 +14,5 @@ class Calendar(
     val homeTeamName: String,
     val homeTeamId: Int,
     val gameId: Int,
-    val inInFavorite: Boolean
+    val isInFavorite: Boolean
 ): Parcelable

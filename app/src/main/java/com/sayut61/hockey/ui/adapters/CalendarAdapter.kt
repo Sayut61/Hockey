@@ -8,17 +8,22 @@ import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.CalendarItemBinding
 import com.sayut61.hockey.domain.entities.Calendar
 
+
 interface CalendarAdapterListener{
     fun onCalendarClick(game: Calendar)
+    fun onFavButtonClick(game: Calendar)
 }
-class CalendarAdapter(private val getCalendarInfo: List<Calendar>, val listener: CalendarAdapterListener): RecyclerView.Adapter<CalendarViewHolder>(){
+class CalendarAdapter(private val getCalendarInfo: List<Calendar>, private val listener: CalendarAdapterListener): RecyclerView.Adapter<CalendarViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
-        return CalendarViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.calendar_item, parent, false))
+        return CalendarViewHolder(CalendarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
-       val calendar = getCalendarInfo[position]
+        val calendar = getCalendarInfo[position]
         holder.itemView.setOnClickListener{
             listener.onCalendarClick(calendar)
+        }
+        holder.binding.addToFavoriteButton.setOnClickListener {
+            listener.onFavButtonClick(calendar)
         }
         holder.bind(calendar)
     }
@@ -26,15 +31,14 @@ class CalendarAdapter(private val getCalendarInfo: List<Calendar>, val listener:
         return getCalendarInfo.size
     }
 }
-class CalendarViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+class CalendarViewHolder(val binding: CalendarItemBinding): RecyclerView.ViewHolder(binding.root){
     fun bind(game: Calendar){
-        val binding = CalendarItemBinding.bind(itemView)
         binding.firstTeamTextView.text = game.homeTeamName
         binding.secondTeamTextView.text = game.awayTeamName
         binding.dateTimeTextView.text = game.gameDate
 
-        binding.favoriteButton.setImageResource(
-            if(game.inInFavorite)
+        binding.addToFavoriteButton.setImageResource(
+            if(game.isInFavorite)
             R.drawable.ic_baseline_favorite_gameplus
         else
             R.drawable.ic_baseline_favorite_gameminus)

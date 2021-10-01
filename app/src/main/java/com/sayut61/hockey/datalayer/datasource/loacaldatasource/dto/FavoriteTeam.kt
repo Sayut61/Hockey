@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class FavoriteTeam (
-@PrimaryKey
-val teamId: Int
+        @PrimaryKey
+        val teamId: Int
         )

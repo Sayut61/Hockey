@@ -6,7 +6,6 @@ data class TeamsResponse (
 data class TeamInfoFromApi(
     val id: Int,
     val name: String,
-    val firstYearOfPlay: String,
     val teamName: String,
     val officialSiteUrl: String
 )

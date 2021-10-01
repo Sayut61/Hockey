@@ -1,21 +1,21 @@
 package com.sayut61.hockey.ui.adapters
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.TeamItemBinding
 import com.sayut61.hockey.domain.entities.Team
-import com.sayut61.hockey.ui.utils.loadSvg
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.sayut61.hockey.ui.utils.SvgLoader
 
 
 interface TeamAdapterListener{
     fun onTeamClick(team: Team)
 }
-class TeamsAdapter (private val getTeamName: List<Team>, private val listener: TeamAdapterListener):RecyclerView.Adapter<TeamsViewHolder>(){
+class TeamsAdapter (private val getTeamName: List<Team>, private val listener: TeamAdapterListener, val activity: Activity?):RecyclerView.Adapter<TeamsViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamsViewHolder {
         return TeamsViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.team_item, parent, false))
     }
@@ -24,21 +24,22 @@ class TeamsAdapter (private val getTeamName: List<Team>, private val listener: T
         holder.itemView.setOnClickListener{
             listener.onTeamClick(team)
         }
-        holder.bind(team)
+        holder.bind(team, activity)
     }
     override fun getItemCount(): Int {
         return getTeamName.size
     }
 }
-class TeamsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-    fun bind(team: Team){
+class TeamsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    fun bind(team: Team, activity: Activity?){
         val binding = TeamItemBinding.bind(itemView)
         binding.teamNameTextView.text = team.teamName
-        val url = team.urlLogoTeam
-        url?.let{
-            GlobalScope.launch {
-                binding.logoImageView.loadSvg(it)
-            }
+        activity?.let{activity->
+            val url = team.urlLogoTeam
+            SvgLoader.pluck()
+                .with(activity)
+                .setPlaceHolder(R.drawable.ic_progress, R.drawable.ic_error)
+                .load(url, binding.logoImageView)
         }
     }
 }

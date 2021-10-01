@@ -10,10 +10,12 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.sayut61.hockey.databinding.FragmentCalendarBinding
 import com.sayut61.hockey.domain.entities.Calendar
 import com.sayut61.hockey.ui.adapters.CalendarAdapter
 import com.sayut61.hockey.ui.adapters.CalendarAdapterListener
+import com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 import java.time.LocalDate
@@ -39,7 +41,6 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
         }
-
         binding.calendarView.setOnDateChangeListener { calendarView, year, month, day ->
             viewModel.changeDate(LocalDate.of(year, month, day))
         }
@@ -54,6 +55,10 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
     override fun onCalendarClick(game: Calendar) {
         val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(game)
         findNavController().navigate(action)
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onFavButtonClick(game: Calendar) {
+        viewModel.addGameInDB(game)
     }
     override fun onDestroyView() {
         super.onDestroyView()
