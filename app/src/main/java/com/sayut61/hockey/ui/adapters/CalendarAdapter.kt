@@ -37,8 +37,7 @@ class CalendarViewHolder(val binding: CalendarItemBinding): RecyclerView.ViewHol
         binding.secondTeamTextView.text = game.awayTeamName
         binding.dateTimeTextView.text = game.gameDate
 
-        binding.addToFavoriteButton.setImageResource(
-            if(game.isInFavorite)
+        binding.addToFavoriteButton.setImageResource(if(game.isInFavorite)
             R.drawable.ic_baseline_favorite_gameplus
         else
             R.drawable.ic_baseline_favorite_gameminus)

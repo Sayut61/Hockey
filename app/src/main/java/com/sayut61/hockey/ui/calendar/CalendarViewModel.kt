@@ -34,11 +34,19 @@ class CalendarViewModel @Inject constructor(
     fun addGameInDB(calendar: Calendar){
         viewModelScope.launch {
             calendarUseCases.addToFavorite(calendar)
-/*            val dateValue = date
-            if(dateValue != null)
-                refreshViewModel(dateValue)*/
             date?.let {
                 refreshViewModel(it)
+            }
+        }
+    }
+    fun removeGameInDB(calendar: Calendar){
+        viewModelScope.launch {
+            val delete = calendarLiveData.value
+            if (delete != null) {
+                calendarUseCases.removeFromFavorite(calendar)
+                date?.let{
+                    refreshViewModel(it)
+                }
             }
         }
     }

@@ -58,7 +58,10 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFavButtonClick(game: Calendar) {
-        viewModel.addGameInDB(game)
+        when(game.isInFavorite){
+            false-> viewModel.addGameInDB(game)
+            true-> viewModel.removeGameInDB(game)
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()
