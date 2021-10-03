@@ -43,9 +43,12 @@
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_calendar.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_calendar_detail.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_favorite.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_game_favorite.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_map.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_maps.xml" value="0.33" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_player_favorite.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_player_info.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_team_favorite.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/team_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/StudioProjects/Hockey/app/src/main/res/drawable/error.xml" value="0.3536458333333333" />

@@ -38,13 +38,9 @@
         tools:layout="@layout/fragment_player_info" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.sayut61.hockey.ui.favorites.FavoriteFragment"
+        android:name="com.sayut61.hockey.ui.favorites.ViewPagerFavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" >
-        <action
-            android:id="@+id/action_favoriteFragment_to_teamDetailFragment"
-            app:destination="@id/teamDetailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.sayut61.hockey.ui.calendar.CalendarFragment"
