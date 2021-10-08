@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.sayut61.hockey.R
 
-class GameFavoriteFragment : Fragment() {
-
+class TeamsFavoriteFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -18,7 +17,7 @@ class GameFavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game_favorite, container, false)
+        return inflater.inflate(R.layout.fragment_team_favorite, container, false)
     }
 
 }

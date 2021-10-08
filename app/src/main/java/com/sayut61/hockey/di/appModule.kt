@@ -7,10 +7,12 @@ import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.HockeyDB
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.TeamsInfoDao
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
-import com.sayut61.hockey.datalayer.repositories.CalendarRepositoriesImpl
+import com.sayut61.hockey.datalayer.repositories.GamesFavRepositoriesImpl
+import com.sayut61.hockey.datalayer.repositories.GamesRepositoriesImpl
 import com.sayut61.hockey.datalayer.repositories.MapRepositoriesImpl
 import com.sayut61.hockey.datalayer.repositories.TeamRepositoriesImpl
-import com.sayut61.hockey.domain.CalendarRepositories
+import com.sayut61.hockey.domain.GamesFavRepositories
+import com.sayut61.hockey.domain.GamesRepositories
 import com.sayut61.hockey.domain.MapRepositories
 import com.sayut61.hockey.domain.TeamRepositories
 import dagger.Module
@@ -43,13 +45,19 @@ object AppModule{
     }
     @Singleton
     @Provides
-    fun providesCalendarRepositories(remoteDataSource: RemoteDataSource, gamesInfoDao: GamesInfoDao): CalendarRepositories{
-        return CalendarRepositoriesImpl(remoteDataSource, gamesInfoDao)
+    fun providesCalendarRepositories(remoteDataSource: RemoteDataSource, gamesInfoDao: GamesInfoDao): GamesRepositories{
+        return GamesRepositoriesImpl(remoteDataSource, gamesInfoDao)
     }
     @Singleton
     @Provides
     fun providesMapRepositories(remoteDataSource: RemoteDataSource): MapRepositories {
         return MapRepositoriesImpl(remoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesFavRepositories(gamesInfoDao: GamesInfoDao): GamesFavRepositories {
+        return GamesFavRepositoriesImpl(gamesInfoDao)
     }
 }
 

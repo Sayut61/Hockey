@@ -1,10 +1,8 @@
-package com.sayut61.hockey.ui.utils;
+package com.sayut61.hockey.ui.utils.svgloader;
 
 import android.app.Activity;
 import android.net.Uri;
 import android.widget.ImageView;
-
-import com.sayut61.hockey.ui.utils.SvgParser;
 
 public class SvgLoader {
 

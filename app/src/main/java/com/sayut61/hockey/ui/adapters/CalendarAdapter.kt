@@ -1,24 +1,23 @@
 package com.sayut61.hockey.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.CalendarItemBinding
-import com.sayut61.hockey.domain.entities.Calendar
+import com.sayut61.hockey.domain.entities.Game
 
 
 interface CalendarAdapterListener{
-    fun onCalendarClick(game: Calendar)
-    fun onFavButtonClick(game: Calendar)
+    fun onCalendarClick(game: Game)
+    fun onFavButtonClick(game: Game)
 }
-class CalendarAdapter(private val getCalendarInfo: List<Calendar>, private val listener: CalendarAdapterListener): RecyclerView.Adapter<CalendarViewHolder>(){
+class CalendarAdapter(private val getGameInfo: List<Game>, private val listener: CalendarAdapterListener): RecyclerView.Adapter<CalendarViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         return CalendarViewHolder(CalendarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
-        val calendar = getCalendarInfo[position]
+        val calendar = getGameInfo[position]
         holder.itemView.setOnClickListener{
             listener.onCalendarClick(calendar)
         }
@@ -28,11 +27,11 @@ class CalendarAdapter(private val getCalendarInfo: List<Calendar>, private val l
         holder.bind(calendar)
     }
     override fun getItemCount(): Int {
-        return getCalendarInfo.size
+        return getGameInfo.size
     }
 }
 class CalendarViewHolder(val binding: CalendarItemBinding): RecyclerView.ViewHolder(binding.root){
-    fun bind(game: Calendar){
+    fun bind(game: Game){
         binding.firstTeamTextView.text = game.homeTeamName
         binding.secondTeamTextView.text = game.awayTeamName
         binding.dateTimeTextView.text = game.gameDate

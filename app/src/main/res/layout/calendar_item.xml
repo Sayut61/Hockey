@@ -44,9 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text=":"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/secondTeamTextView"
+        app:layout_constraintStart_toEndOf="@+id/firstTeamTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -63,5 +62,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondTeamTextView"
         app:srcCompat="@drawable/ic_baseline_favorite_gameminus"
-        />
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

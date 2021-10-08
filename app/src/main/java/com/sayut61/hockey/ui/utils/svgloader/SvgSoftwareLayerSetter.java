@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.utils;
+package com.sayut61.hockey.ui.utils.svgloader;
 
 import android.annotation.TargetApi;
 import android.graphics.drawable.PictureDrawable;

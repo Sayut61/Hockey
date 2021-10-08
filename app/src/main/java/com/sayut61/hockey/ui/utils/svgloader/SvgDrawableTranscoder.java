@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.utils;
+package com.sayut61.hockey.ui.utils.svgloader;
 
 import android.graphics.Picture;
 import android.graphics.drawable.PictureDrawable;

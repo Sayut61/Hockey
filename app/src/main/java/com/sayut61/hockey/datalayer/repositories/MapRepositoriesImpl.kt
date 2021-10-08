@@ -15,6 +15,7 @@ class MapRepositoriesImpl @Inject constructor(
                     nameStadium = stadiumInfo.stadiumName,
                     geoLat = stadiumInfo.GeoLat,
                     geoLong = stadiumInfo.GeoLong,
+                    StadiumID = stadiumInfo.StadiumID
                 )
         }
     }

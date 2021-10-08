@@ -38,7 +38,7 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
         teamsViewModel.refreshTeamsFragment()
 
         teamsViewModel.teamInfoLiveData.observe(viewLifecycleOwner){
-            showTeamsNames(it)
+            showTeams(it)
         }
 
         teamsViewModel.errorLiveData.observe(viewLifecycleOwner){
@@ -54,7 +54,7 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
         findNavController().navigate(action)
     }
 
-    private fun showTeamsNames(team: List<Team>){
+    private fun showTeams(team: List<Team>){
         val adapter = TeamsAdapter(team, this, activity as? Activity)
         binding.recyclerViewTeams.adapter = adapter
     }

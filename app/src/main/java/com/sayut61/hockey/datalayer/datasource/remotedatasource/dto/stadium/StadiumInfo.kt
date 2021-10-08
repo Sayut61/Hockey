@@ -6,5 +6,6 @@ data class StadiumInfo(
     @SerializedName(value = "Name")
     val stadiumName: String,
     val GeoLat: Double,
-    val GeoLong: Double
+    val GeoLong: Double,
+    val StadiumID: Int
 )

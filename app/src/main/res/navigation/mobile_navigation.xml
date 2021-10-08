@@ -40,7 +40,11 @@
         android:id="@+id/favoriteFragment"
         android:name="com.sayut61.hockey.ui.favorites.ViewPagerFavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_gameFavoriteFragment"
+            app:destination="@id/gameFavoriteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.sayut61.hockey.ui.calendar.CalendarFragment"
@@ -60,7 +64,7 @@
             app:destination="@id/teamDetailFragment" />
         <argument
             android:name="game"
-            app:argType="com.sayut61.hockey.domain.entities.Calendar" />
+            app:argType="com.sayut61.hockey.domain.entities.Game" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -71,4 +75,9 @@
             android:id="@+id/action_mapsFragment2_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/gameFavoriteFragment"
+        android:name="com.sayut61.hockey.ui.favorites.tabfragments.GamesFavoriteFragment"
+        android:label="fragment_game_favorite"
+        tools:layout="@layout/fragment_game_favorite" />
 </navigation>
