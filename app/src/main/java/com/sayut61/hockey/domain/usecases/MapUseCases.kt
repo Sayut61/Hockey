@@ -8,6 +8,6 @@ class MapUseCases @Inject constructor(
     private val mapRepositories: MapRepositories
 ) {
     suspend fun getStadiumInfo(): List<Stadium>{
-        return mapRepositories.getStadiumInfo()
+        return mapRepositories.getStadiumsInfo()
     }
 }

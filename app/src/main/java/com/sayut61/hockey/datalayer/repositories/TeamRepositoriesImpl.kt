@@ -2,8 +2,8 @@ package com.sayut61.hockey.datalayer.repositories
 
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.TeamsInfoDao
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo.TeamsInfoFromSecondAPI
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromApi
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo.TeamInfoFromSecondApi
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromFirstApi
 import com.sayut61.hockey.domain.entities.Team
 import com.sayut61.hockey.domain.TeamRepositories
 import javax.inject.Inject
@@ -13,18 +13,19 @@ class TeamRepositoriesImpl @Inject constructor(
     private val teamsInfoDao: TeamsInfoDao
 ) : TeamRepositories {
     override suspend fun getTeamsInfo(): List<Team> {
-        val allInfoFromTeamInfoApi: List<TeamInfoFromApi> = remoteDataSource.getAllTeams()
-        val logoFromSecondApi: List<TeamsInfoFromSecondAPI> = remoteDataSource.getAllTeamsInfo()
+        val teamsInfoFromFirstApi: List<TeamInfoFromFirstApi> = remoteDataSource.getTeamsFirstApi()
+        val teamsInfoFromSecondApi: List<TeamInfoFromSecondApi> = remoteDataSource.getTeamsSecondApi()
 
-        return allInfoFromTeamInfoApi.map {team->
+        return teamsInfoFromFirstApi.map { team->
             val isInDB = teamsInfoDao.getAllInfo().find { it.teamId == team.id } !=null
-            val teamLogo = logoFromSecondApi.find { it.Name == team.teamName }
+            val teamLogo = teamsInfoFromSecondApi.find { it.shortName == team.shortTeamName }
             Team(
-                name = team.name,
+                fullTeamName = team.fullTeamName,
                 id = team.id,
                 officialSiteUrl = team.officialSiteUrl,
-                teamName = team.teamName,
-                isInFavorite = isInDB,
+                shortTeamName = team.shortTeamName,
+                cityName = teamLogo?.cityName,
+                isInFavoriteTeam = isInDB,
                 urlLogoTeam = teamLogo?.WikipediaLogoUrl,
                 StadiumID = teamLogo!!.StadiumID
             )

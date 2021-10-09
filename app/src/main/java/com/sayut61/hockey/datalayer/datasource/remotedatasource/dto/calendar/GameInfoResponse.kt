@@ -2,14 +2,14 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar
 
 import com.google.gson.annotations.SerializedName
 
-data class CalendarResponse(
+data class GamesDateResponse(
     val dates: List<DateByGames>
 )
 data class DateByGames(
-    val games: List<InfoByGame>
+    val games: List<Games>
 )
-data class InfoByGame(
-    @SerializedName(value = "gamePk")
+data class Games(
+    @SerializedName("gamePk")
     val gameId: Int,
     val gameDate: String,
     val content: LinkByGame,
@@ -31,13 +31,13 @@ data class HomeTeam(
 )
 data class AwayTeamName(
     @SerializedName("name")
-    val awayTeamName: String,
+    val awayTeamNameFull: String,
     @SerializedName("id")
     val awayTeamId: Int
 )
 data class HomeTeamName(
     @SerializedName("name")
-    val homeTeamName: String,
+    val homeTeamNameFull: String,
     @SerializedName("id")
     val homeTeamId: Int
 )

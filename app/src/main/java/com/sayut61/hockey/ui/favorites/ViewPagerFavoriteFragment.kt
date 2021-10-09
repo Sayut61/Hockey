@@ -10,7 +10,9 @@ import com.sayut61.hockey.ui.favorites.adapter.ViewPagerAdapter
 import com.sayut61.hockey.ui.favorites.tabfragments.GamesFavoriteFragment
 import com.sayut61.hockey.ui.favorites.tabfragments.PlayersFavoriteFragment
 import com.sayut61.hockey.ui.favorites.tabfragments.TeamsFavoriteFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ViewPagerFavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!

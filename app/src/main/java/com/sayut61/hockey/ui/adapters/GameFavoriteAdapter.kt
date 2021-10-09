@@ -47,8 +47,8 @@ class GameFavoriteAdapter(
 class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(game: Game, activity: Activity?) {
-        binding.awayTeamTextView.text = game.awayTeamName
-        binding.homeTeamTextView.text = game.homeTeamName
+        binding.awayTeamTextView.text = game.awayTeamNameFull
+        binding.homeTeamTextView.text = game.homeTeamNameFull
         binding.dateGameTextView.text = game.gameDate
         game.awayTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.awayTeamImageView)

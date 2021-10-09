@@ -10,45 +10,38 @@ class GamesFavRepositoriesImpl @Inject constructor(
     val gamesInfoDao: GamesInfoDao
 ): GamesFavRepositories {
 
-
-    override suspend fun getGames(): List<Game> {
+    override suspend fun getFavoriteGames(): List<Game> {
         val listFavoriteGames = gamesInfoDao.getAllInfo()
         return listFavoriteGames.map {
             favoriteGameToGame(it)
         }
     }
-
-    override suspend fun removeFromFavorite(game: Game) {
+    override suspend fun removeFromFavoriteGame(game: Game) {
         gamesInfoDao.delete(gameToFavoriteGame(game))
     }
-
-    override suspend fun addToFavorite(game: Game) {
+    override suspend fun addToFavoriteGame(game: Game) {
         gamesInfoDao.insert(gameToFavoriteGame(game))
     }
-
-
-
     private fun gameToFavoriteGame(game: Game): FavoriteGame{
         return FavoriteGame(
             game.gameDate,
             game.linkOnDetailInfoByGame,
-            game.awayTeamName,
+            game.awayTeamNameFull,
             game.awayTeamId,
-            game.homeTeamName,
+            game.homeTeamNameFull,
             game.homeTeamId,
             game.gameId,
             game.homeTeamLogo,
             game.awayTeamLogo,
         )
     }
-
     private fun favoriteGameToGame(favoriteGame: FavoriteGame): Game{
         return Game(
             favoriteGame.gameDate,
             favoriteGame.linkOnDetailInfoByGame,
-            favoriteGame.awayTeamName,
+            favoriteGame.awayTeamNameFull,
             favoriteGame.awayTeamId,
-            favoriteGame.homeTeamName,
+            favoriteGame.homeTeamNameFull,
             favoriteGame.homeTeamId,
             favoriteGame.gameId,
             favoriteGame.homeTeamLogo,

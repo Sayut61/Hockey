@@ -9,6 +9,6 @@ class GamesUseCases @Inject constructor(
     private val gamesRepositories: GamesRepositories
 ) {
     suspend fun getGamesInfo(date: LocalDate): List<Game>{
-        return gamesRepositories.getGameInfo(date)
+        return gamesRepositories.getGamesInfo(date)
     }
 }

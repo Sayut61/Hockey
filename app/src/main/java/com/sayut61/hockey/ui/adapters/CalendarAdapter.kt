@@ -32,11 +32,11 @@ class CalendarAdapter(private val getGameInfo: List<Game>, private val listener:
 }
 class CalendarViewHolder(val binding: CalendarItemBinding): RecyclerView.ViewHolder(binding.root){
     fun bind(game: Game){
-        binding.firstTeamTextView.text = game.homeTeamName
-        binding.secondTeamTextView.text = game.awayTeamName
+        binding.firstTeamTextView.text = game.homeTeamNameFull
+        binding.secondTeamTextView.text = game.awayTeamNameFull
         binding.dateTimeTextView.text = game.gameDate
 
-        binding.addToFavoriteButton.setImageResource(if(game.isInFavorite)
+        binding.addToFavoriteButton.setImageResource(if(game.isInFavoriteGame)
             R.drawable.ic_baseline_favorite_gameplus
         else
             R.drawable.ic_baseline_favorite_gameminus)

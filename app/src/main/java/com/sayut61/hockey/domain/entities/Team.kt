@@ -1,15 +1,17 @@
 package com.sayut61.hockey.domain.entities
 
 import android.os.Parcelable
+import com.google.android.gms.common.internal.StringResourceValueReader
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Team(
     val id: Int,
-    val name: String,
-    val teamName: String,
+    val fullTeamName: String,
+    val shortTeamName: String,
+    val cityName: String?,
     val officialSiteUrl: String,
     val urlLogoTeam: String?,
-    val isInFavorite: Boolean,
+    val isInFavoriteTeam: Boolean,
     val StadiumID: Int
 ) : Parcelable

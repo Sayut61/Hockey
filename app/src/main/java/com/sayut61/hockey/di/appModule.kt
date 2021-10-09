@@ -35,7 +35,7 @@ object AppModule{
     @Singleton
     @Provides
     fun provideGamesInfoDao(@ApplicationContext context: Context): GamesInfoDao {
-    val db = Room.databaseBuilder(context, HockeyDB::class.java, "g").build()
+    val db = Room.databaseBuilder(context, HockeyDB::class.java, "game").build()
     return db.gamesInfoDao()
 }
         @Singleton

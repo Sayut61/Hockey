@@ -24,7 +24,7 @@ class GamesFavoriteFragmentViewModel @Inject constructor(
 
     fun deleteFromFavorite(game: Game) {
         viewModelScope.launch {
-            gamesFavUseCases.removeFromFavorite(game)
+            gamesFavUseCases.removeFromFavoriteGame(game)
         }
         refreshFavoriteFragment()
     }
@@ -32,7 +32,7 @@ class GamesFavoriteFragmentViewModel @Inject constructor(
     fun refreshFavoriteFragment() {
         viewModelScope.launch {
             try {
-                _gamesFavoriteLiveData.value = gamesFavUseCases.getGames()
+                _gamesFavoriteLiveData.value = gamesFavUseCases.getFavoriteGames()
             } catch (ex: Exception) {
                 _errorLiveData.value = ex
             }

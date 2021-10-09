@@ -61,7 +61,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFavButtonClick(game: Game) {
-        if (game.isInFavorite)
+        if (game.isInFavoriteGame)
             viewModel.removeGameInDB(game)
         else
             viewModel.addGameInDB(game)

@@ -35,7 +35,7 @@ class CalendarViewModel @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     fun addGameInDB(game: Game) {
         viewModelScope.launch {
-            gamesFavUseCases.addToFavorite(game)
+            gamesFavUseCases.addToFavoriteGame(game)
             date?.let {
                 refreshViewModel(it)
             }
@@ -44,7 +44,7 @@ class CalendarViewModel @Inject constructor(
 
     fun removeGameInDB(game: Game) {
         viewModelScope.launch {
-            gamesFavUseCases.removeFromFavorite(game)
+            gamesFavUseCases.removeFromFavoriteGame(game)
             date?.let {
                 refreshViewModel(it)
             }

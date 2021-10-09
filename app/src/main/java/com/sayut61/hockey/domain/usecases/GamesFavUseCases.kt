@@ -7,14 +7,13 @@ import javax.inject.Inject
 class GamesFavUseCases @Inject constructor(
     private val getGamesFavListRepositories: GamesFavRepositories
 ) {
-    suspend fun getGames(): List<Game>{
-        return getGamesFavListRepositories.getGames()
+    suspend fun getFavoriteGames(): List<Game>{
+        return getGamesFavListRepositories.getFavoriteGames()
     }
-    suspend fun removeFromFavorite(game: Game){
-        getGamesFavListRepositories.removeFromFavorite(game)
+    suspend fun removeFromFavoriteGame(game: Game){
+        getGamesFavListRepositories.removeFromFavoriteGame(game)
     }
-
-    suspend fun addToFavorite(game: Game){
-        getGamesFavListRepositories.addToFavorite(game)
+    suspend fun addToFavoriteGame(game: Game){
+        getGamesFavListRepositories.addToFavoriteGame(game)
     }
 }

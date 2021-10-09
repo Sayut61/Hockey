@@ -8,7 +8,7 @@ import javax.inject.Inject
 class MapRepositoriesImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ): MapRepositories {
-    override suspend fun getStadiumInfo(): List<Stadium> {
+    override suspend fun getStadiumsInfo(): List<Stadium> {
         val listStadiumInfo = remoteDataSource.getStadiumInfo()
         return listStadiumInfo.map { stadiumInfo ->
                 Stadium(
