@@ -64,7 +64,7 @@
             app:destination="@id/teamDetailFragment" />
         <argument
             android:name="game"
-            app:argType="com.sayut61.hockey.domain.entities.Game" />
+            app:argType="com.sayut61.hockey.domain.entities.GameGeneralInfo" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"

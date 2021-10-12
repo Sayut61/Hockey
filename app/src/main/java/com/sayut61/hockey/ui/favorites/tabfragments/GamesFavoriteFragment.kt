@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.sayut61.hockey.databinding.FragmentGameFavoriteBinding
-import com.sayut61.hockey.domain.entities.Game
+import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.adapters.GameFavoriteAdapter
 import com.sayut61.hockey.ui.adapters.GameFavoriteAdapterListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,9 +19,7 @@ class GamesFavoriteFragment : Fragment(), GameFavoriteAdapterListener{
     private val viewModel: GamesFavoriteFragmentViewModel by viewModels()
     private var _binding: FragmentGameFavoriteBinding? = null
     private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentGameFavoriteBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
@@ -39,21 +37,25 @@ class GamesFavoriteFragment : Fragment(), GameFavoriteAdapterListener{
         viewModel.refreshFavoriteFragment()
     }
 
-    fun showGameInfo(game: List<Game>){
-        val adapter = GameFavoriteAdapter(game, this, activity as? Activity)
+    fun showGameInfo(gameGeneralInfo: List<GameGeneralInfo>){
+        val adapter = GameFavoriteAdapter(gameGeneralInfo, this, activity as? Activity)
         binding.favoriteGameRecyclerView.adapter = adapter
     }
-    override fun onGameClick(game: Game) {
+    override fun onGameClick(gameGeneralInfo: GameGeneralInfo) {
         TODO("Not yet implemented")
     }
 
-    override fun onDeleteButtonClick(game: Game) {
-        viewModel.deleteFromFavorite(game)
+    override fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo) {
+        viewModel.deleteFromFavorite(gameGeneralInfo)
     }
 
     private fun showError(ex: Exception){
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
 }

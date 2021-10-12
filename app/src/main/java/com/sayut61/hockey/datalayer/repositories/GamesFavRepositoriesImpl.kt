@@ -3,40 +3,40 @@ package com.sayut61.hockey.datalayer.repositories
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoriteGame
 import com.sayut61.hockey.domain.GamesFavRepositories
-import com.sayut61.hockey.domain.entities.Game
+import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import javax.inject.Inject
 
 class GamesFavRepositoriesImpl @Inject constructor(
     val gamesInfoDao: GamesInfoDao
 ): GamesFavRepositories {
 
-    override suspend fun getFavoriteGames(): List<Game> {
+    override suspend fun getFavoriteGames(): List<GameGeneralInfo> {
         val listFavoriteGames = gamesInfoDao.getAllInfo()
         return listFavoriteGames.map {
             favoriteGameToGame(it)
         }
     }
-    override suspend fun removeFromFavoriteGame(game: Game) {
-        gamesInfoDao.delete(gameToFavoriteGame(game))
+    override suspend fun removeFromFavoriteGame(gameGeneralInfo: GameGeneralInfo) {
+        gamesInfoDao.delete(gameToFavoriteGame(gameGeneralInfo))
     }
-    override suspend fun addToFavoriteGame(game: Game) {
-        gamesInfoDao.insert(gameToFavoriteGame(game))
+    override suspend fun addToFavoriteGame(gameGeneralInfo: GameGeneralInfo) {
+        gamesInfoDao.insert(gameToFavoriteGame(gameGeneralInfo))
     }
-    private fun gameToFavoriteGame(game: Game): FavoriteGame{
+    fun gameToFavoriteGame(gameGeneralInfo: GameGeneralInfo): FavoriteGame{
         return FavoriteGame(
-            game.gameDate,
-            game.linkOnDetailInfoByGame,
-            game.awayTeamNameFull,
-            game.awayTeamId,
-            game.homeTeamNameFull,
-            game.homeTeamId,
-            game.gameId,
-            game.homeTeamLogo,
-            game.awayTeamLogo,
+            gameGeneralInfo.gameDate,
+            gameGeneralInfo.linkOnDetailInfoByGame,
+            gameGeneralInfo.awayTeamNameFull,
+            gameGeneralInfo.awayTeamId,
+            gameGeneralInfo.homeTeamNameFull,
+            gameGeneralInfo.homeTeamId,
+            gameGeneralInfo.gameId,
+            gameGeneralInfo.homeTeamLogo,
+            gameGeneralInfo.awayTeamLogo,
         )
     }
-    private fun favoriteGameToGame(favoriteGame: FavoriteGame): Game{
-        return Game(
+    fun favoriteGameToGame(favoriteGame: FavoriteGame): GameGeneralInfo{
+        return GameGeneralInfo(
             favoriteGame.gameDate,
             favoriteGame.linkOnDetailInfoByGame,
             favoriteGame.awayTeamNameFull,

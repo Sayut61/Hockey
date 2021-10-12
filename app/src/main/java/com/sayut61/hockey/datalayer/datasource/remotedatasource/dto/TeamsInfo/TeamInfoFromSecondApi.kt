@@ -7,6 +7,8 @@ data class TeamInfoFromSecondApi(
     val shortName: String,
     @SerializedName("City")
     val cityName: String,
-    val WikipediaLogoUrl: String,
-    val StadiumID: Int
+    @SerializedName("WikipediaLogoUrl")
+    val wikipediaLogoUrl: String,
+    @SerializedName("StadiumID")
+    val stadiumID: Int
 )

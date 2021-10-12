@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.CalendarItemBinding
-import com.sayut61.hockey.domain.entities.Game
+import com.sayut61.hockey.domain.entities.GameGeneralInfo
 
 
 interface CalendarAdapterListener{
-    fun onCalendarClick(game: Game)
-    fun onFavButtonClick(game: Game)
+    fun onCalendarClick(gameGeneralInfo: GameGeneralInfo)
+    fun onFavButtonClick(gameGeneralInfo: GameGeneralInfo)
 }
-class CalendarAdapter(private val getGameInfo: List<Game>, private val listener: CalendarAdapterListener): RecyclerView.Adapter<CalendarViewHolder>(){
+class CalendarAdapter(private val getGameInfo: List<GameGeneralInfo>, private val listener: CalendarAdapterListener): RecyclerView.Adapter<CalendarViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         return CalendarViewHolder(CalendarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -31,12 +31,12 @@ class CalendarAdapter(private val getGameInfo: List<Game>, private val listener:
     }
 }
 class CalendarViewHolder(val binding: CalendarItemBinding): RecyclerView.ViewHolder(binding.root){
-    fun bind(game: Game){
-        binding.firstTeamTextView.text = game.homeTeamNameFull
-        binding.secondTeamTextView.text = game.awayTeamNameFull
-        binding.dateTimeTextView.text = game.gameDate
+    fun bind(gameGeneralInfo: GameGeneralInfo){
+        binding.firstTeamTextView.text = gameGeneralInfo.homeTeamNameFull
+        binding.secondTeamTextView.text = gameGeneralInfo.awayTeamNameFull
+        binding.dateTimeTextView.text = gameGeneralInfo.gameDate
 
-        binding.addToFavoriteButton.setImageResource(if(game.isInFavoriteGame)
+        binding.addToFavoriteButton.setImageResource(if(gameGeneralInfo.isInFavoriteGame)
             R.drawable.ic_baseline_favorite_gameplus
         else
             R.drawable.ic_baseline_favorite_gameminus)

@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sayut61.hockey.domain.entities.Game
+import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.domain.usecases.GamesFavUseCases
 import com.sayut61.hockey.domain.usecases.GamesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +20,8 @@ class CalendarViewModel @Inject constructor(
     private val gamesUseCases: GamesUseCases,
     private val gamesFavUseCases: GamesFavUseCases
 ) : ViewModel() {
-    private val _gamesLiveData = MutableLiveData<List<Game>>()
-    val gamesLiveData: LiveData<List<Game>> = _gamesLiveData
+    private val _gamesLiveData = MutableLiveData<List<GameGeneralInfo>>()
+    val gamesLiveData: LiveData<List<GameGeneralInfo>> = _gamesLiveData
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
@@ -33,18 +33,18 @@ class CalendarViewModel @Inject constructor(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addGameInDB(game: Game) {
+    fun addGameInDB(gameGeneralInfo: GameGeneralInfo) {
         viewModelScope.launch {
-            gamesFavUseCases.addToFavoriteGame(game)
+            gamesFavUseCases.addToFavoriteGame(gameGeneralInfo)
             date?.let {
                 refreshViewModel(it)
             }
         }
     }
 
-    fun removeGameInDB(game: Game) {
+    fun removeGameInDB(gameGeneralInfo: GameGeneralInfo) {
         viewModelScope.launch {
-            gamesFavUseCases.removeFromFavoriteGame(game)
+            gamesFavUseCases.removeFromFavoriteGame(gameGeneralInfo)
             date?.let {
                 refreshViewModel(it)
             }

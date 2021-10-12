@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sayut61.hockey.databinding.FragmentCalendarBinding
-import com.sayut61.hockey.domain.entities.Game
+import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.adapters.CalendarAdapter
 import com.sayut61.hockey.ui.adapters.CalendarAdapterListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,22 +49,22 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
 
-    private fun showCalendarInfo(game: List<Game>) {
-        val adapter = CalendarAdapter(game, this)
+    private fun showCalendarInfo(gameGeneralInfo: List<GameGeneralInfo>) {
+        val adapter = CalendarAdapter(gameGeneralInfo, this)
         binding.recyclerViewCalendar.adapter = adapter
     }
 
-    override fun onCalendarClick(game: Game) {
-        val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(game)
+    override fun onCalendarClick(gameGeneralInfo: GameGeneralInfo) {
+        val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameGeneralInfo)
         findNavController().navigate(action)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onFavButtonClick(game: Game) {
-        if (game.isInFavoriteGame)
-            viewModel.removeGameInDB(game)
+    override fun onFavButtonClick(gameGeneralInfo: GameGeneralInfo) {
+        if (gameGeneralInfo.isInFavoriteGame)
+            viewModel.removeGameInDB(gameGeneralInfo)
         else
-            viewModel.addGameInDB(game)
+            viewModel.addGameInDB(gameGeneralInfo)
     }
 
     override fun onDestroyView() {

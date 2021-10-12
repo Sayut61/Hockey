@@ -26,8 +26,8 @@ class TeamRepositoriesImpl @Inject constructor(
                 shortTeamName = team.shortTeamName,
                 cityName = teamLogo?.cityName,
                 isInFavoriteTeam = isInDB,
-                urlLogoTeam = teamLogo?.WikipediaLogoUrl,
-                StadiumID = teamLogo!!.StadiumID
+                urlLogoTeam = teamLogo?.wikipediaLogoUrl,
+                StadiumID = teamLogo!!.stadiumID
             )
         }
     }

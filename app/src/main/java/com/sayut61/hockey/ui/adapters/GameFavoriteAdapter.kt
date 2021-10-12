@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.GameFavItemBinding
-import com.sayut61.hockey.domain.entities.Game
+import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
 interface GameFavoriteAdapterListener {
-    fun onGameClick(game: Game)
-    fun onDeleteButtonClick(game: Game)
+    fun onGameClick(gameGeneralInfo: GameGeneralInfo)
+    fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo)
 }
 
 class GameFavoriteAdapter(
-    private val getGameInfo: List<Game>,
+    private val getGameInfo: List<GameGeneralInfo>,
     private val listener: GameFavoriteAdapterListener,
     private val activity: Activity?
 ) : RecyclerView.Adapter<GameFavoriteViewHolder>() {
@@ -46,14 +46,14 @@ class GameFavoriteAdapter(
 
 class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(game: Game, activity: Activity?) {
-        binding.awayTeamTextView.text = game.awayTeamNameFull
-        binding.homeTeamTextView.text = game.homeTeamNameFull
-        binding.dateGameTextView.text = game.gameDate
-        game.awayTeamLogo?.let { logoUrl ->
+    fun bind(gameGeneralInfo: GameGeneralInfo, activity: Activity?) {
+        binding.awayTeamTextView.text = gameGeneralInfo.awayTeamNameFull
+        binding.homeTeamTextView.text = gameGeneralInfo.homeTeamNameFull
+        binding.dateGameTextView.text = gameGeneralInfo.gameDate
+        gameGeneralInfo.awayTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.awayTeamImageView)
         }
-        game.homeTeamLogo?.let { logoUrl ->
+        gameGeneralInfo.homeTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.homeTeamImageView)
         }
 
