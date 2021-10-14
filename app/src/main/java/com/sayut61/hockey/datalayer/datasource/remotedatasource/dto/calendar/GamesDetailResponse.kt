@@ -12,8 +12,14 @@ data class FullInfoByGame(
     val homeTeamShotsOnGoalByCurrentPeriod: Int,
     val awayTeamGoalsByCurrentPeriod: Int,
     val awayTeamShotsOnGoalByCurrentPeriod: Int,
-    val totalGoalsAwayTeam: Int,
-    val totalGoalsHomeTeam: Int
+    val goalsAwayTeam: Int,
+    val shotsAwayTeam: Int,
+    val blockedAwayTeam: Int,
+    val hitsAwayTeam: Int,
+    val goalsHomeTeam: Int,
+    val shotsHomeTeam: Int,
+    val blockedHomeTeam: Int,
+    val hitsHomeTeam: Int
 )
 
 fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame{
@@ -23,8 +29,7 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
         currentPeriodOrdinal = gameDetailResponse.liveData.lineScore.currentPeriodOrdinal,
         currentPeriodTimeRemaining = gameDetailResponse.liveData.lineScore.currentPeriodTimeRemaining,
-        periodNumber = periodsNumber.map {  },
-        homeTeamGoalsByCurrentPeriod =
+        periodNumber = periodsNumber.
     )
 }
 
@@ -38,16 +43,44 @@ data class GameData(
 )
 data class GameLiveData(
     @SerializedName("linescore")
-    val lineScore: CurrentInfo
+    val lineScore: CurrentInfo,
+    @SerializedName("boxscore")
+    val boxScore: TeamsScore
 )
+
+// Информация по общим игровым моментам за всю игру(голы, броски, блокированные броски, силовые приемы)
+data class TeamsScore(
+    val teams: HomeOrAwayTeamScore
+)
+data class HomeOrAwayTeamScore(
+    val away: TeamAwayStats,
+    val home: HomeTeamStats
+)
+data class TeamAwayStats(
+    val teamStats: TeamAwaySkaterStats
+)
+data class HomeTeamStats(
+    val teamStats: TeamHomeSkaterStats
+)
+data class TeamAwaySkaterStats(
+    val goals: Int,
+    val shots: Int,
+    val blocked: Int,
+    val hits: Int
+)
+data class TeamHomeSkaterStats(
+    val goals: Int,
+    val shots: Int,
+    val blocked: Int,
+    val hits: Int
+)
+
 // Корректная информация по игре в реальном времени (период, время периода)
 data class CurrentInfo(
     val currentPeriod: Int,
     val currentPeriodOrdinal: String,
     val currentPeriodTimeRemaining: String,
     val periods: List<PeriodsInfo>,
-    @SerializedName("shootoutInfo")
-    val fullGameScore: FullGameScore
 )
 // Информация по периоду. Кто сколько забил в каждом периоде
 data class PeriodsInfo(
@@ -65,20 +98,5 @@ data class HomeTeamScore(
 data class AwayTeamScore(
     val goals: Int,
     val shotsOnGoal: Int
-)
-// Счет по всему матчу
-data class FullGameScore(
-    @SerializedName("away")
-    val awayTeam: ScoreAway,
-    @SerializedName("home")
-    val homeTeam: ScoreHome
-)
-data class ScoreAway(
-    @SerializedName("scores")
-    val goalsAwayTeam: Int
-)
-data class ScoreHome(
-    @SerializedName("scores")
-    val goalsHomeTeam: Int
 )
 
