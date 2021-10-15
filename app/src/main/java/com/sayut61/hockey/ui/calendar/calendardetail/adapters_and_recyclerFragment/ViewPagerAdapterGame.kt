@@ -1,11 +1,11 @@
-package com.sayut61.hockey.ui.favorites.adapter
+package com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdapter(
+class ViewPagerAdapterGame(
     val list: ArrayList<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle

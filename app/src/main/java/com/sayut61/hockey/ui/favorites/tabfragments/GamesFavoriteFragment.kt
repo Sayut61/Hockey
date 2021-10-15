@@ -8,14 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sayut61.hockey.databinding.FragmentGameFavoriteBinding
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.adapters.GameFavoriteAdapter
 import com.sayut61.hockey.ui.adapters.GameFavoriteAdapterListener
+import com.sayut61.hockey.ui.favorites.ViewPagerFavoriteFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 @AndroidEntryPoint
-class GamesFavoriteFragment : Fragment(), GameFavoriteAdapterListener{
+class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
     private val viewModel: GamesFavoriteFragmentViewModel by viewModels()
     private var _binding: FragmentGameFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -42,7 +44,8 @@ class GamesFavoriteFragment : Fragment(), GameFavoriteAdapterListener{
         binding.favoriteGameRecyclerView.adapter = adapter
     }
     override fun onGameClick(gameGeneralInfo: GameGeneralInfo) {
-        TODO("Not yet implemented")
+        val action = ViewPagerFavoriteFragmentDirections.actionFavoriteFragmentToCalendarDetailFragment(gameGeneralInfo)
+        findNavController().navigate(action)
     }
 
     override fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo) {

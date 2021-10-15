@@ -41,10 +41,6 @@ class GamesRepositoriesImpl @Inject constructor(
         }
     }
     override suspend fun getGameDetails(gameGeneralInfo: GameGeneralInfo): GameFullInfo {
-        val fullInfo = remoteDataSource.getGameDetails(gameGeneralInfo.linkOnDetailInfoByGame)
-        return GameFullInfo(
-            generalInfo = gameGeneralInfo,
-            copyright = fullInfo.copyright
-        )
+        TODO()
     }
 }

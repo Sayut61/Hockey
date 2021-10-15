@@ -23,7 +23,6 @@ class ViewPagerFavoriteFragment : Fragment() {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf(
@@ -34,10 +33,8 @@ class ViewPagerFavoriteFragment : Fragment() {
         val adapter = ViewPagerAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
-            lifecycle
-        )
+            lifecycle)
         binding.viewPager2.adapter = adapter
-
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             when (position) {
                 0 -> tab.text = "GAMES"
@@ -46,7 +43,6 @@ class ViewPagerFavoriteFragment : Fragment() {
             }
         }.attach()
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

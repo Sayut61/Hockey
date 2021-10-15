@@ -1,17 +1,16 @@
 package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar
 
 import com.google.gson.annotations.SerializedName
-
 data class FullInfoByGame(
     val players: List<String>,
     val currentPeriod: Int,
     val currentPeriodOrdinal: String,
     val currentPeriodTimeRemaining: String,
-    val periodNumber: Int,
-    val homeTeamGoalsByCurrentPeriod: Int,
-    val homeTeamShotsOnGoalByCurrentPeriod: Int,
-    val awayTeamGoalsByCurrentPeriod: Int,
-    val awayTeamShotsOnGoalByCurrentPeriod: Int,
+    val periods: List<PeriodsInfo>,
+    val homeTeamGoalsByPeriods: List<Int>,
+    val homeTeamShotsOnGoalByPeriods: List<Int>,
+    val awayTeamGoalsByPeriods: List<Int>,
+    val awayTeamShotsOnGoalByPeriods: List<Int>,
     val goalsAwayTeam: Int,
     val shotsAwayTeam: Int,
     val blockedAwayTeam: Int,
@@ -22,14 +21,25 @@ data class FullInfoByGame(
     val hitsHomeTeam: Int
 )
 
-fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame{
-    val periodsNumber = gameDetailResponse.liveData.lineScore.periods.map{ it.periodNumber }
-    val fullGameInfo = FullInfoByGame(
+fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame {
+    return FullInfoByGame(
         players = gameDetailResponse.gameData.players,
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
         currentPeriodOrdinal = gameDetailResponse.liveData.lineScore.currentPeriodOrdinal,
         currentPeriodTimeRemaining = gameDetailResponse.liveData.lineScore.currentPeriodTimeRemaining,
-        periodNumber = periodsNumber.
+        periods = gameDetailResponse.liveData.lineScore.periods,
+        homeTeamGoalsByPeriods = gameDetailResponse.liveData.lineScore.periods.map { it.homeTeam.goals },
+        homeTeamShotsOnGoalByPeriods = gameDetailResponse.liveData.lineScore.periods.map { it.homeTeam.shotsOnGoal },
+        awayTeamGoalsByPeriods = gameDetailResponse.liveData.lineScore.periods.map { it.awayTeam.goals },
+        awayTeamShotsOnGoalByPeriods = gameDetailResponse.liveData.lineScore.periods.map { it.awayTeam.shotsOnGoal },
+        goalsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.goals,
+        goalsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.goals,
+        shotsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.shots,
+        shotsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.shots,
+        blockedAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.blocked,
+        blockedHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.blocked,
+        hitsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.hits,
+        hitsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.hits
     )
 }
 
