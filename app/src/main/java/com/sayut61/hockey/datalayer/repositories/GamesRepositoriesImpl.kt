@@ -17,7 +17,7 @@ class GamesRepositoriesImpl @Inject constructor(
     private val gamesInfoDao: GamesInfoDao
 ) : GamesRepositories {
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getGamesInfo(date: LocalDate): List<GameGeneralInfo> {
+    override suspend fun getGamesGeneralInfo(date: LocalDate): List<GameGeneralInfo> {
         val games: List<GameFromFirstApi> = remoteDataSource.getGamesByDate(date)
         val logosFromSecondApi: List<TeamInfoFromSecondApi> = remoteDataSource.getTeamsSecondApi()
         return games.map { game ->
@@ -40,7 +40,27 @@ class GamesRepositoriesImpl @Inject constructor(
             )
         }
     }
-    override suspend fun getGameDetails(gameGeneralInfo: GameGeneralInfo): GameFullInfo {
-        TODO()
+    override suspend fun getGameFullInfo(gameGeneralInfo: GameGeneralInfo): GameFullInfo {
+        val fullInfo = remoteDataSource.getGameDetails(gameGeneralInfo.linkOnDetailInfoByGame)
+        return GameFullInfo(
+            generalInfo = gameGeneralInfo,
+            players = fullInfo.players,
+            currentPeriod = fullInfo.currentPeriod,
+            currentPeriodOrdinal = fullInfo.currentPeriodOrdinal,
+            currentPeriodTimeRemaining = fullInfo.currentPeriodTimeRemaining,
+            periods = fullInfo.periods,
+            homeTeamGoalsByPeriods = fullInfo.homeTeamGoalsByPeriods,
+            awayTeamGoalsByPeriods = fullInfo.awayTeamGoalsByPeriods,
+            homeTeamShotsOnGoalByPeriods = fullInfo.homeTeamShotsOnGoalByPeriods,
+            awayTeamShotsOnGoalByPeriods = fullInfo.awayTeamShotsOnGoalByPeriods,
+            goalsAwayTeam = fullInfo.goalsAwayTeam,
+            goalsHomeTeam = fullInfo.goalsHomeTeam,
+            shotsHomeTeam = fullInfo.shotsHomeTeam,
+            shotsAwayTeam = fullInfo.shotsAwayTeam,
+            blockedAwayTeam = fullInfo.blockedAwayTeam,
+            blockedHomeTeam = fullInfo.blockedHomeTeam,
+            hitsHomeTeam = fullInfo.hitsHomeTeam,
+            hitsAwayTeam = fullInfo.hitsAwayTeam
+        )
     }
 }

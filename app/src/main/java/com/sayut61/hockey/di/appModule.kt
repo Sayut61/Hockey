@@ -37,8 +37,8 @@ object AppModule{
     fun provideGamesInfoDao(@ApplicationContext context: Context): GamesInfoDao {
     val db = Room.databaseBuilder(context, HockeyDB::class.java, "game").build()
     return db.gamesInfoDao()
-}
-        @Singleton
+    }
+    @Singleton
     @Provides
     fun providesTeamRepositories(remoteDataSource: RemoteDataSource, teamsInfoDao: TeamsInfoDao): TeamRepositories{
         return TeamRepositoriesImpl(remoteDataSource, teamsInfoDao)
@@ -53,7 +53,6 @@ object AppModule{
     fun providesMapRepositories(remoteDataSource: RemoteDataSource): MapRepositories {
         return MapRepositoriesImpl(remoteDataSource)
     }
-
     @Singleton
     @Provides
     fun providesFavRepositories(gamesInfoDao: GamesInfoDao): GamesFavRepositories {

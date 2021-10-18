@@ -10,10 +10,9 @@ class GamesUseCases @Inject constructor(
     private val gamesRepositories: GamesRepositories
 ) {
     suspend fun getGamesInfo(date: LocalDate): List<GameGeneralInfo>{
-        return gamesRepositories.getGamesInfo(date)
+        return gamesRepositories.getGamesGeneralInfo(date)
     }
-
     suspend fun getGameFullInfo(gameGeneralInfo: GameGeneralInfo): GameFullInfo{
-        return gamesRepositories.getGameDetails(gameGeneralInfo)
+        return gamesRepositories.getGameFullInfo(gameGeneralInfo)
     }
 }

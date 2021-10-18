@@ -1,6 +1,9 @@
 package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
 data class FullInfoByGame(
     val players: List<String>,
     val currentPeriod: Int,
@@ -93,6 +96,7 @@ data class CurrentInfo(
     val periods: List<PeriodsInfo>,
 )
 // Информация по периоду. Кто сколько забил в каждом периоде
+@Parcelize
 data class PeriodsInfo(
     @SerializedName("num")
     val periodNumber: Int,
@@ -100,13 +104,16 @@ data class PeriodsInfo(
     val homeTeam: HomeTeamScore,
     @SerializedName("away")
     val awayTeam: AwayTeamScore,
-)
+): Parcelable
+@Parcelize
 data class HomeTeamScore(
     val goals: Int,
     val shotsOnGoal: Int
-)
+): Parcelable
+
+@Parcelize
 data class AwayTeamScore(
     val goals: Int,
     val shotsOnGoal: Int
-)
+): Parcelable
 

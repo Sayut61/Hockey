@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(){
         val appBarConfiguration = AppBarConfiguration(topLevelDestinations)
 
         setSupportActionBar(binding.toolbar)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->

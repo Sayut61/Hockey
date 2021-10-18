@@ -40,6 +40,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
+
         binding.calendarView.setOnDateChangeListener { calendarView, year, month, day ->
             viewModel.changeDate(LocalDate.of(year, month, day))
         }

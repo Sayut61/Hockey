@@ -3,10 +3,7 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo.TeamInfoFromSecondApi
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.GameDetailResponse
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.GameFromFirstApi
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.GamesResponse
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.gamesResponseToGamesFromFirstApi
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromFirstApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamsInfoFromFirstApiResponse
@@ -29,7 +26,7 @@ class RemoteDataSource @Inject constructor() {
         suspend fun getInfoByGameDay(@Query("date") date: String): GamesResponse
 
         @GET(value = "{link}")
-        suspend fun getDetailInfoByGame(@Path("link")link: String): GameDetailResponse
+        suspend fun getDetailInfoByGame(@Path("link") link: String): GameDetailResponse
     }
 
     private interface RestNHLInfoSecondAPI{
@@ -67,11 +64,10 @@ class RemoteDataSource @Inject constructor() {
         val gamesResponse = serviceForFirstApi.getInfoByGameDay(stringDate)
         return gamesResponseToGamesFromFirstApi(gamesResponse)
     }
-
-    suspend fun getGameDetails(link: String): GameDetailResponse{
-        return serviceForFirstApi.getDetailInfoByGame(link)
+    suspend fun getGameDetails(link: String): FullInfoByGame {
+        val gameResponse = serviceForFirstApi.getDetailInfoByGame(link)
+        return gameDetailResponseToFullInfoByGame(gameResponse)
     }
-
     suspend fun getTeamsSecondApi(): List<TeamInfoFromSecondApi>{
         return serviceForSecondApi.getTeamsInfoBySecondApi()
     }

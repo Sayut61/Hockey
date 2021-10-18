@@ -24,7 +24,7 @@ private val teamUseCases: TeamUseCases
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
     fun refreshTeamsFragment(){
-        viewModelScope.launch(Dispatchers.Main){
+        viewModelScope.launch{
             try {
                 _teamInfoLiveData.value = teamUseCases.getTeamsInfo()
             }catch (ex: Exception){
