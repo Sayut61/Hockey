@@ -57,8 +57,8 @@
     <fragment
         android:id="@+id/calendarDetailFragment"
         android:name="com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragment"
-        android:label="fragment_calendar_detail"
-        tools:layout="@layout/fragment_calendar_detail" >
+        android:label="Информация по матчу"
+        tools:layout="@layout/fragment_calendar_detail">
         <action
             android:id="@+id/action_calendarDetailFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />

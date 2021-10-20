@@ -32,7 +32,6 @@ class CalendarDetailFragment : Fragment() {
         _binding = FragmentCalendarDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf(
@@ -59,23 +58,29 @@ class CalendarDetailFragment : Fragment() {
         viewModel.getGameInfo.observe(viewLifecycleOwner) {
             showFullInfo(it)
         }
-
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
     }
 
-    fun showFullInfo(gameFullInfo: GameFullInfo) {
+    private fun showFullInfo(gameFullInfo: GameFullInfo) {
         binding.dateAndTimeGameTextView.text = gameFullInfo.generalInfo.gameDate
         binding.homeTeamScoreTextView.text = gameFullInfo.goalsHomeTeam.toString()
         binding.awayTeamScoreTextView.text = gameFullInfo.goalsAwayTeam.toString()
         binding.homeTeamFullNameTextView.text = gameFullInfo.generalInfo.homeTeamNameFull
         binding.awayTeamFullNameTextView.text = gameFullInfo.generalInfo.awayTeamNameFull
+
         gameFullInfo.generalInfo.awayTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.awayTeamDetailImageView)
         }
         gameFullInfo.generalInfo.homeTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.homeTeamDetailImageView)
+        }
+        gameFullInfo.generalInfo.awayTeamLogo?.let { logoUrl ->
+            loadImage(logoUrl, activity, binding.awayTeamImageView)
+        }
+        gameFullInfo.generalInfo.homeTeamLogo?.let { logoUrl ->
+            loadImage(logoUrl, activity, binding.homeTeamImageView)
         }
 
         for (period in gameFullInfo.periods) {
@@ -94,15 +99,24 @@ class CalendarDetailFragment : Fragment() {
                 }
             }
         }
-
-        gameFullInfo.
-
+        when(gameFullInfo.codedGameState){
+            1->{
+                val gameDidNotStart = "не начался"
+                binding.gameStatusTextView.text = gameDidNotStart
+            }
+            in 2..6->{
+                val gameIsOn = "идет"
+                binding.gameStatusTextView.text = gameIsOn
+            }
+            7->{
+                val gameOver = "окончен"
+                binding.gameStatusTextView.text = gameOver
+            }
+        }
     }
-
-    fun showError(exception: Exception) {
+    private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

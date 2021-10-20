@@ -51,7 +51,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
     }
 
     private fun showCalendarInfo(gameGeneralInfo: List<GameGeneralInfo>) {
-        val adapter = CalendarAdapter(gameGeneralInfo, this)
+        val adapter = CalendarAdapter(gameGeneralInfo, this, activity)
         binding.recyclerViewCalendar.adapter = adapter
     }
 

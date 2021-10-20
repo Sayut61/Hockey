@@ -26,7 +26,7 @@ class RemoteDataSource @Inject constructor() {
         suspend fun getInfoByGameDay(@Query("date") date: String): GamesResponse
 
         @GET(value = "{link}")
-        suspend fun getDetailInfoByGame(@Path("link") link: String): GameDetailResponse
+        suspend fun getDetailInfoByGame(@Path("link", encoded = true) link: String): GameDetailResponse
     }
 
     private interface RestNHLInfoSecondAPI{

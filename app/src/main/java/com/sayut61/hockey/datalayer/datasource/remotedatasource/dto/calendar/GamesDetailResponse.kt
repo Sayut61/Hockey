@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 data class FullInfoByGame(
-    val players: List<String>,
+//    val players: List<String>,
     val currentPeriod: Int,
     val currentPeriodOrdinal: String,
     val currentPeriodTimeRemaining: String,
@@ -21,12 +21,13 @@ data class FullInfoByGame(
     val goalsHomeTeam: Int,
     val shotsHomeTeam: Int,
     val blockedHomeTeam: Int,
-    val hitsHomeTeam: Int
+    val hitsHomeTeam: Int,
+    val codedGameState: Int
 )
 
 fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame {
     return FullInfoByGame(
-        players = gameDetailResponse.gameData.players,
+//        players = gameDetailResponse.gameData.players,
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
         currentPeriodOrdinal = gameDetailResponse.liveData.lineScore.currentPeriodOrdinal,
         currentPeriodTimeRemaining = gameDetailResponse.liveData.lineScore.currentPeriodTimeRemaining,
@@ -35,14 +36,15 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
         homeTeamShotsOnGoalByPeriods = gameDetailResponse.liveData.lineScore.periods.map { it.homeTeam.shotsOnGoal },
         awayTeamGoalsByPeriods = gameDetailResponse.liveData.lineScore.periods.map { it.awayTeam.goals },
         awayTeamShotsOnGoalByPeriods = gameDetailResponse.liveData.lineScore.periods.map { it.awayTeam.shotsOnGoal },
-        goalsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.goals,
-        goalsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.goals,
-        shotsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.shots,
-        shotsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.shots,
-        blockedAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.blocked,
-        blockedHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.blocked,
-        hitsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.hits,
-        hitsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.hits
+        goalsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.teamSkaterStats.goals,
+        goalsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.goals,
+        shotsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.teamSkaterStats.shots,
+        shotsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.shots,
+        blockedAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.teamSkaterStats.blocked,
+        blockedHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.blocked,
+        hitsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.teamSkaterStats.hits,
+        hitsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.hits,
+        codedGameState = gameDetailResponse.gameData.status.codedGameState
     )
 }
 
@@ -50,10 +52,23 @@ data class GameDetailResponse(
     val gameData: GameData,
     val liveData: GameLiveData
 )
-// Список игроков, НУЖНО ПРОВЕРИТЬ!!!
 data class GameData(
-    val players: List<String>,
+    val status: StatusGame
 )
+data class StatusGame(
+    val codedGameState: Int
+)
+// Список игроков, НУЖНО ПРОВЕРИТЬ!!!
+//data class GameData(
+//    val players: List<Player>,
+//)
+//data class Player(
+//    @SerializedName("id")
+//    val playerId: Int,
+//    val fullName
+//)
+//____________________________________
+
 data class GameLiveData(
     @SerializedName("linescore")
     val lineScore: CurrentInfo,
@@ -76,12 +91,18 @@ data class HomeTeamStats(
     val teamStats: TeamHomeSkaterStats
 )
 data class TeamAwaySkaterStats(
+    val teamSkaterStats: TeamAwaySkaterStatss
+)
+data class TeamHomeSkaterStats(
+    val teamSkaterStats: TeamHomeSkaterStatss
+    )
+data class TeamAwaySkaterStatss(
     val goals: Int,
     val shots: Int,
     val blocked: Int,
     val hits: Int
 )
-data class TeamHomeSkaterStats(
+data class TeamHomeSkaterStatss(
     val goals: Int,
     val shots: Int,
     val blocked: Int,

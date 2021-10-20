@@ -12,7 +12,6 @@ interface GameFavoriteAdapterListener {
     fun onGameClick(gameGeneralInfo: GameGeneralInfo)
     fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo)
 }
-
 class GameFavoriteAdapter(
     private val getGameInfo: List<GameGeneralInfo>,
     private val listener: GameFavoriteAdapterListener,
@@ -27,7 +26,6 @@ class GameFavoriteAdapter(
             )
         )
     }
-
     override fun onBindViewHolder(holder: GameFavoriteViewHolder, position: Int) {
         val calendar = getGameInfo[position]
         holder.itemView.setOnClickListener {
@@ -38,12 +36,10 @@ class GameFavoriteAdapter(
         }
         holder.bind(calendar, activity)
     }
-
     override fun getItemCount(): Int {
         return getGameInfo.size
     }
 }
-
 class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(gameGeneralInfo: GameGeneralInfo, activity: Activity?) {
@@ -56,6 +52,5 @@ class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
         gameGeneralInfo.homeTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.homeTeamImageView)
         }
-
     }
 }

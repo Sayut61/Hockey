@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.domain.usecases.GamesFavUseCases
 import com.sayut61.hockey.domain.usecases.GamesUseCases
@@ -22,6 +23,8 @@ class CalendarViewModel @Inject constructor(
 ) : ViewModel() {
     private val _gamesLiveData = MutableLiveData<List<GameGeneralInfo>>()
     val gamesLiveData: LiveData<List<GameGeneralInfo>> = _gamesLiveData
+    private val _gameFullInfoLiveData = MutableLiveData<GameFullInfo>()
+    val gameFullInfoLiveData:LiveData<GameFullInfo> = _gameFullInfoLiveData
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
