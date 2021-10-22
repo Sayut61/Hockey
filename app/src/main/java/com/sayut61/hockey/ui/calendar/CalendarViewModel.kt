@@ -23,8 +23,8 @@ class CalendarViewModel @Inject constructor(
 ) : ViewModel() {
     private val _gamesLiveData = MutableLiveData<List<GameGeneralInfo>>()
     val gamesLiveData: LiveData<List<GameGeneralInfo>> = _gamesLiveData
-    private val _gameFullInfoLiveData = MutableLiveData<GameFullInfo>()
-    val gameFullInfoLiveData:LiveData<GameFullInfo> = _gameFullInfoLiveData
+    private val _gameFullInfoLiveData = MutableLiveData<List<GameFullInfo>>()
+    val gameFullInfoLiveData:LiveData<List<GameFullInfo>> = _gameFullInfoLiveData
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
@@ -57,7 +57,10 @@ class CalendarViewModel @Inject constructor(
     private fun refreshViewModel(date: LocalDate) {
         viewModelScope.launch {
             try {
-                _gamesLiveData.value = gamesUseCases.getGamesInfo(date)
+                val gamesGeneralInfo =  gamesUseCases.getGamesInfo(date)
+                _gamesLiveData.value =gamesGeneralInfo
+                val gamesFullInfo = gamesGeneralInfo.map { gamesUseCases.getGameFullInfo(it) }
+                _gameFullInfoLiveData.value = gamesFullInfo
             } catch (ex: Exception) {
                 _errorLiveData.value = ex
             }

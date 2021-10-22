@@ -1,19 +1,31 @@
 package com.sayut61.hockey.datalayer.datasource.remotedatasource
 
 import android.os.Build
+import android.util.Log
+import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
+import com.google.gson.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo.TeamInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromFirstApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamsInfoFromFirstApiResponse
+import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.lang.reflect.Type
 import java.time.LocalDate
 import javax.inject.Inject
+
+
 class RemoteDataSource @Inject constructor() {
 
     //Retrofit
@@ -66,6 +78,7 @@ class RemoteDataSource @Inject constructor() {
     }
     suspend fun getGameDetails(link: String): FullInfoByGame {
         val gameResponse = serviceForFirstApi.getDetailInfoByGame(link)
+        Log.d("myLog", gameResponse.toString())
         return gameDetailResponseToFullInfoByGame(gameResponse)
     }
     suspend fun getTeamsSecondApi(): List<TeamInfoFromSecondApi>{
@@ -77,3 +90,40 @@ class RemoteDataSource @Inject constructor() {
 }
 
 //https://statsapi.web.nhl.com/api/v1/game/2021020001/feed/live
+
+
+internal class RedirectionInfoDeserializer : JsonDeserializer<GameData> {
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type?,
+        context: JsonDeserializationContext?
+    ): GameData {
+        val jsonObject = json.asJsonObject
+
+        // Read simple String values.
+        //val uri = jsonObject[KEY_URI].asString
+
+        // Read the dynamic parameters object.
+        val parameters = readParametersMap(jsonObject)
+        val result = GameData(parameters)
+        return result
+    }
+
+    @Nullable
+    private fun readParametersMap(jsonObject: JsonObject): Map<String, Player>? {
+        val paramsElement = jsonObject[KEY_PARAMETERS]
+            ?: // value not present at all, just return null
+            return null
+        val parametersObject = paramsElement.asJsonObject
+        val parameters: MutableMap<String, Player> = HashMap()
+        for ((key, value1) in parametersObject.entrySet()) {
+            val value = Json.decodeFromString<Player>(Player.serializer(), value1.asString)
+            parameters[key] = value
+        }
+        return parameters
+    }
+
+    companion object {
+        private const val KEY_PARAMETERS = "players"
+    }
+}

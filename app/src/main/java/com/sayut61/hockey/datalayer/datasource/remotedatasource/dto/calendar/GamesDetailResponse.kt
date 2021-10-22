@@ -3,6 +3,7 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 data class FullInfoByGame(
 //    val players: List<String>,
@@ -44,7 +45,7 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
         blockedHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.blocked,
         hitsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.teamSkaterStats.hits,
         hitsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.hits,
-        codedGameState = gameDetailResponse.gameData.status.codedGameState
+        codedGameState = 2//gameDetailResponse.gameData.status.codedGameState
     )
 }
 
@@ -53,20 +54,18 @@ data class GameDetailResponse(
     val liveData: GameLiveData
 )
 data class GameData(
-    val status: StatusGame
+    //val status: StatusGame,
+    val players: Map<String, Player>?
 )
 data class StatusGame(
     val codedGameState: Int
 )
-// Список игроков, НУЖНО ПРОВЕРИТЬ!!!
-//data class GameData(
-//    val players: List<Player>,
-//)
-//data class Player(
-//    @SerializedName("id")
-//    val playerId: Int,
-//    val fullName
-//)
+@Serializable
+data class Player(
+    @SerializedName("id")
+    val playerId: Int,
+    val fullName: String
+)
 //____________________________________
 
 data class GameLiveData(

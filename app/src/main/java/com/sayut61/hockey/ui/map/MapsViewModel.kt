@@ -27,7 +27,8 @@ class MapsViewModel @Inject constructor(
 
             try {
                 _isLoadingLiveData.value = true
-                _mapLiveData.value = mapUseCases.getStadiumInfo()
+                val result = mapUseCases.getStadiumInfo()
+                _mapLiveData.value = result
             }catch (ex : Exception){
                 _exceptionLiveData.value = ex
             }
