@@ -9,25 +9,16 @@ import androidx.fragment.app.viewModels
 import com.sayut61.hockey.databinding.FragmentPlayersBinding
 
 class PlayersFragment : Fragment() {
-
-    private  val playersViewModel: PlayersViewModel by viewModels()
+    private  val viewModel: PlayersViewModel by viewModels()
     private var _binding: FragmentPlayersBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentPlayersBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View { _binding = FragmentPlayersBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

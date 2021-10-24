@@ -18,12 +18,7 @@ class GameFavoriteAdapter(
     private val activity: Activity?
 ) : RecyclerView.Adapter<GameFavoriteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameFavoriteViewHolder {
-        return GameFavoriteViewHolder(
-            GameFavItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+        return GameFavoriteViewHolder(GameFavItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
     override fun onBindViewHolder(holder: GameFavoriteViewHolder, position: Int) {
