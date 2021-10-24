@@ -9,4 +9,5 @@ import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoriteTeam
 abstract class HockeyDB: RoomDatabase() {
     abstract fun teamsInfoDao(): TeamsInfoDao
     abstract fun gamesInfoDao(): GamesInfoDao
+    abstract fun playersInfoDao(): PlayersInfoDao
 }

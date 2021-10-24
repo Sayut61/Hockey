@@ -5,6 +5,7 @@ import androidx.room.Room
 
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.HockeyDB
+import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.TeamsInfoDao
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
 import com.sayut61.hockey.datalayer.repositories.GamesFavRepositoriesImpl
@@ -35,9 +36,16 @@ object AppModule{
     @Singleton
     @Provides
     fun provideGamesInfoDao(@ApplicationContext context: Context): GamesInfoDao {
-    val db = Room.databaseBuilder(context, HockeyDB::class.java, "game").build()
-    return db.gamesInfoDao()
+        val db = Room.databaseBuilder(context, HockeyDB::class.java, "game").build()
+        return db.gamesInfoDao()
     }
+    @Singleton
+    @Provides
+    fun providePlayersInfoDao(@ApplicationContext context: Context): PlayersInfoDao {
+        val db = Room.databaseBuilder(context, HockeyDB::class.java, "player").build()
+        return db.playersInfoDao()
+    }
+
     @Singleton
     @Provides
     fun providesTeamRepositories(remoteDataSource: RemoteDataSource, teamsInfoDao: TeamsInfoDao): TeamRepositories{

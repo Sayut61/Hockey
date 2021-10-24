@@ -7,6 +7,9 @@ import androidx.annotation.RequiresApi
 import com.google.gson.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo.TeamInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.*
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.AllPlayersGeneralInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayersGeneralInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.playersGenInfoToAllPlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromFirstApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamsInfoFromFirstApiResponse
@@ -39,6 +42,9 @@ class RemoteDataSource @Inject constructor() {
 
         @GET(value = "{link}")
         suspend fun getDetailInfoByGame(@Path("link", encoded = true) link: String): GameDetailResponse
+
+        @GET(value = "/api/v1/teams?expand=team.roster")
+        suspend fun getListAllPlayers(): PlayersGeneralInfo
     }
 
     private interface RestNHLInfoSecondAPI{
@@ -66,6 +72,11 @@ class RemoteDataSource @Inject constructor() {
     private var serviceForSecondApi = retrofitSecondApiInfo.create(RestNHLInfoSecondAPI::class.java)
 
     //Retrofit
+
+    suspend fun getListPlayers(): List<AllPlayersGeneralInfo>{
+        val playersResponse = serviceForFirstApi.getListAllPlayers()
+        return playersGenInfoToAllPlayersGeneralInfo(playersResponse)
+    }
 
     suspend fun getTeamsFirstApi(): List<TeamInfoFromFirstApi> {
         return serviceForFirstApi.getAllTeams().teams

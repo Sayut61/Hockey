@@ -90,18 +90,18 @@ data class HomeTeamStats(
     val teamStats: TeamHomeSkaterStats
 )
 data class TeamAwaySkaterStats(
-    val teamSkaterStats: TeamAwaySkaterStatss
+    val teamSkaterStats: TeamAwaySkaterState
 )
 data class TeamHomeSkaterStats(
-    val teamSkaterStats: TeamHomeSkaterStatss
+    val teamSkaterStats: TeamHomeSkaterState
     )
-data class TeamAwaySkaterStatss(
+data class TeamAwaySkaterState(
     val goals: Int,
     val shots: Int,
     val blocked: Int,
     val hits: Int
 )
-data class TeamHomeSkaterStatss(
+data class TeamHomeSkaterState(
     val goals: Int,
     val shots: Int,
     val blocked: Int,
