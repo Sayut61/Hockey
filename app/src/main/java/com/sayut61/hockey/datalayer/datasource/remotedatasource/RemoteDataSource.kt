@@ -105,7 +105,7 @@ internal class RedirectionInfoDeserializer : JsonDeserializer<GameData> {
 
         // Read the dynamic parameters object.
         val parameters = readParametersMap(jsonObject)
-        val result = GameData(parameters)
+        val result = GameData(StatusGame(hashCode()))
         return result
     }
 

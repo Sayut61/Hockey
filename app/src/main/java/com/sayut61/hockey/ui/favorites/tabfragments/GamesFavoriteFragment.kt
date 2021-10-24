@@ -29,7 +29,6 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.gamesFavoriteLiveData.observe(viewLifecycleOwner){
             showGameInfo(it)
         }

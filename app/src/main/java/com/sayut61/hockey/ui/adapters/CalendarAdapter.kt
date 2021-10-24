@@ -6,16 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.CalendarItemBinding
+import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
 
 interface CalendarAdapterListener{
-    fun onCalendarClick(gameGeneralInfo: GameGeneralInfo)
-    fun onFavButtonClick(gameGeneralInfo: GameGeneralInfo)
+    fun onCalendarClick(gameFullInfo: GameFullInfo)
+    fun onFavButtonClick(gameFullInfo: GameFullInfo)
 }
 class CalendarAdapter(
-    private val getGameInfo: List<GameGeneralInfo>,
+    private val getGameFullInfo: List<GameFullInfo>,
     private val listener: CalendarAdapterListener,
     private val activity: Activity?
     ): RecyclerView.Adapter<CalendarViewHolder>(){
@@ -23,7 +24,7 @@ class CalendarAdapter(
         return CalendarViewHolder(CalendarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
-        val calendar = getGameInfo[position]
+        val calendar = getGameFullInfo[position]
         holder.itemView.setOnClickListener{
             listener.onCalendarClick(calendar)
         }
@@ -33,22 +34,38 @@ class CalendarAdapter(
         holder.bind(calendar, activity)
     }
     override fun getItemCount(): Int {
-        return getGameInfo.size
+        return getGameFullInfo.size
     }
 }
 class CalendarViewHolder(val binding: CalendarItemBinding):
     RecyclerView.ViewHolder(binding.root){
-    fun bind(gameGeneralInfo: GameGeneralInfo, activity: Activity?){
-        binding.firstTeamTextView.text = gameGeneralInfo.homeTeamNameFull
-        binding.secondTeamTextView.text = gameGeneralInfo.awayTeamNameFull
-        binding.dateTimeTextView.text = gameGeneralInfo.gameDate
-        gameGeneralInfo.awayTeamLogo?.let { logoUrl ->
+    fun bind(gameFullInfo: GameFullInfo, activity: Activity?){
+        binding.firstTeamTextView.text = gameFullInfo.generalInfo.homeTeamNameFull
+        binding.secondTeamTextView.text = gameFullInfo.generalInfo.awayTeamNameFull
+        binding.dateTimeTextView.text = gameFullInfo.generalInfo.gameDate
+        binding.firstTeamGoalsTextView.text = gameFullInfo.goalsHomeTeam.toString()
+        binding.secondTeamGoalsTextView.text = gameFullInfo.goalsAwayTeam.toString()
+        when(gameFullInfo.codedGameState){
+            1->{
+                val gameDidNotStart = "не начался"
+                binding.gameStatusTextView.text = gameDidNotStart
+            }
+            in 2..6->{
+                val gameIsOn = "идет"
+                binding.gameStatusTextView.text = gameIsOn
+            }
+            7->{
+                val gameOver = "окончен"
+                binding.gameStatusTextView.text = gameOver
+            }
+        }
+        gameFullInfo.generalInfo.awayTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.secondTeamImageView2)
         }
-        gameGeneralInfo.homeTeamLogo?.let { logoUrl ->
+        gameFullInfo.generalInfo.homeTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.firstTeamImageView)
         }
-        binding.addToFavoriteButton.setImageResource(if(gameGeneralInfo.isInFavoriteGame)
+        binding.addToFavoriteButton.setImageResource(if(gameFullInfo.generalInfo.isInFavoriteGame)
             R.drawable.ic_baseline_favorite_gameplus
         else
             R.drawable.ic_baseline_favorite_gameminus)

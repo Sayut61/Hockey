@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sayut61.hockey.databinding.FragmentCalendarBinding
+import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.adapters.CalendarAdapter
 import com.sayut61.hockey.ui.adapters.CalendarAdapterListener
@@ -34,7 +35,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.gamesLiveData.observe(viewLifecycleOwner) {
+        viewModel.gameFullInfoLiveData.observe(viewLifecycleOwner) {
             showCalendarInfo(it)
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
@@ -50,22 +51,22 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
 
-    private fun showCalendarInfo(gameGeneralInfo: List<GameGeneralInfo>) {
-        val adapter = CalendarAdapter(gameGeneralInfo, this, activity)
+    private fun showCalendarInfo(gameFullInfo: List<GameFullInfo>) {
+        val adapter = CalendarAdapter(gameFullInfo, this, activity)
         binding.recyclerViewCalendar.adapter = adapter
     }
 
-    override fun onCalendarClick(gameGeneralInfo: GameGeneralInfo) {
-        val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameGeneralInfo)
+    override fun onCalendarClick(gameFullInfo: GameFullInfo) {
+        val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameFullInfo.generalInfo)
         findNavController().navigate(action)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onFavButtonClick(gameGeneralInfo: GameGeneralInfo) {
-        if (gameGeneralInfo.isInFavoriteGame)
-            viewModel.removeGameInDB(gameGeneralInfo)
+    override fun onFavButtonClick(gameFullInfo: GameFullInfo) {
+        if (gameFullInfo.generalInfo.isInFavoriteGame)
+            viewModel.removeGameInDB(gameFullInfo.generalInfo)
         else
-            viewModel.addGameInDB(gameGeneralInfo)
+            viewModel.addGameInDB(gameFullInfo.generalInfo)
     }
 
     override fun onDestroyView() {

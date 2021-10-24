@@ -45,7 +45,7 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
         blockedHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.blocked,
         hitsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.teamSkaterStats.hits,
         hitsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.hits,
-        codedGameState = 2//gameDetailResponse.gameData.status.codedGameState
+        codedGameState = gameDetailResponse.gameData.status.codedGameState
     )
 }
 
@@ -54,8 +54,8 @@ data class GameDetailResponse(
     val liveData: GameLiveData
 )
 data class GameData(
-    //val status: StatusGame,
-    val players: Map<String, Player>?
+    val status: StatusGame
+//    val players: Map<String, Player>?
 )
 data class StatusGame(
     val codedGameState: Int
