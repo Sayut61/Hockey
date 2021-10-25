@@ -2,34 +2,53 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players
 
 import com.google.gson.annotations.SerializedName
 
-data class AllPlayersGeneralInfo(
+
+data class PlayerGeneralInfoFromApi(
     val teamId: Int,
     val teamFullName: String,
     val teamShortName: String,
-    val jerseyNumber: List<Int>,
-    val playerId: List<Int>,
-    val fullName: List<String>,
-    val linkOnPlayerDetailInfo: List<String>
-    )
+    val jerseyNumber: Int,
+    val playerId: Int,
+    val fullName: String,
+    val linkOnPlayerDetailInfo: String
+)
 
-fun playersGenInfoToAllPlayersGeneralInfo(playersGeneralInfo: PlayersGeneralInfo): List<AllPlayersGeneralInfo>{
-    return playersGeneralInfo.teams.map{player->
-        AllPlayersGeneralInfo(
-            teamId = player.teamId,
-            teamFullName = player.teamNameFull,
-            teamShortName = player.teamNameShort,
-            jerseyNumber = player.roster.roster.map { it.jerseyNumber},
-            playerId = player.roster.roster.map{it.person.playerId},
-            fullName = player.roster.roster.map{it.person.fullName},
-            linkOnPlayerDetailInfo = player.roster.roster.map{it.person.linkOnPlayerDetailInfo}
-        )
+fun playersGenInfoToAllPlayersGeneralInfo(playersGeneralInfo: PlayersGeneralInfo): List<PlayerGeneralInfoFromApi> {
+/*    val result = mutableListOf<PlayerGeneralInfoFromApi>()
+    for(team in playersGeneralInfo.teams)
+        for(player in team.roster.roster){
+            val player =  PlayerGeneralInfoFromApi(
+                teamId = team.teamId,
+                teamFullName = team.teamNameFull,
+                teamShortName = team.teamNameShort,
+                jerseyNumber = player.jerseyNumber,
+                playerId = player.person.playerId,
+                fullName = player.person.fullName,
+                linkOnPlayerDetailInfo = player.person.linkOnPlayerDetailInfo
+            )
+            result.add(player)
+        }*/
+
+    return playersGeneralInfo.teams.flatMap { team ->
+        team.roster.roster.map{player->
+            PlayerGeneralInfoFromApi(
+                teamId = team.teamId,
+                teamFullName = team.teamNameFull,
+                teamShortName = team.teamNameShort,
+                jerseyNumber = player.jerseyNumber,
+                playerId = player.person.playerId,
+                fullName = player.person.fullName,
+                linkOnPlayerDetailInfo = player.person.linkOnPlayerDetailInfo
+            )
+        }
     }
 }
 
-data class PlayersGeneralInfo (
-    val teams: List<Teams>
-        )
-data class Teams(
+data class PlayersGeneralInfo(
+    val teams: List<TeamFromApi>
+)
+
+data class TeamFromApi(
     @SerializedName("id")
     val teamId: Int,
     @SerializedName("name")
@@ -38,13 +57,16 @@ data class Teams(
     val teamNameShort: String,
     val roster: Roster
 )
+
 data class Roster(
-   val roster: List<PlayersByTeam>
+    val roster: List<PlayersByTeam>
 )
+
 data class PlayersByTeam(
     val jerseyNumber: Int,
     val person: PersonInfo
 )
+
 data class PersonInfo(
     @SerializedName("id")
     val playerId: Int,

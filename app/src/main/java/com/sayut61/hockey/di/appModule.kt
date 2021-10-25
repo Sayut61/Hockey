@@ -8,14 +8,8 @@ import com.sayut61.hockey.datalayer.datasource.loacaldatasource.HockeyDB
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.TeamsInfoDao
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
-import com.sayut61.hockey.datalayer.repositories.GamesFavRepositoriesImpl
-import com.sayut61.hockey.datalayer.repositories.GamesRepositoriesImpl
-import com.sayut61.hockey.datalayer.repositories.MapRepositoriesImpl
-import com.sayut61.hockey.datalayer.repositories.TeamRepositoriesImpl
-import com.sayut61.hockey.domain.GamesFavRepositories
-import com.sayut61.hockey.domain.GamesRepositories
-import com.sayut61.hockey.domain.MapRepositories
-import com.sayut61.hockey.domain.TeamRepositories
+import com.sayut61.hockey.datalayer.repositories.*
+import com.sayut61.hockey.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +39,11 @@ object AppModule{
         val db = Room.databaseBuilder(context, HockeyDB::class.java, "player").build()
         return db.playersInfoDao()
     }
-
+    @Singleton
+    @Provides
+    fun providesPlayersRepositories(remoteDataSource: RemoteDataSource, playersInfoDao: PlayersInfoDao): PlayersRepositories{
+        return PlayersRepositoriesImpl(remoteDataSource, playersInfoDao)
+    }
     @Singleton
     @Provides
     fun providesTeamRepositories(remoteDataSource: RemoteDataSource, teamsInfoDao: TeamsInfoDao): TeamRepositories{

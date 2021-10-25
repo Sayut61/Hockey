@@ -4,12 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Players(
+data class Player(
     val teamId: Int,
     val teamFullName: String,
     val teamShortName: String,
-    val jerseyNumber: List<Int>,
-    val playerId: List<Int>,
-    val fullName: List<String>,
-    val linkOnPlayerDetailInfo: List<String>
-): Parcelable
+    val jerseyNumber: Int,
+    val playerId: Int,
+    val fullName: String,
+    val linkOnPlayerDetailInfo: String
+) : Parcelable

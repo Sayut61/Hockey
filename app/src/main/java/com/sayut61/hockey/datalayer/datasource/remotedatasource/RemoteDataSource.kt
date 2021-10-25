@@ -8,6 +8,7 @@ import com.google.gson.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo.TeamInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.AllPlayersGeneralInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerGeneralInfoFromApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.playersGenInfoToAllPlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumInfo
@@ -73,7 +74,7 @@ class RemoteDataSource @Inject constructor() {
 
     //Retrofit
 
-    suspend fun getListPlayers(): List<AllPlayersGeneralInfo>{
+    suspend fun getListPlayers(): List<PlayerGeneralInfoFromApi>{
         val playersResponse = serviceForFirstApi.getListAllPlayers()
         return playersGenInfoToAllPlayersGeneralInfo(playersResponse)
     }

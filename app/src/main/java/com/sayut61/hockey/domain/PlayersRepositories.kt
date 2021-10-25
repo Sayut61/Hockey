@@ -1,10 +1,10 @@
 package com.sayut61.hockey.domain
 
-import com.sayut61.hockey.domain.entities.Players
+import com.sayut61.hockey.domain.entities.Player
 
 interface PlayersRepositories {
-    suspend fun getPlayersFromApi(): List<Players>
-    suspend fun addToFavoritePlayer(id: Players)
-    suspend fun removeFromFavoritePlayer(id: Players)
-    suspend fun getPlayersFromDB(): List<Players>
+    suspend fun getPlayersFromApi(): List<Player>
+    suspend fun addToFavoritePlayer(id: Player)
+    suspend fun removeFromFavoritePlayer(id: Player)
+    suspend fun getPlayersFromDB(): List<Player>
 }

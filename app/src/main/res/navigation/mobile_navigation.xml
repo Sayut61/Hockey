@@ -35,7 +35,11 @@
         android:id="@+id/playerDetailInfoFragment"
         android:name="com.sayut61.hockey.ui.players.playerinfo.PlayerInfoFragment"
         android:label="fragment_player_info"
-        tools:layout="@layout/fragment_player_info" />
+        tools:layout="@layout/fragment_player_info" >
+        <argument
+            android:name="players"
+            app:argType="com.sayut61.hockey.domain.entities.Player" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.sayut61.hockey.ui.favorites.ViewPagerFavoriteFragment"
@@ -65,9 +69,6 @@
         <argument
             android:name="game"
             app:argType="com.sayut61.hockey.domain.entities.GameGeneralInfo" />
-        <action
-            android:id="@+id/action_calendarDetailFragment_to_playerInfoFragment"
-            app:destination="@id/playerDetailInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"

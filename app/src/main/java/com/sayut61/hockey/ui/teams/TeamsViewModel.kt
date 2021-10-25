@@ -14,7 +14,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-open class TeamsViewModel @Inject constructor(
+open class  TeamsViewModel @Inject constructor(
 private val teamUseCases: TeamUseCases
 ) : ViewModel() {
     private val _teamInfoLiveData = MutableLiveData<List<Team>>()

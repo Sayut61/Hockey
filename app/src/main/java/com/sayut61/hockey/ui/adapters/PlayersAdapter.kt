@@ -4,15 +4,16 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sayut61.hockey.databinding.FragmentPlayersBinding
-import com.sayut61.hockey.domain.entities.Players
+import com.sayut61.hockey.databinding.PlayersItemBinding
+import com.sayut61.hockey.domain.entities.Player
+import com.sayut61.hockey.ui.utils.loadImage
 
 interface PlayersAdapterListener{
-    fun onPlayerClick(player: Players)
+    fun onPlayerClick(player: Player)
 }
-class PlayersAdapter(val players: List<Players>, val listener: PlayersAdapterListener, val activity: Activity?): RecyclerView.Adapter<PlayersViewHolder>() {
+class PlayersAdapter(val players: List<Player>, val listener: PlayersAdapterListener, val activity: Activity?): RecyclerView.Adapter<PlayersViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersViewHolder {
-        return PlayersViewHolder(FragmentPlayersBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return PlayersViewHolder(PlayersItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: PlayersViewHolder, position: Int) {
@@ -28,8 +29,13 @@ class PlayersAdapter(val players: List<Players>, val listener: PlayersAdapterLis
     }
 
 }
-class PlayersViewHolder(val binding: FragmentPlayersBinding): RecyclerView.ViewHolder(binding.root){
-    fun bind(player: Players, activity: Activity?){
+class PlayersViewHolder(val binding: PlayersItemBinding): RecyclerView.ViewHolder(binding.root){
+    fun bind(player: Player, activity: Activity?){
+        binding.playerNumberTextView.text = player.jerseyNumber.toString()
+        binding.playerFullNameTextView.text = player.fullName
 
+//        player.teamLogo.let{logoUrl->
+//            loadImage(logoUrl, activity, binding.logoImageView)
+//        }
     }
 }
