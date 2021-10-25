@@ -48,7 +48,7 @@ class RemoteDataSource @Inject constructor() {
         suspend fun getListAllPlayers(): PlayersGeneralInfo
     }
 
-    private interface RestNHLInfoSecondAPI{
+    private interface RestNHLInfoSecondAPI {
         @GET(value = "teams?key=1dd2b753fe264d2b9d7d08d0988b34e2")
         suspend fun getTeamsInfoBySecondApi(): List<TeamInfoFromSecondApi>
 
@@ -58,9 +58,20 @@ class RemoteDataSource @Inject constructor() {
 
     //Retrofit
 
+    val client = OkHttpClient()
+        .newBuilder()
+        .addInterceptor(ErrorInterceptor())
+        .build()
+    fun createGsonConverter(): Converter.Factory? {
+        val gsonBuilder = GsonBuilder()
+        gsonBuilder.registerTypeAdapter(Player::class.java, RedirectionInfoDeserializer())
+        val gson = gsonBuilder.create()
+        return GsonConverterFactory.create(gson)
+    }
     private var retrofitFirstApiInfo = Retrofit.Builder()
         .baseUrl("https://statsapi.web.nhl.com")
-        .addConverterFactory(GsonConverterFactory.create())
+        .client(client)
+        .addConverterFactory(createGsonConverter())
         .build()
     private var retrofitSecondApiInfo = Retrofit.Builder()
         .baseUrl("https://api.sportsdata.io/v3/nhl/scores/json/")
@@ -82,22 +93,37 @@ class RemoteDataSource @Inject constructor() {
     suspend fun getTeamsFirstApi(): List<TeamInfoFromFirstApi> {
         return serviceForFirstApi.getAllTeams().teams
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun getGamesByDate(date: LocalDate): List<GameFromFirstApi>{
-        val stringDate = "${date.year}-${date.monthValue+1}-${date.dayOfMonth}"
+    suspend fun getGamesByDate(date: LocalDate): List<GameFromFirstApi> {
+        val stringDate = "${date.year}-${date.monthValue + 1}-${date.dayOfMonth}"
         val gamesResponse = serviceForFirstApi.getInfoByGameDay(stringDate)
         return gamesResponseToGamesFromFirstApi(gamesResponse)
     }
+
     suspend fun getGameDetails(link: String): FullInfoByGame {
         val gameResponse = serviceForFirstApi.getDetailInfoByGame(link)
         Log.d("myLog", gameResponse.toString())
         return gameDetailResponseToFullInfoByGame(gameResponse)
     }
-    suspend fun getTeamsSecondApi(): List<TeamInfoFromSecondApi>{
+
+    suspend fun getTeamsSecondApi(): List<TeamInfoFromSecondApi> {
         return serviceForSecondApi.getTeamsInfoBySecondApi()
     }
-    suspend fun getStadiumInfo(): List<StadiumInfo>{
+
+    suspend fun getStadiumInfo(): List<StadiumInfo> {
         return serviceForSecondApi.getStadiumInfoBySecondApi()
+    }
+}
+
+class ErrorInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+
+        val request: Request = chain.request()
+        val response = chain.proceed(request)
+        if (response.code() >= 400)
+            Log.d("requestError", "Request: $request \n Response: $response")
+        return response
     }
 }
 
