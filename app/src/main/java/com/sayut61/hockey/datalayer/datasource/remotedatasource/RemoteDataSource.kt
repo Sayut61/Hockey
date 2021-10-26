@@ -5,12 +5,12 @@ import android.util.Log
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import com.google.gson.*
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo.TeamInfoFromSecondApi
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamGeneralInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerGeneralInfoFromApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.playersGenInfoToAllPlayersGeneralInfo
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromFirstApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamsInfoFromFirstApiResponse
 import kotlinx.serialization.json.Json
@@ -49,10 +49,10 @@ class RemoteDataSource @Inject constructor() {
 
     private interface RestNHLInfoSecondAPI {
         @GET(value = "teams?key=1dd2b753fe264d2b9d7d08d0988b34e2")
-        suspend fun getTeamsInfoBySecondApi(): List<TeamInfoFromSecondApi>
+        suspend fun getTeamsInfoBySecondApi(): List<TeamGeneralInfoFromSecondApi>
 
         @GET(value = "Stadiums?key=1dd2b753fe264d2b9d7d08d0988b34e2")
-        suspend fun getStadiumInfoBySecondApi(): List<StadiumInfo>
+        suspend fun getStadiumInfoBySecondApi(): List<StadiumGeneralInfo>
     }
 
     //Retrofit
@@ -106,11 +106,11 @@ class RemoteDataSource @Inject constructor() {
         return gameDetailResponseToFullInfoByGame(gameResponse)
     }
 
-    suspend fun getTeamsSecondApi(): List<TeamInfoFromSecondApi> {
+    suspend fun getTeamsSecondApi(): List<TeamGeneralInfoFromSecondApi> {
         return serviceForSecondApi.getTeamsInfoBySecondApi()
     }
 
-    suspend fun getStadiumInfo(): List<StadiumInfo> {
+    suspend fun getStadiumInfo(): List<StadiumGeneralInfo> {
         return serviceForSecondApi.getStadiumInfoBySecondApi()
     }
 }

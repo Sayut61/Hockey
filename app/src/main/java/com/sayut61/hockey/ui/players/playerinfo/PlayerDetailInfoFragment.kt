@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import com.sayut61.hockey.databinding.FragmentPlayerInfoBinding
 
 
-class PlayerInfoFragment : Fragment() {
+class PlayerDetailInfoFragment : Fragment() {
 
-    private val playersInfoViewModel: PlayerInfoViewModel by viewModels()
+    private val playersDetailInfoViewModel: PlayerDetailInfoViewModel by viewModels()
     private var _binding: FragmentPlayerInfoBinding? = null
     private val binding get() = _binding!!
 

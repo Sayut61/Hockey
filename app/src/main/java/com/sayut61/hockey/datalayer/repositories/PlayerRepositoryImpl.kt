@@ -3,14 +3,14 @@ package com.sayut61.hockey.datalayer.repositories
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoritePlayer
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
-import com.sayut61.hockey.domain.PlayersRepositories
+import com.sayut61.hockey.domain.PlayerRepository
 import com.sayut61.hockey.domain.entities.Player
 import javax.inject.Inject
 
-class PlayersRepositoriesImpl @Inject constructor(
+class PlayerRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val playersInfoDao: PlayersInfoDao
-): PlayersRepositories {
+): PlayerRepository {
     override suspend fun getPlayersFromApi(): List<Player> {
         return remoteDataSource.getListPlayers().map{playerFromApi->
             Player(

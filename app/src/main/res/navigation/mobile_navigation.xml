@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/playerDetailInfoFragment"
-        android:name="com.sayut61.hockey.ui.players.playerinfo.PlayerInfoFragment"
+        android:name="com.sayut61.hockey.ui.players.playerinfo.PlayerDetailInfoFragment"
         android:label="fragment_player_info"
         tools:layout="@layout/fragment_player_info" >
         <argument

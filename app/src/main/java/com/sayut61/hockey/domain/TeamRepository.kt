@@ -2,6 +2,6 @@ package com.sayut61.hockey.domain
 
 import com.sayut61.hockey.domain.entities.Team
 
-interface TeamRepositories {
+interface TeamRepository {
     suspend fun getTeamsInfo(): List<Team>
 }

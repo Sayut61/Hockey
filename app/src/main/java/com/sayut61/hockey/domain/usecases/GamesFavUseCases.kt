@@ -1,20 +1,19 @@
 package com.sayut61.hockey.domain.usecases
 
-import com.sayut61.hockey.domain.GamesFavRepositories
-import com.sayut61.hockey.domain.entities.GameFullInfo
+import com.sayut61.hockey.domain.GameFavoriteRepository
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import javax.inject.Inject
 
 class GamesFavUseCases @Inject constructor(
-    private val getGamesFavListRepositories: GamesFavRepositories
+    private val getGameFavoriteRepository: GameFavoriteRepository
 ) {
     suspend fun getFavoriteGames(): List<GameGeneralInfo>{
-        return getGamesFavListRepositories.getFavoriteGames()
+        return getGameFavoriteRepository.getFavoriteGames()
     }
     suspend fun removeFromFavoriteGame(gameGeneralInfo: GameGeneralInfo){
-        getGamesFavListRepositories.removeFromFavoriteGame(gameGeneralInfo)
+        getGameFavoriteRepository.removeFromFavoriteGame(gameGeneralInfo)
     }
     suspend fun addToFavoriteGame(gameGeneralInfo: GameGeneralInfo){
-        getGamesFavListRepositories.addToFavoriteGame(gameGeneralInfo)
+        getGameFavoriteRepository.addToFavoriteGame(gameGeneralInfo)
     }
 }

@@ -1,8 +1,8 @@
-package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.TeamsInfo
+package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams
 
 import com.google.gson.annotations.SerializedName
 
-data class TeamInfoFromSecondApi(
+data class TeamGeneralInfoFromSecondApi(
     @SerializedName("Name")
     val shortName: String,
     @SerializedName("City")
