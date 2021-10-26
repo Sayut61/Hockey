@@ -21,6 +21,17 @@ class PlayersViewModel @Inject constructor(
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
+    fun addToFavorite(){
+        viewModelScope.launch {
+            val players = _listPlayersLiveData.value
+            if (players != null) {
+                for (player in players){
+                    playersUseCases.addToFavoritePlayer(player)
+                }
+            }
+        }
+    }
+
     fun refreshFragment(){
         viewModelScope.launch {
             try {

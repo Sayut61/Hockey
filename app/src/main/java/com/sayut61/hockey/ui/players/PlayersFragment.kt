@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.sayut61.hockey.databinding.FragmentPlayersBinding
+import com.sayut61.hockey.domain.entities.Player
 import com.sayut61.hockey.ui.adapters.PlayersAdapter
 import com.sayut61.hockey.ui.adapters.PlayersAdapterListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +28,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.addToFavorite()
         viewModel.refreshFragment()
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
@@ -34,14 +37,14 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
             showListPlayers(it)
         }
     }
-    override fun onPlayerClick(player: com.sayut61.hockey.domain.entities.Player) {
+    override fun onPlayerClick(player: Player) {
         val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(player)
         findNavController().navigate(action)
     }
     private fun showError(exception: Exception){
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
-    private fun showListPlayers(players: List<com.sayut61.hockey.domain.entities.Player>){
+    private fun showListPlayers(players: List<Player>){
         val adapter = PlayersAdapter(players, this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
     }

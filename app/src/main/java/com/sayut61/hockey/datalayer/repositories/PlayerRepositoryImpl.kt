@@ -13,6 +13,7 @@ class PlayerRepositoryImpl @Inject constructor(
 ): PlayerRepository {
     override suspend fun getPlayersFromApi(): List<Player> {
         return remoteDataSource.getListPlayers().map{playerFromApi->
+            val logo = remoteDataSource.getTeamsSecondApi().find { it.shortName == playerFromApi.teamShortName }
             Player(
                 teamId = playerFromApi.teamId,
                 teamFullName = playerFromApi.teamFullName,
@@ -20,30 +21,57 @@ class PlayerRepositoryImpl @Inject constructor(
                 jerseyNumber = playerFromApi.jerseyNumber,
                 playerId = playerFromApi.playerId,
                 fullName = playerFromApi.fullName,
-                linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo
+                linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo,
+                logo = logo!!.wikipediaLogoUrl
             )
         }
     }
     override suspend fun getPlayersFromDB(): List<Player> {
         val filteredListPlayers =remoteDataSource.getListPlayers().filter { playersFromApi->
-            playersInfoDao.getPlayers().find { it.id == playersFromApi.teamId }!=null
+            playersInfoDao.getPlayers().find { it.teamId == playersFromApi.teamId }!=null
         }
-        return filteredListPlayers.map {
+        return filteredListPlayers.map {playerGeneralInfoFromApi->
+            val logo = remoteDataSource.getTeamsSecondApi().find{it.shortName == playerGeneralInfoFromApi.teamShortName }
             Player(
-                teamId = it.teamId,
-                teamFullName = it.teamFullName,
-                teamShortName = it.teamShortName,
-                jerseyNumber = it.jerseyNumber,
-                playerId = it.playerId,
-                fullName = it.fullName,
-                linkOnPlayerDetailInfo = it.linkOnPlayerDetailInfo
+                teamId = playerGeneralInfoFromApi.teamId,
+                teamFullName = playerGeneralInfoFromApi.teamFullName,
+                teamShortName = playerGeneralInfoFromApi.teamShortName,
+                jerseyNumber = playerGeneralInfoFromApi.jerseyNumber,
+                playerId = playerGeneralInfoFromApi.playerId,
+                fullName = playerGeneralInfoFromApi.fullName,
+                linkOnPlayerDetailInfo = playerGeneralInfoFromApi.linkOnPlayerDetailInfo,
+                logo = logo!!.wikipediaLogoUrl
             )
         }
     }
-    override suspend fun addToFavoritePlayer(id: Player) {
-        playersInfoDao.insert(FavoritePlayer(id.teamId))
+    override suspend fun addToFavoritePlayer(player: Player) {
+        playersInfoDao.insert(playerToFavoritePlayer(player))
     }
-    override suspend fun removeFromFavoritePlayer(id: Player) {
-        playersInfoDao.delete(FavoritePlayer(id.teamId))
+    override suspend fun removeFromFavoritePlayer(player: Player) {
+        playersInfoDao.delete(playerToFavoritePlayer(player))
+    }
+    fun playerToFavoritePlayer(player: Player): FavoritePlayer{
+        return FavoritePlayer(
+            player.teamId,
+            player.teamFullName,
+            player.teamShortName,
+            player.jerseyNumber,
+            player.playerId,
+            player.fullName,
+            player.linkOnPlayerDetailInfo,
+            player.logo
+        )
+    }
+    fun favoritePlayerToPlayer(favoritePlayer: FavoritePlayer): Player{
+        return Player(
+            favoritePlayer.teamId,
+            favoritePlayer.teamFullName,
+            favoritePlayer.teamShortName,
+            favoritePlayer.jerseyNumber,
+            favoritePlayer.playerId,
+            favoritePlayer.fullName,
+            favoritePlayer.linkOnPlayerDetailInfo,
+            favoritePlayer.logo
+        )
     }
 }

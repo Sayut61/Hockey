@@ -13,10 +13,10 @@ class PlayersUseCases @Inject constructor(
     suspend fun getPlayersListDB(): List<Player>{
         return playerRepository.getPlayersFromDB()
     }
-    suspend fun addToFavoritePlayer(id: Player){
-        playerRepository.addToFavoritePlayer(id)
+    suspend fun addToFavoritePlayer(player: Player){
+        playerRepository.addToFavoritePlayer(player)
     }
-    suspend fun removeFromFavoritePlayer(id: Player){
-        playerRepository.removeFromFavoritePlayer(id)
+    suspend fun removeFromFavoritePlayer(player: Player){
+        playerRepository.removeFromFavoritePlayer(player)
     }
 }

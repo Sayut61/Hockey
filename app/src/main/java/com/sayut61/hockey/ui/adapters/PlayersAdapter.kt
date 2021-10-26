@@ -33,9 +33,8 @@ class PlayersViewHolder(val binding: PlayersItemBinding): RecyclerView.ViewHolde
     fun bind(player: Player, activity: Activity?){
         binding.playerNumberTextView.text = player.jerseyNumber.toString()
         binding.playerFullNameTextView.text = player.fullName
-
-//        player.teamLogo.let{logoUrl->
-//            loadImage(logoUrl, activity, binding.logoImageView)
-//        }
+        player.logo?.let{logoUrl->
+            loadImage(logoUrl, activity, binding.logoPlayerImageView)
+        }
     }
 }

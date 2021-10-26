@@ -11,5 +11,6 @@ data class Player(
     val jerseyNumber: Int,
     val playerId: Int,
     val fullName: String,
-    val linkOnPlayerDetailInfo: String
+    val linkOnPlayerDetailInfo: String,
+    val logo: String?
 ) : Parcelable
