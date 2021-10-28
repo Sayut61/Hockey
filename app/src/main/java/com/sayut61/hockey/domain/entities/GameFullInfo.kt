@@ -24,5 +24,5 @@ data class GameFullInfo(
     val shotsHomeTeam: Int,
     val blockedHomeTeam: Int,
     val hitsHomeTeam: Int,
-    val codedGameState: Int
+    val gameState: String
 ): Parcelable

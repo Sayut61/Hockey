@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.CalendarItemBinding
 import com.sayut61.hockey.domain.entities.GameFullInfo
-import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
 
@@ -45,20 +44,7 @@ class CalendarViewHolder(val binding: CalendarItemBinding):
         binding.dateTimeTextView.text = gameFullInfo.generalInfo.gameDate
         binding.firstTeamGoalsTextView.text = gameFullInfo.goalsHomeTeam.toString()
         binding.secondTeamGoalsTextView.text = gameFullInfo.goalsAwayTeam.toString()
-        when(gameFullInfo.codedGameState){
-            1->{
-                val gameDidNotStart = "не начался"
-                binding.gameStatusTextView.text = gameDidNotStart
-            }
-            in 2..6->{
-                val gameIsOn = "идет"
-                binding.gameStatusTextView.text = gameIsOn
-            }
-            7->{
-                val gameOver = "окончен"
-                binding.gameStatusTextView.text = gameOver
-            }
-        }
+        binding.gameStatusTextView.text = gameFullInfo.gameState
         gameFullInfo.generalInfo.awayTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.secondTeamImageView2)
         }

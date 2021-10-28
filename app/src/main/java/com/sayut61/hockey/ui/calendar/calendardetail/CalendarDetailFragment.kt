@@ -99,20 +99,7 @@ class CalendarDetailFragment : Fragment() {
                 }
             }
         }
-        when(gameFullInfo.codedGameState){
-            1->{
-                val gameDidNotStart = "не начался"
-                binding.gameStatusTextView.text = gameDidNotStart
-            }
-            in 2..6->{
-                val gameIsOn = "идет"
-                binding.gameStatusTextView.text = gameIsOn
-            }
-            7->{
-                val gameOver = "окончен"
-                binding.gameStatusTextView.text = gameOver
-            }
-        }
+        binding.gameStatusTextView.text = gameFullInfo.gameState
     }
     private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()

@@ -9,7 +9,6 @@ import com.sayut61.hockey.databinding.FragmentFavoriteBinding
 import com.sayut61.hockey.ui.favorites.adapter.ViewPagerAdapter
 import com.sayut61.hockey.ui.favorites.tabfragments.GamesFavoriteFragment
 import com.sayut61.hockey.ui.favorites.tabfragments.PlayersFavoriteFragment
-import com.sayut61.hockey.ui.favorites.tabfragments.TeamsFavoriteFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,8 +26,7 @@ class ViewPagerFavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf(
             GamesFavoriteFragment(),
-            PlayersFavoriteFragment(),
-            TeamsFavoriteFragment()
+            PlayersFavoriteFragment()
         )
         val adapter = ViewPagerAdapter(
             fragmentList,
@@ -39,7 +37,6 @@ class ViewPagerFavoriteFragment : Fragment() {
             when (position) {
                 0 -> tab.text = "GAMES"
                 1 -> tab.text = "PLAYERS"
-                2 -> tab.text = "TEAMS"
             }
         }.attach()
     }

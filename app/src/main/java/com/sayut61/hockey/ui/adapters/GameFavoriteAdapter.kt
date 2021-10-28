@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.GameFavItemBinding
+import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
@@ -13,7 +14,7 @@ interface GameFavoriteAdapterListener {
     fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo)
 }
 class GameFavoriteAdapter(
-    private val getGameInfo: List<GameGeneralInfo>,
+    private val gamesList: List<GameFullInfo>,
     private val listener: GameFavoriteAdapterListener,
     private val activity: Activity?
 ) : RecyclerView.Adapter<GameFavoriteViewHolder>() {
@@ -22,29 +23,32 @@ class GameFavoriteAdapter(
         )
     }
     override fun onBindViewHolder(holder: GameFavoriteViewHolder, position: Int) {
-        val calendar = getGameInfo[position]
+        val gameInfo = gamesList[position]
         holder.itemView.setOnClickListener {
-            listener.onGameClick(calendar)
+            listener.onGameClick(gameInfo.generalInfo)
         }
         holder.binding.deleteFavoriteButton.setOnClickListener {
-            listener.onDeleteButtonClick(calendar)
+            listener.onDeleteButtonClick(gameInfo.generalInfo)
         }
-        holder.bind(calendar, activity)
+        holder.bind(gameInfo, activity)
     }
     override fun getItemCount(): Int {
-        return getGameInfo.size
+        return gamesList.size
     }
 }
 class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(gameGeneralInfo: GameGeneralInfo, activity: Activity?) {
-        binding.awayTeamTextView.text = gameGeneralInfo.awayTeamNameFull
-        binding.homeTeamTextView.text = gameGeneralInfo.homeTeamNameFull
-        binding.dateGameTextView.text = gameGeneralInfo.gameDate
-        gameGeneralInfo.awayTeamLogo?.let { logoUrl ->
+    fun bind(gameFullInfo: GameFullInfo, activity: Activity?) {
+        binding.awayTeamTextView.text = gameFullInfo.generalInfo.awayTeamNameFull
+        binding.homeTeamTextView.text = gameFullInfo.generalInfo.homeTeamNameFull
+        binding.dateGameTextView.text = gameFullInfo.generalInfo.gameDate
+        binding.gameStatusTextView.text = gameFullInfo.gameState
+        binding.awayTeamScoreTextView.text = gameFullInfo.goalsAwayTeam.toString()
+        binding.homeTeamScoreTextView.text = gameFullInfo.goalsHomeTeam.toString()
+        gameFullInfo.generalInfo.awayTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.awayTeamImageView)
         }
-        gameGeneralInfo.homeTeamLogo?.let { logoUrl ->
+        gameFullInfo.generalInfo.homeTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.homeTeamImageView)
         }
     }

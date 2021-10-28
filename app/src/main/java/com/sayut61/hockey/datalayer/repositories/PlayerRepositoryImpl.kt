@@ -12,8 +12,9 @@ class PlayerRepositoryImpl @Inject constructor(
     private val playersInfoDao: PlayersInfoDao
 ): PlayerRepository {
     override suspend fun getPlayersFromApi(): List<Player> {
+        val teams = remoteDataSource.getTeamsSecondApi()
         return remoteDataSource.getListPlayers().map{playerFromApi->
-            val logo = remoteDataSource.getTeamsSecondApi().find { it.shortName == playerFromApi.teamShortName }
+            val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
             Player(
                 teamId = playerFromApi.teamId,
                 teamFullName = playerFromApi.teamFullName,
@@ -22,7 +23,7 @@ class PlayerRepositoryImpl @Inject constructor(
                 playerId = playerFromApi.playerId,
                 fullName = playerFromApi.fullName,
                 linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo,
-                logo = logo!!.wikipediaLogoUrl
+                logo = teamInfo?.wikipediaLogoUrl
             )
         }
     }

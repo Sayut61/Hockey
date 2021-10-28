@@ -61,8 +61,8 @@ object AppModule{
     }
     @Singleton
     @Provides
-    fun providesFavRepositories(gamesInfoDao: GamesInfoDao): GameFavoriteRepository {
-        return GameFavoriteRepositoryImpl(gamesInfoDao)
+    fun providesFavRepositories(gamesInfoDao: GamesInfoDao, remoteDataSource: RemoteDataSource): GameFavoriteRepository {
+        return GameFavoriteRepositoryImpl(gamesInfoDao, remoteDataSource)
     }
 }
 

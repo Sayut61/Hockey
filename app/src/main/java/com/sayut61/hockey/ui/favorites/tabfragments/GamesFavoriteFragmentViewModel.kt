@@ -19,11 +19,8 @@ class GamesFavoriteFragmentViewModel @Inject constructor(
     private val gamesFavUseCases: GamesFavUseCases,
     private val gamesUseCases: GamesUseCases
 ) : ViewModel() {
-    private val _gamesFavoriteLiveData = MutableLiveData<List<GameGeneralInfo>>()
-    val gamesFavoriteLiveData: MutableLiveData<List<GameGeneralInfo>> = _gamesFavoriteLiveData
-
-    private val _gameFullInfoLiveData = MutableLiveData<GameFullInfo>()
-    val gameFullInfoLiveData: LiveData<GameFullInfo> = _gameFullInfoLiveData
+    private val _gamesFavoriteLiveData = MutableLiveData<List<GameFullInfo>>()
+    val gamesFavoriteLiveData: MutableLiveData<List<GameFullInfo>> = _gamesFavoriteLiveData
 
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData

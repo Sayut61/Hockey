@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sayut61.hockey.databinding.FragmentGameFavoriteBinding
+import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.adapters.GameFavoriteAdapter
 import com.sayut61.hockey.ui.adapters.GameFavoriteAdapterListener
@@ -38,7 +39,7 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
         viewModel.refreshFavoriteFragment()
     }
 
-    fun showGameInfo(gameGeneralInfo: List<GameGeneralInfo>){
+    fun showGameInfo(gameGeneralInfo: List<GameFullInfo>){
         val adapter = GameFavoriteAdapter(gameGeneralInfo, this, activity as? Activity)
         binding.favoriteGameRecyclerView.adapter = adapter
     }
