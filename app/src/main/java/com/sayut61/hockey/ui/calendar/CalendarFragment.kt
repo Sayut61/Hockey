@@ -41,9 +41,12 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-
         binding.calendarView.setOnDateChangeListener { calendarView, year, month, day ->
             viewModel.changeDate(LocalDate.of(year, month, day))
+        }
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
+            if (it == true){ showProgressBar() }
+            else hideProgressBar()
         }
     }
 
@@ -59,6 +62,12 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
     override fun onCalendarClick(gameFullInfo: GameFullInfo) {
         val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameFullInfo.generalInfo)
         findNavController().navigate(action)
+    }
+    private fun showProgressBar(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun hideProgressBar(){
+        binding.progressBar.visibility = View.INVISIBLE
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

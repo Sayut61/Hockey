@@ -21,6 +21,9 @@ class PlayersViewModel @Inject constructor(
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
+    private val _progressBarLiveData = MutableLiveData<Boolean>()
+    val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
+
     fun addToFavorite(){
         viewModelScope.launch {
             val players = _listPlayersLiveData.value
@@ -31,14 +34,15 @@ class PlayersViewModel @Inject constructor(
             }
         }
     }
-
     fun refreshFragment(){
         viewModelScope.launch {
+            _progressBarLiveData.value = true
             try {
                 _listPlayersLiveData.value = playersUseCases.getPlayersListApi()
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }
+            _progressBarLiveData.value = false
         }
     }
 }

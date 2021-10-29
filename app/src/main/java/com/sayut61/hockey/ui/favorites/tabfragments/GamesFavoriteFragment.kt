@@ -36,6 +36,10 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
         }
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
+            if (it == true){ showProgressBar() }
+            else hideProgressBar()
+        }
         viewModel.refreshFavoriteFragment()
     }
 
@@ -46,6 +50,12 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
     override fun onGameClick(gameGeneralInfo: GameGeneralInfo) {
         val action = ViewPagerFavoriteFragmentDirections.actionFavoriteFragmentToCalendarDetailFragment(gameGeneralInfo)
         findNavController().navigate(action)
+    }
+    private fun showProgressBar(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun hideProgressBar(){
+        binding.progressBar.visibility = View.INVISIBLE
     }
 
     override fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo) {

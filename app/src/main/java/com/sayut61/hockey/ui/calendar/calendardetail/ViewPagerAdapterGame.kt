@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment
+package com.sayut61.hockey.ui.calendar.calendardetail
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

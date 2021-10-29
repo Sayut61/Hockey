@@ -19,7 +19,7 @@ import java.lang.Exception
 
 @AndroidEntryPoint
 class TeamsFragment : Fragment(), TeamAdapterListener {
-    private  val teamsViewModel: TeamsViewModel by viewModels()
+    private  val viewModel: TeamsViewModel by viewModels()
     private var _binding: FragmentTeamsBinding? = null
     private val binding get() = _binding!!
 
@@ -35,14 +35,17 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
 
         binding.recyclerViewTeams.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        teamsViewModel.refreshTeamsFragment()
+        viewModel.refreshTeamsFragment()
 
-        teamsViewModel.teamInfoLiveData.observe(viewLifecycleOwner){
+        viewModel.teamInfoLiveData.observe(viewLifecycleOwner){
             showTeams(it)
         }
-
-        teamsViewModel.errorLiveData.observe(viewLifecycleOwner){
+        viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
+        }
+        viewModel.progressBarrLiveData.observe(viewLifecycleOwner){
+            if(it == true)showProgressBar()
+            else hideProgressBar()
         }
     }
     private fun showError(exception: Exception){
@@ -57,6 +60,12 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
     private fun showTeams(team: List<Team>){
         val adapter = TeamsAdapter(team, this, activity as? Activity)
         binding.recyclerViewTeams.adapter = adapter
+    }
+    private fun showProgressBar(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun hideProgressBar(){
+        binding.progressBar.visibility = View.INVISIBLE
     }
 
     override fun onDestroyView() {

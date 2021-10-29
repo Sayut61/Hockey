@@ -12,7 +12,6 @@ import com.sayut61.hockey.databinding.FragmentCalendarDetailBinding
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment.AwayTeamRecyclerFragment
 import com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment.HomeTeamRecyclerFragment
-import com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment.ViewPagerAdapterGame
 import com.sayut61.hockey.ui.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
@@ -41,13 +40,12 @@ class CalendarDetailFragment : Fragment() {
         val adapter = ViewPagerAdapterGame(
             fragmentList,
             requireActivity().supportFragmentManager,
-            lifecycle
-        )
+            lifecycle)
         binding.calendarViewPager.adapter = adapter
         TabLayoutMediator(binding.calendarTabLayout, binding.calendarViewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "home"
-                1 -> tab.text = "away"
+                0 -> tab.text = "HOME"
+                1 -> tab.text = "AWAY"
             }
         }.attach()
 
@@ -60,6 +58,11 @@ class CalendarDetailFragment : Fragment() {
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
+        }
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
+            if(it == true){
+                showProgressBar()
+            }else hideProgressBar()
         }
     }
 
@@ -100,6 +103,13 @@ class CalendarDetailFragment : Fragment() {
             }
         }
         binding.gameStatusTextView.text = gameFullInfo.gameState
+    }
+
+    private fun showProgressBar(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun hideProgressBar(){
+        binding.progressBar.visibility = View.INVISIBLE
     }
     private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()

@@ -36,6 +36,10 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         viewModel.listPlayerLiveData.observe(viewLifecycleOwner){
             showListPlayers(it)
         }
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
+            if(it == true)showProgressBar()
+            else hideProgressBar()
+        }
     }
     override fun onPlayerClick(player: Player) {
         val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(player)
@@ -47,6 +51,12 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     private fun showListPlayers(players: List<Player>){
         val adapter = PlayersAdapter(players, this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
+    }
+    private fun showProgressBar(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun hideProgressBar(){
+        binding.progressBar.visibility = View.INVISIBLE
     }
     override fun onDestroyView() {
         super.onDestroyView()

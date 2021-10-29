@@ -25,6 +25,9 @@ class GamesFavoriteFragmentViewModel @Inject constructor(
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
+    private val _progressBarLiveData = MutableLiveData<Boolean>()
+    val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
+
 
     fun deleteFromFavorite(gameGeneralInfo: GameGeneralInfo) {
         viewModelScope.launch {
@@ -35,11 +38,13 @@ class GamesFavoriteFragmentViewModel @Inject constructor(
 
     fun refreshFavoriteFragment() {
         viewModelScope.launch {
+            _progressBarLiveData.value = true
             try {
                 _gamesFavoriteLiveData.value = gamesFavUseCases.getFavoriteGames()
             } catch (ex: Exception) {
                 _errorLiveData.value = ex
             }
+            _progressBarLiveData.value = false
         }
     }
 }
