@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.sayut61.hockey.databinding.FragmentTeamsBinding
-import com.sayut61.hockey.domain.entities.Team
+import com.sayut61.hockey.domain.entities.TeamGeneralInfo
 import com.sayut61.hockey.ui.adapters.TeamAdapterListener
 import com.sayut61.hockey.ui.adapters.TeamsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +37,7 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
 
         viewModel.refreshTeamsFragment()
 
-        viewModel.teamInfoLiveData.observe(viewLifecycleOwner){
+        viewModel.teamGeneralInfoInfoLiveData.observe(viewLifecycleOwner){
             showTeams(it)
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner){
@@ -52,13 +52,13 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
 
-    override fun onTeamClick(team: Team) {
-        val action = TeamsFragmentDirections.actionTeamsFragmentToTeamDetailFragment(team)
+    override fun onTeamClick(teamGeneralInfo: TeamGeneralInfo) {
+        val action = TeamsFragmentDirections.actionTeamsFragmentToTeamDetailFragment(teamGeneralInfo)
         findNavController().navigate(action)
     }
 
-    private fun showTeams(team: List<Team>){
-        val adapter = TeamsAdapter(team, this, activity as? Activity)
+    private fun showTeams(teamGeneralInfo: List<TeamGeneralInfo>){
+        val adapter = TeamsAdapter(teamGeneralInfo, this, activity as? Activity)
         binding.recyclerViewTeams.adapter = adapter
     }
     private fun showProgressBar(){

@@ -5,7 +5,7 @@ import com.google.android.gms.common.internal.StringResourceValueReader
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Team(
+data class TeamGeneralInfo(
     val id: Int,
     val fullTeamName: String,
     val shortTeamName: String,

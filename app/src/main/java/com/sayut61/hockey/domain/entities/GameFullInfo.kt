@@ -1,7 +1,7 @@
 package com.sayut61.hockey.domain.entities
 
 import android.os.Parcelable
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.PeriodsInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.PeriodsInfo
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

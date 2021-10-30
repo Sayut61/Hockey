@@ -6,7 +6,7 @@ import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import com.google.gson.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamGeneralInfoFromSecondApi
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.*
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerGeneralInfoFromApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.playersGenInfoToAllPlayersGeneralInfo

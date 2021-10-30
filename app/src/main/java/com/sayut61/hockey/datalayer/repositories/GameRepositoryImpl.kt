@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamGeneralInfoFromSecondApi
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar.GameFromFirstApi
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.GameFromFirstApi
 import com.sayut61.hockey.domain.GameRepository
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo

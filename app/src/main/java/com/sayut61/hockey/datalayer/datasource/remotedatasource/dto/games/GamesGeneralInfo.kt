@@ -1,4 +1,4 @@
-package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.calendar
+package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games
 
 import com.google.gson.annotations.SerializedName
 
