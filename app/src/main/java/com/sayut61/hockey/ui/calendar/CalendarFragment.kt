@@ -42,7 +42,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
             showError(it)
         }
         binding.calendarView.setOnDateChangeListener { calendarView, year, month, day ->
-            viewModel.changeDate(LocalDate.of(year, month, day))
+            viewModel.changeDate(LocalDate.of(year, month+1, day))
         }
         viewModel.progressBarLiveData.observe(viewLifecycleOwner){
             if (it == true){ showProgressBar() }

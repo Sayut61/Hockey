@@ -12,6 +12,5 @@ data class TeamGeneralInfo(
     val cityName: String?,
     val officialSiteUrl: String,
     val urlLogoTeam: String?,
-    val isInFavoriteTeam: Boolean,
-    val StadiumID: Int
+    val stadiumID: Int?
 ) : Parcelable

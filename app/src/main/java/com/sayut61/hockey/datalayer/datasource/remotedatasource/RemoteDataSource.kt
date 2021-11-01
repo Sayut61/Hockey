@@ -5,14 +5,12 @@ import android.util.Log
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import com.google.gson.*
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamGeneralInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerGeneralInfoFromApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.playersGenInfoToAllPlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumGeneralInfo
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromFirstApi
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamsInfoFromFirstApiResponse
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.*
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -45,6 +43,9 @@ class RemoteDataSource @Inject constructor() {
 
         @GET(value = "/api/v1/teams?expand=team.roster")
         suspend fun getListAllPlayers(): PlayersGeneralInfo
+
+        @GET(value = "/v1/teams/{id}?expand=team.stats")
+        suspend fun getDetailInfoByTeam(@Path("id", encoded = true)id: Int): TeamFullInfoFromFirstApiResponse
     }
 
     private interface RestNHLInfoSecondAPI {
@@ -84,6 +85,11 @@ class RemoteDataSource @Inject constructor() {
 
     //Retrofit
 
+    suspend fun getTeamFullInfo(teamId: Int): FullInfoByTeam{
+        val teamInfoResponse = serviceForFirstApi.getDetailInfoByTeam(teamId)
+        return teamFullInfoFromFirstApiResponseToFullInfoByTeams(teamInfoResponse)
+    }
+
     suspend fun getListPlayers(): List<PlayerGeneralInfoFromApi>{
         val playersResponse = serviceForFirstApi.getListAllPlayers()
         return playersGenInfoToAllPlayersGeneralInfo(playersResponse)
@@ -95,7 +101,7 @@ class RemoteDataSource @Inject constructor() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getGamesByDate(date: LocalDate): List<GameFromFirstApi> {
-        val stringDate = "${date.year}-${date.monthValue + 1}-${date.dayOfMonth}"
+        val stringDate = "${date.year}-${date.monthValue}-${date.dayOfMonth}"
         val gamesResponse = serviceForFirstApi.getInfoByGameDay(stringDate)
         return gamesResponseToGamesFromFirstApi(gamesResponse)
     }

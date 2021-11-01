@@ -20,7 +20,7 @@
         tools:layout="@layout/fragment_team_detail" >
         <argument
             android:name="team"
-            app:argType="com.sayut61.hockey.domain.entities.Team" />
+            app:argType="com.sayut61.hockey.domain.entities.TeamGeneralInfo" />
     </fragment>
     <fragment
         android:id="@+id/playersFragment"
