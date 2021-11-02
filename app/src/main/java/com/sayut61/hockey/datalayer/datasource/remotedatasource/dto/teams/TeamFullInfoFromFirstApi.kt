@@ -29,7 +29,7 @@ data class FullInfoByTeam(
 
 fun teamFullInfoFromFirstApiResponseToFullInfoByTeams(teams: TeamFullInfoFromFirstApiResponse): FullInfoByTeam {
     val resultList = teams.teams.flatMap { fullInfo ->
-        fullInfo.teamStats.flatMap { it.splits}.map { stats ->
+        fullInfo.teamStats.flatMap { it.splits }.map { stats ->
             FullInfoByTeam(
                 id = fullInfo.id,
                 teamFullName = fullInfo.teamFullName,
@@ -55,45 +55,11 @@ fun teamFullInfoFromFirstApiResponseToFullInfoByTeams(teams: TeamFullInfoFromFir
             )
         }
     }
-    return if(resultList.isNotEmpty())
+    return if (resultList.isNotEmpty())
         resultList[0]
     else
         throw Exception("error get teams info")
 }
-
-/*    val teamInfo = mutableListOf<FullInfoByTeam>()
-    for (fullInfo in team.teams){
-        for (it in fullInfo.teamStats){
-            for (stats in it.splits){
-                val team = FullInfoByTeam(
-                    id = fullInfo.id,
-                    teamFullName = fullInfo.teamFullName,
-                    teamShortName = fullInfo.teamShortName,
-                    firstYearOfPlay = fullInfo.firstYearOfPlay,
-                    gamesPlayed = stats.statByNumbers.gamesPlayed,
-                    wins = stats.statByNumbers.wins,
-                    losses = stats.statByNumbers.losses,
-                    pts = stats.statByNumbers.pts,
-                    goalsPerGame = stats.statByNumbers.goalsPerGame,
-                    goalsAgainstPerGame = stats.statByNumbers.goalsAgainstPerGame,
-                    powerPlayPercentage = stats.statByNumbers.powerPlayPercentage,
-                    powerPlayGoals = stats.statByNumbers.powerPlayGoals,
-                    powerPlayGoalsAgainst = stats.statByNumbers.powerPlayGoalsAgainst,
-                    powerPlayOpportunities = stats.statByNumbers.powerPlayOpportunities,
-                    shotsPerGame = stats.statByNumbers.shotsPerGame,
-                    shotsAllowed = stats.statByNumbers.shotsPerGame,
-                    placeOnWins = stats.statByPlaces.placeOnWins,
-                    placeOnLosses = stats.statByPlaces.placeOnLosses,
-                    placeOnPts = stats.statByPlaces.placeOnPts,
-                    placeGoalsPerGame = stats.statByPlaces.placeGoalsPerGame,
-                    placeGoalsAgainstPerGame = stats.statByPlaces.placeGoalsAgainstPerGame
-                )
-                teamInfo.add(team)
-            }
-        }
-    }
-    return teamInfo
-}*/
 
 data class TeamFullInfoFromFirstApiResponse(
     val teams: List<FullInfoByTeamResponse>

@@ -105,17 +105,14 @@ class RemoteDataSource @Inject constructor() {
         val gamesResponse = serviceForFirstApi.getInfoByGameDay(stringDate)
         return gamesResponseToGamesFromFirstApi(gamesResponse)
     }
-
     suspend fun getGameDetails(link: String): FullInfoByGame {
         val gameResponse = serviceForFirstApi.getDetailInfoByGame(link)
         Log.d("myLog", gameResponse.toString())
         return gameDetailResponseToFullInfoByGame(gameResponse)
     }
-
     suspend fun getTeamsSecondApi(): List<TeamGeneralInfoFromSecondApi> {
         return serviceForSecondApi.getTeamsInfoBySecondApi()
     }
-
     suspend fun getStadiumInfo(): List<StadiumGeneralInfo> {
         return serviceForSecondApi.getStadiumInfoBySecondApi()
     }
