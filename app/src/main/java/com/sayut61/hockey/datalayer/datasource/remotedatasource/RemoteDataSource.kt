@@ -11,6 +11,7 @@ import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.Play
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.playersGenInfoToAllPlayersGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.*
+import com.sayut61.hockey.domain.entities.TeamPlayersInfo
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -46,6 +47,9 @@ class RemoteDataSource @Inject constructor() {
 
         @GET(value = "/api/v1/teams/{id}?expand=team.stats")
         suspend fun getDetailInfoByTeam(@Path("id", encoded = true)id: Int): TeamFullInfoFromFirstApiResponse
+
+        @GET(value = "/api/v1/teams/{id}/roster")
+        suspend fun getPlayersInfoByTeam(@Path("id", encoded = true)id: Int): TeamPlayersInfoFromApi
     }
 
     private interface RestNHLInfoSecondAPI {
@@ -84,6 +88,10 @@ class RemoteDataSource @Inject constructor() {
     private var serviceForSecondApi = retrofitSecondApiInfo.create(RestNHLInfoSecondAPI::class.java)
 
     //Retrofit
+    suspend fun getPlayersInfoByTeam(teamId: Int): List<TeamPlayers>{
+        val teamPlayers = serviceForFirstApi.getPlayersInfoByTeam(teamId)
+        return teamPlayersInfoFromApiToTeamPlayers(teamPlayers)
+    }
 
     suspend fun getTeamFullInfo(teamId: Int): FullInfoByTeam{
         val teamInfoResponse = serviceForFirstApi.getDetailInfoByTeam(teamId)

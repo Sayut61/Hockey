@@ -8,13 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.tabs.TabLayoutMediator
-import com.sayut61.hockey.databinding.FragmentTeamDetailBinding
 import com.sayut61.hockey.databinding.FragmentTeamStatisticsBinding
 import com.sayut61.hockey.domain.entities.TeamFullInfo
-import com.sayut61.hockey.ui.favorites.adapter.ViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 
 @AndroidEntryPoint
 class TeamStatisticDetailFragment: Fragment() {
@@ -75,5 +71,9 @@ class TeamStatisticDetailFragment: Fragment() {
     }
     private fun showError(ex: Exception){
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

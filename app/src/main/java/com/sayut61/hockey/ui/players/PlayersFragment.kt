@@ -42,7 +42,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         }
     }
     override fun onPlayerClick(player: Player) {
-        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(player)
+        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(player.playerId)
         findNavController().navigate(action)
     }
     private fun showError(exception: Exception){

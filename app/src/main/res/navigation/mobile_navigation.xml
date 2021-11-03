@@ -17,10 +17,13 @@
         android:id="@+id/teamDetailFragment"
         android:name="com.sayut61.hockey.ui.teams.teamdetail.TeamDetailFragment"
         android:label="@string/title_team_details_fragment"
-        tools:layout="@layout/fragment_team_detail" >
+        tools:layout="@layout/fragment_team_detail">
         <argument
             android:name="team"
             app:argType="com.sayut61.hockey.domain.entities.TeamGeneralInfo" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_playerDetailInfoFragment"
+            app:destination="@id/playerDetailInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/playersFragment"
@@ -37,8 +40,8 @@
         android:label="fragment_player_info"
         tools:layout="@layout/fragment_player_info" >
         <argument
-            android:name="players"
-            app:argType="com.sayut61.hockey.domain.entities.Player" />
+            android:name="playerId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"

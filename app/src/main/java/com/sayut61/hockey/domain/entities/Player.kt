@@ -3,7 +3,7 @@ package com.sayut61.hockey.domain.entities
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
+
 data class Player(
     val teamId: Int,
     val teamFullName: String,
@@ -13,4 +13,4 @@ data class Player(
     val fullName: String,
     val linkOnPlayerDetailInfo: String,
     val logo: String?
-) : Parcelable
+)

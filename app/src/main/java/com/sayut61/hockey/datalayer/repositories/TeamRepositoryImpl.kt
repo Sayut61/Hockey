@@ -6,6 +6,7 @@ import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamIn
 import com.sayut61.hockey.domain.entities.TeamGeneralInfo
 import com.sayut61.hockey.domain.TeamRepository
 import com.sayut61.hockey.domain.entities.TeamFullInfo
+import com.sayut61.hockey.domain.entities.TeamPlayersInfo
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -65,8 +66,20 @@ class TeamRepositoryImpl @Inject constructor(
             throw Exception("error get team info")
     }
 
+    override suspend fun getPlayersInfo(teamId: Int): List<TeamPlayersInfo> {
+        return remoteDataSource.getPlayersInfoByTeam(teamId).map {
+            TeamPlayersInfo(
+                jerseyNumber = it.jerseyNumber,
+                playerId = it.playerId,
+                fullName = it.fullName,
+                linkOnFullInfoByPlayer = it.linkOnFullInfoByPlayer,
+                type = it.type
+            )
+        }
+    }
 
-fun generalInfoToTeamGeneralInfo(
+
+    fun generalInfoToTeamGeneralInfo(
     teamFirstApi: TeamInfoFromFirstApi,
     teamSecondApi: TeamGeneralInfoFromSecondApi
 ): TeamGeneralInfo {
