@@ -31,11 +31,10 @@
        android:id="@+id/firstYearOfPlayTextView"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:layout_marginStart="8dp"
        android:layout_marginTop="8dp"
        android:text="T"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintHorizontal_bias="0.5"
-       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintStart_toEndOf="@+id/t1"
        app:layout_constraintTop_toBottomOf="@+id/teamFullNameTextView" />
 
    <com.google.android.material.tabs.TabLayout
@@ -61,10 +60,32 @@
    </com.google.android.material.tabs.TabLayout>
 
    <androidx.viewpager2.widget.ViewPager2
+       android:id="@+id/teamViewPager2"
        android:layout_width="0dp"
        android:layout_height="0dp"
        app:layout_constraintBottom_toBottomOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toBottomOf="@id/teamTabLayout" />
+
+   <TextView
+       android:id="@+id/t1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginEnd="24dp"
+       android:text="создан в "
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="@+id/firstYearOfPlayTextView" />
+
+   <ProgressBar
+       android:id="@+id/progressBar"
+       style="?android:attr/progressBarStyle"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.5"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

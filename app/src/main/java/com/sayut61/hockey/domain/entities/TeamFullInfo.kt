@@ -1,5 +1,9 @@
 package com.sayut61.hockey.domain.entities
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class TeamFullInfo(
     val teamGeneralInfo: TeamGeneralInfo,
     val id: Int,
@@ -12,7 +16,7 @@ data class TeamFullInfo(
     val pts: Int,
     val goalsPerGame: Double,
     val goalsAgainstPerGame: Double,
-    val powerPlayPercentage: Any,
+    val powerPlayPercentage: String,
     val powerPlayGoals: Double,
     val powerPlayGoalsAgainst: Double,
     val powerPlayOpportunities: Double,
@@ -23,4 +27,4 @@ data class TeamFullInfo(
     val placeOnPts: String,
     val placeGoalsPerGame: String,
     val placeGoalsAgainstPerGame: String
-)
+): Parcelable

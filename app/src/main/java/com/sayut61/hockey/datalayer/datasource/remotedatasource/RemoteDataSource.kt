@@ -44,7 +44,7 @@ class RemoteDataSource @Inject constructor() {
         @GET(value = "/api/v1/teams?expand=team.roster")
         suspend fun getListAllPlayers(): PlayersGeneralInfo
 
-        @GET(value = "/v1/teams/{id}?expand=team.stats")
+        @GET(value = "/api/v1/teams/{id}?expand=team.stats")
         suspend fun getDetailInfoByTeam(@Path("id", encoded = true)id: Int): TeamFullInfoFromFirstApiResponse
     }
 
