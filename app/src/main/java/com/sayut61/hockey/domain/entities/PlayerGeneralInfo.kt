@@ -1,10 +1,7 @@
 package com.sayut61.hockey.domain.entities
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 
-
-data class Player(
+data class PlayerGeneralInfo(
     val teamId: Int,
     val teamFullName: String,
     val teamShortName: String,

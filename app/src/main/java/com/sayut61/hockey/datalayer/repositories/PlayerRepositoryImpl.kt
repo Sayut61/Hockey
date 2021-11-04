@@ -4,18 +4,18 @@ import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoritePlayer
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
 import com.sayut61.hockey.domain.PlayerRepository
-import com.sayut61.hockey.domain.entities.Player
+import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import javax.inject.Inject
 
 class PlayerRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val playersInfoDao: PlayersInfoDao
 ): PlayerRepository {
-    override suspend fun getPlayersFromApi(): List<Player> {
+    override suspend fun getPlayersFromApi(): List<PlayerGeneralInfo> {
         val teams = remoteDataSource.getTeamsSecondApi()
         return remoteDataSource.getListPlayers().map{playerFromApi->
             val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
-            Player(
+            PlayerGeneralInfo(
                 teamId = playerFromApi.teamId,
                 teamFullName = playerFromApi.teamFullName,
                 teamShortName = playerFromApi.teamShortName,
@@ -27,13 +27,13 @@ class PlayerRepositoryImpl @Inject constructor(
             )
         }
     }
-    override suspend fun getPlayersFromDB(): List<Player> {
+    override suspend fun getPlayersFromDB(): List<PlayerGeneralInfo> {
         val filteredListPlayers =remoteDataSource.getListPlayers().filter { playersFromApi->
             playersInfoDao.getPlayers().find { it.teamId == playersFromApi.teamId }!=null
         }
         return filteredListPlayers.map {playerGeneralInfoFromApi->
             val logo = remoteDataSource.getTeamsSecondApi().find{it.shortName == playerGeneralInfoFromApi.teamShortName }
-            Player(
+            PlayerGeneralInfo(
                 teamId = playerGeneralInfoFromApi.teamId,
                 teamFullName = playerGeneralInfoFromApi.teamFullName,
                 teamShortName = playerGeneralInfoFromApi.teamShortName,
@@ -45,26 +45,26 @@ class PlayerRepositoryImpl @Inject constructor(
             )
         }
     }
-    override suspend fun addToFavoritePlayer(player: Player) {
-        playersInfoDao.insert(playerToFavoritePlayer(player))
+    override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
+        playersInfoDao.insert(playerToFavoritePlayer(playerGeneralInfo))
     }
-    override suspend fun removeFromFavoritePlayer(player: Player) {
-        playersInfoDao.delete(playerToFavoritePlayer(player))
+    override suspend fun removeFromFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
+        playersInfoDao.delete(playerToFavoritePlayer(playerGeneralInfo))
     }
-    fun playerToFavoritePlayer(player: Player): FavoritePlayer{
+    fun playerToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo): FavoritePlayer{
         return FavoritePlayer(
-            player.teamId,
-            player.teamFullName,
-            player.teamShortName,
-            player.jerseyNumber,
-            player.playerId,
-            player.fullName,
-            player.linkOnPlayerDetailInfo,
-            player.logo
+            playerGeneralInfo.teamId,
+            playerGeneralInfo.teamFullName,
+            playerGeneralInfo.teamShortName,
+            playerGeneralInfo.jerseyNumber,
+            playerGeneralInfo.playerId,
+            playerGeneralInfo.fullName,
+            playerGeneralInfo.linkOnPlayerDetailInfo,
+            playerGeneralInfo.logo
         )
     }
-    fun favoritePlayerToPlayer(favoritePlayer: FavoritePlayer): Player{
-        return Player(
+    fun favoritePlayerToPlayer(favoritePlayer: FavoritePlayer): PlayerGeneralInfo{
+        return PlayerGeneralInfo(
             favoritePlayer.teamId,
             favoritePlayer.teamFullName,
             favoritePlayer.teamShortName,

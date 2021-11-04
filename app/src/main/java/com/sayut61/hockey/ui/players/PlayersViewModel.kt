@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sayut61.hockey.domain.entities.Player
+import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.usecases.PlayersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,8 +15,8 @@ import javax.inject.Inject
 class PlayersViewModel @Inject constructor(
     private val playersUseCases: PlayersUseCases
 ) : ViewModel() {
-    private val _listPlayersLiveData = MutableLiveData<List<Player>>()
-    val listPlayerLiveData: LiveData<List<Player>> = _listPlayersLiveData
+    private val _listPlayersLiveData = MutableLiveData<List<PlayerGeneralInfo>>()
+    val listPlayerGeneralInfoLiveData: LiveData<List<PlayerGeneralInfo>> = _listPlayersLiveData
 
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData

@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.PlayersItemBinding
-import com.sayut61.hockey.domain.entities.Player
+import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
 interface PlayersAdapterListener{
-    fun onPlayerClick(player: Player)
+    fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo)
 }
-class PlayersAdapter(val players: List<Player>, val listener: PlayersAdapterListener, val activity: Activity?): RecyclerView.Adapter<PlayersViewHolder>() {
+class PlayersAdapter(val playerGeneralInfos: List<PlayerGeneralInfo>, val listener: PlayersAdapterListener, val activity: Activity?): RecyclerView.Adapter<PlayersViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersViewHolder {
         return PlayersViewHolder(PlayersItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: PlayersViewHolder, position: Int) {
-        val player = players[position]
+        val player = playerGeneralInfos[position]
         holder.itemView.setOnClickListener {
             listener.onPlayerClick(player)
         }
@@ -25,15 +25,15 @@ class PlayersAdapter(val players: List<Player>, val listener: PlayersAdapterList
     }
 
     override fun getItemCount(): Int {
-        return players.size
+        return playerGeneralInfos.size
     }
 
 }
 class PlayersViewHolder(val binding: PlayersItemBinding): RecyclerView.ViewHolder(binding.root){
-    fun bind(player: Player, activity: Activity?){
-        binding.playerNumberTextView.text = player.jerseyNumber.toString()
-        binding.playerFullNameTextView.text = player.fullName
-        player.logo?.let{logoUrl->
+    fun bind(playerGeneralInfo: PlayerGeneralInfo, activity: Activity?){
+        binding.playerNumberTextView.text = playerGeneralInfo.jerseyNumber.toString()
+        binding.playerFullNameTextView.text = playerGeneralInfo.fullName
+        playerGeneralInfo.logo?.let{ logoUrl->
             loadImage(logoUrl, activity, binding.logoPlayerImageView)
         }
     }

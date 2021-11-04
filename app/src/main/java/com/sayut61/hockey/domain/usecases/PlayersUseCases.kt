@@ -1,22 +1,22 @@
 package com.sayut61.hockey.domain.usecases
 
 import com.sayut61.hockey.domain.PlayerRepository
-import com.sayut61.hockey.domain.entities.Player
+import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import javax.inject.Inject
 
 class PlayersUseCases @Inject constructor(
     private val playerRepository: PlayerRepository
 ){
-    suspend fun getPlayersListApi(): List<Player>{
+    suspend fun getPlayersListApi(): List<PlayerGeneralInfo>{
         return playerRepository.getPlayersFromApi()
     }
-    suspend fun getPlayersListDB(): List<Player>{
+    suspend fun getPlayersListDB(): List<PlayerGeneralInfo>{
         return playerRepository.getPlayersFromDB()
     }
-    suspend fun addToFavoritePlayer(player: Player){
-        playerRepository.addToFavoritePlayer(player)
+    suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo){
+        playerRepository.addToFavoritePlayer(playerGeneralInfo)
     }
-    suspend fun removeFromFavoritePlayer(player: Player){
-        playerRepository.removeFromFavoritePlayer(player)
+    suspend fun removeFromFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo){
+        playerRepository.removeFromFavoritePlayer(playerGeneralInfo)
     }
 }

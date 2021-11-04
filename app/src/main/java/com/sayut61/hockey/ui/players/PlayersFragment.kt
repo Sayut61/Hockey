@@ -9,9 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.sayut61.hockey.databinding.FragmentPlayersBinding
-import com.sayut61.hockey.domain.entities.Player
+import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.ui.adapters.PlayersAdapter
 import com.sayut61.hockey.ui.adapters.PlayersAdapterListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +32,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
         }
-        viewModel.listPlayerLiveData.observe(viewLifecycleOwner){
+        viewModel.listPlayerGeneralInfoLiveData.observe(viewLifecycleOwner){
             showListPlayers(it)
         }
         viewModel.progressBarLiveData.observe(viewLifecycleOwner){
@@ -41,15 +40,15 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
             else hideProgressBar()
         }
     }
-    override fun onPlayerClick(player: Player) {
-        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(player.playerId)
+    override fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo) {
+        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
         findNavController().navigate(action)
     }
     private fun showError(exception: Exception){
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
-    private fun showListPlayers(players: List<Player>){
-        val adapter = PlayersAdapter(players, this, activity as Activity)
+    private fun showListPlayers(playerGeneralInfos: List<PlayerGeneralInfo>){
+        val adapter = PlayersAdapter(playerGeneralInfos, this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
     }
     private fun showProgressBar(){

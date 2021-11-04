@@ -14,21 +14,6 @@ data class PlayerGeneralInfoFromApi(
 )
 
 fun playersGenInfoToAllPlayersGeneralInfo(playersGeneralInfo: PlayersGeneralInfo): List<PlayerGeneralInfoFromApi> {
-/*    val result = mutableListOf<PlayerGeneralInfoFromApi>()
-    for(team in playersGeneralInfo.teams)
-        for(player in team.roster.roster){
-            val player =  PlayerGeneralInfoFromApi(
-                teamId = team.teamId,
-                teamFullName = team.teamNameFull,
-                teamShortName = team.teamNameShort,
-                jerseyNumber = player.jerseyNumber,
-                playerId = player.person.playerId,
-                fullName = player.person.fullName,
-                linkOnPlayerDetailInfo = player.person.linkOnPlayerDetailInfo
-            )
-            result.add(player)
-        }*/
-
     return playersGeneralInfo.teams.flatMap { team ->
         team.roster.roster.map{player->
             PlayerGeneralInfoFromApi(
