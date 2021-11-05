@@ -6,9 +6,7 @@ import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import com.google.gson.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.*
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerGeneralInfoFromApi
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayersGeneralInfo
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.playersGenInfoToAllPlayersGeneralInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.*
 import com.sayut61.hockey.domain.entities.TeamPlayersInfo
@@ -51,7 +49,8 @@ class RemoteDataSource @Inject constructor() {
         @GET(value = "/api/v1/teams/{id}/roster")
         suspend fun getPlayersInfoByTeam(@Path("id", encoded = true)id: Int): TeamPlayersInfoFromApi
 
-
+        @GET(value = "/api/v1/people/{playerId}")
+        suspend fun getPlayerFullInfo(@Path("id", encoded = true)id: Int): PlayerInfo
     }
 
     private interface RestNHLInfoSecondAPI {
@@ -89,7 +88,12 @@ class RemoteDataSource @Inject constructor() {
     private var serviceForFirstApi = retrofitFirstApiInfo.create(RestNHLInfoFirstAPI::class.java)
     private var serviceForSecondApi = retrofitSecondApiInfo.create(RestNHLInfoSecondAPI::class.java)
 
-    //Retrofit
+    //Retrofit[
+    suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfoFromApi{
+        val player = serviceForFirstApi.getPlayerFullInfo(playerId)
+        return playerInfoToPlayerFullInfo(player)
+    }
+
     suspend fun getPlayersInfoByTeam(teamId: Int): List<TeamPlayers>{
         val teamPlayers = serviceForFirstApi.getPlayersInfoByTeam(teamId)
         return teamPlayersInfoFromApiToTeamPlayers(teamPlayers)
