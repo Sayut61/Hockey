@@ -2,6 +2,7 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams
 
 import com.google.gson.annotations.SerializedName
 import java.lang.Exception
+import kotlin.math.roundToInt
 
 data class FullInfoByTeam(
     val id: Int,
@@ -28,37 +29,33 @@ data class FullInfoByTeam(
 )
 
 fun teamFullInfoFromFirstApiResponseToFullInfoByTeams(teams: TeamFullInfoFromFirstApiResponse): FullInfoByTeam {
-    val resultList = teams.teams.flatMap { fullInfo ->
-        fullInfo.teamStats.flatMap { it.splits }.map { stats ->
-            FullInfoByTeam(
-                id = fullInfo.id,
-                teamFullName = fullInfo.teamFullName,
-                teamShortName = fullInfo.teamShortName,
-                firstYearOfPlay = fullInfo.firstYearOfPlay,
-                gamesPlayed = stats.statByNumbers.gamesPlayed,
-                wins = stats.statByNumbers.wins,
-                losses = stats.statByNumbers.losses,
-                pts = stats.statByNumbers.pts,
-                goalsPerGame = stats.statByNumbers.goalsPerGame,
-                goalsAgainstPerGame = stats.statByNumbers.goalsAgainstPerGame,
-                powerPlayPercentage = stats.statByNumbers.powerPlayPercentage,
-                powerPlayGoals = stats.statByNumbers.powerPlayGoals,
-                powerPlayGoalsAgainst = stats.statByNumbers.powerPlayGoalsAgainst,
-                powerPlayOpportunities = stats.statByNumbers.powerPlayOpportunities,
-                shotsPerGame = stats.statByNumbers.shotsPerGame,
-                shotsAllowed = stats.statByNumbers.shotsPerGame,
-                placeOnWins = stats.statByPlaces.placeOnWins,
-                placeOnLosses = stats.statByPlaces.placeOnLosses,
-                placeOnPts = stats.statByPlaces.placeOnPts,
-                placeGoalsPerGame = stats.statByPlaces.placeGoalsPerGame,
-                placeGoalsAgainstPerGame = stats.statByPlaces.placeGoalsAgainstPerGame
-            )
-        }
-    }
-    return if (resultList.isNotEmpty())
-        resultList[0]
-    else
-        throw Exception("error get teams info")
+    val stats = teams.teams[0].teamStats[0].splits
+    val statByNumbers = stats[0].stat
+    val statByPlaces = stats[1].stat
+
+   return FullInfoByTeam(
+        id = teams.teams[0].id,
+        teamFullName = teams.teams[0].teamFullName,
+        teamShortName = teams.teams[0].teamShortName,
+        firstYearOfPlay = teams.teams[0].firstYearOfPlay,
+        gamesPlayed = statByNumbers.gamesPlayed ?: throw Exception("error get teams info"),
+        wins = (statByNumbers.wins as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
+        losses = (statByNumbers.losses as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
+        pts = (statByNumbers.pts as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
+        goalsPerGame = (statByNumbers.goalsPerGame as? Double) ?: throw Exception("error get teams info"),
+        goalsAgainstPerGame = (statByNumbers.goalsAgainstPerGame as? Double)?: throw Exception("error get teams info"),
+        powerPlayPercentage = (statByNumbers.powerPlayPercentage as? String)?: throw Exception("error get teams info"),
+        powerPlayGoals = (statByNumbers.powerPlayGoals as? Double)?: throw Exception("error get teams info"),
+        powerPlayGoalsAgainst = (statByNumbers.powerPlayGoalsAgainst as? Double)?: throw Exception("error get teams info"),
+        powerPlayOpportunities = (statByNumbers.powerPlayOpportunities as? Double)?: throw Exception("error get teams info"),
+        shotsPerGame = (statByNumbers.shotsPerGame as? Double)?: throw Exception("error get teams info"),
+        shotsAllowed = (statByNumbers.shotsAllowed as? Double)?: throw Exception("error get teams info"),
+        placeOnWins = (statByPlaces.wins as? String)?: throw Exception("error get teams info"),
+        placeOnLosses = (statByPlaces.losses as? String)?: throw Exception("error get teams info"),
+        placeOnPts = (statByPlaces.pts as? String)?: throw Exception("error get teams info"),
+        placeGoalsPerGame = (statByPlaces.goalsAgainstPerGame as? String)?: throw Exception("error get teams info"),
+        placeGoalsAgainstPerGame = (statByPlaces.goalsAgainstPerGame as? String)?: throw Exception("error get teams info")
+    )
 }
 
 data class TeamFullInfoFromFirstApiResponse(
@@ -72,44 +69,29 @@ data class FullInfoByTeamResponse(
     @SerializedName("teamName")
     val teamShortName: String,
     val firstYearOfPlay: Int,
-    val teamStats: List<Stats>
+    val teamStats: List<Splits>
+)
+
+data class Splits(
+    val splits: List<Stats>
 )
 
 data class Stats(
-    val splits: List<StatsByNumbersAndPlaces>
+    val stat: StatInfo
 )
 
-data class StatsByNumbersAndPlaces(
-    @SerializedName("stat")
-    val statByNumbers: StatByNumbers,
-    @SerializedName("stat")
-    val statByPlaces: StatByPlaces
+data class StatInfo(
+    val gamesPlayed: Int?,
+    val wins: Any?,
+    val losses: Any?,
+    val pts: Any?,
+    val goalsPerGame: Any?,
+    val goalsAgainstPerGame: Any?,
+    val powerPlayPercentage: Any?,
+    val powerPlayGoals: Any?,
+    val powerPlayGoalsAgainst: Any?,
+    val powerPlayOpportunities: Any?,
+    val shotsPerGame: Any?,
+    val shotsAllowed: Any?,
 )
 
-data class StatByNumbers(
-    val gamesPlayed: Int,
-    val wins: Int,
-    val losses: Int,
-    val pts: Int,
-    val goalsPerGame: Double,
-    val goalsAgainstPerGame: Double,
-    val powerPlayPercentage: String,
-    val powerPlayGoals: Double,
-    val powerPlayGoalsAgainst: Double,
-    val powerPlayOpportunities: Double,
-    val shotsPerGame: Double,
-    val shotsAllowed: Double,
-)
-
-data class StatByPlaces(
-    @SerializedName("wins")
-    val placeOnWins: String,
-    @SerializedName("losses")
-    val placeOnLosses: String,
-    @SerializedName("pts")
-    val placeOnPts: String,
-    @SerializedName("goalsPerGame")
-    val placeGoalsPerGame: String,
-    @SerializedName("goalsAgainstPerGame")
-    val placeGoalsAgainstPerGame: String
-)

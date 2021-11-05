@@ -1,6 +1,7 @@
 package com.sayut61.hockey.ui.teams.teamdetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,10 @@ import com.sayut61.hockey.domain.entities.TeamFullInfo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TeamStatisticDetailFragment: Fragment() {
+class TeamStatisticDetailFragment(): Fragment() {
     private  val viewModel: TeamStatisticDetailViewModel by viewModels()
     private var _binding: FragmentTeamStatisticsBinding? = null
     private val binding get() = _binding!!
-    private val args: TeamDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,14 +30,12 @@ class TeamStatisticDetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.refreshStatFragment(args.team.id)
+        val teamId = arguments?.getInt(TEAM_ID_ARG) ?: throw  java.lang.Exception("Create me with get instance")
+        Log.d("myLog", teamId.toString())
+        viewModel.refreshStatFragment(teamId)
 
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
-        }
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            if (it == true){ showProgressBar() }
-            else hideProgressBar()
         }
         viewModel.teamStatisticLiveData.observe(viewLifecycleOwner){
             showStatInfo(it)
@@ -63,17 +61,22 @@ class TeamStatisticDetailFragment: Fragment() {
         binding.placeOnPtsTextView.text = fullInfo.placeOnPts
         binding.placeOnWinsTextView.text = fullInfo.placeOnWins
     }
-    private fun showProgressBar(){
-        binding.progressBar.visibility = View.VISIBLE
-    }
-    private fun hideProgressBar(){
-        binding.progressBar.visibility = View.INVISIBLE
-    }
     private fun showError(ex: Exception){
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TEAM_ID_ARG = "team_id"
+        fun getInstance(teamId: Int): TeamStatisticDetailFragment {
+            val bundle = Bundle()
+            bundle.putInt(TEAM_ID_ARG, teamId)
+            val teamStatisticDetailFragment = TeamStatisticDetailFragment()
+            teamStatisticDetailFragment.arguments = bundle
+            return teamStatisticDetailFragment
+        }
     }
 }

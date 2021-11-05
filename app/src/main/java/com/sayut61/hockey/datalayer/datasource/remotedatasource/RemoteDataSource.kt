@@ -97,7 +97,8 @@ class RemoteDataSource @Inject constructor() {
 
     suspend fun getTeamFullInfo(teamId: Int): FullInfoByTeam{
         val teamInfoResponse = serviceForFirstApi.getDetailInfoByTeam(teamId)
-        return teamFullInfoFromFirstApiResponseToFullInfoByTeams(teamInfoResponse)
+        val result =  teamFullInfoFromFirstApiResponseToFullInfoByTeams(teamInfoResponse)
+        return result
     }
 
     suspend fun getListPlayers(): List<PlayerGeneralInfoFromApi>{
@@ -133,6 +134,7 @@ class ErrorInterceptor : Interceptor {
 
         val request: Request = chain.request()
         val response = chain.proceed(request)
+        Log.d("myLog", "Request: $request \n Response: $response")
         if (response.code() >= 400)
             Log.d("requestError", "Request: $request \n Response: $response")
         return response

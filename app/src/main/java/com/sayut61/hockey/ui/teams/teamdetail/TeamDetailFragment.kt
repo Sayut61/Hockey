@@ -19,14 +19,15 @@ import java.lang.Exception
 
 @AndroidEntryPoint
 class TeamDetailFragment : Fragment() {
-    private  val viewModel: TeamDetailViewModel by viewModels()
+    private val viewModel: TeamDetailViewModel by viewModels()
     private var _binding: FragmentTeamDetailBinding? = null
     private val binding get() = _binding!!
     private val args: TeamDetailFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentTeamDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,13 +35,14 @@ class TeamDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf(
-            TeamStatisticDetailFragment(),
-            TeamPlayersDetailFragment()
+            TeamStatisticDetailFragment.getInstance(args.team.id),
+            TeamPlayersDetailFragment.getInstance(args.team.id)
         )
         val adapter = ViewPagerAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
-            lifecycle)
+            lifecycle
+        )
         binding.teamViewPager2.adapter = adapter
         TabLayoutMediator(binding.teamTabLayout, binding.teamViewPager2) { tab, position ->
             when (position) {
@@ -49,22 +51,24 @@ class TeamDetailFragment : Fragment() {
             }
         }.attach()
 
-    //----------------------------------------------------------------
+        //----------------------------------------------------------------
 
         viewModel.refreshTeamDetailViewModel(args.team.id)
 
-        viewModel.teamDetailLiveData.observe(viewLifecycleOwner){
+        viewModel.teamDetailLiveData.observe(viewLifecycleOwner) {
             showTeamDetailInfo(it)
         }
-        viewModel.errorLiveData.observe(viewLifecycleOwner){
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            if (it == true){ showProgressBar() }
-            else hideProgressBar()
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it == true) {
+                showProgressBar()
+            } else hideProgressBar()
         }
     }
-    private fun showTeamDetailInfo(fullInfo: TeamFullInfo){
+
+    private fun showTeamDetailInfo(fullInfo: TeamFullInfo) {
         binding.teamFullNameTextView.text = fullInfo.teamGeneralInfo.fullTeamName
         binding.firstYearOfPlayTextView.text = fullInfo.firstYearOfPlay.toString()
         fullInfo.teamGeneralInfo.urlLogoTeam.let { logoUrl ->
@@ -73,16 +77,11 @@ class TeamDetailFragment : Fragment() {
             }
         }
     }
-    private fun showProgressBar(){
-        binding.progressBar.visibility = View.VISIBLE
+    private fun showProgressBar() { binding.progressBar.visibility = View.VISIBLE }
+    private fun hideProgressBar() { binding.progressBar.visibility = View.INVISIBLE }
+    private fun showError(ex: Exception) {
+        Toast.makeText(requireContext(), "Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
-    private fun hideProgressBar(){
-        binding.progressBar.visibility = View.INVISIBLE
-    }
-    private fun showError(ex: Exception){
-        Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

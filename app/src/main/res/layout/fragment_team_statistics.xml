@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -103,37 +107,37 @@
         android:id="@+id/powerPlayPercentageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t10"
-        app:layout_constraintTop_toBottomOf="@+id/t8" />
+        app:layout_constraintTop_toBottomOf="@+id/powerPlayOpportunitiesTextView" />
 
     <TextView
         android:id="@+id/t9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="156dp"
         android:text="забито: "
-        app:layout_constraintStart_toEndOf="@+id/powerPlayOpportunitiesTextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t8" />
 
     <TextView
         android:id="@+id/t10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:text="процент: "
-        app:layout_constraintStart_toEndOf="@+id/powerPlayGoalsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/t8" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t11" />
 
     <TextView
         android:id="@+id/powerPlayGoalsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t9"
@@ -143,7 +147,7 @@
         android:id="@+id/t11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:text="попыток: "
         app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +157,7 @@
         android:id="@+id/powerPlayOpportunitiesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t11"
@@ -163,21 +167,21 @@
         android:id="@+id/t12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="124dp"
         android:text="пропущено: "
-        app:layout_constraintStart_toEndOf="@+id/powerPlayPercentageTextView"
-        app:layout_constraintTop_toBottomOf="@+id/t8" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t9" />
 
     <TextView
         android:id="@+id/powerPlayGoalsAgainstTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t12"
-        app:layout_constraintTop_toBottomOf="@+id/t8" />
+        app:layout_constraintTop_toBottomOf="@+id/powerPlayGoalsTextView" />
 
     <TextView
         android:id="@+id/t13"
@@ -223,7 +227,7 @@
         android:id="@+id/shotsAllowedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t14"
@@ -233,7 +237,7 @@
         android:id="@+id/goalsAgainstPerGameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t14"
@@ -274,7 +278,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="80dp"
         android:text="T"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t1" />
@@ -318,7 +322,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="80dp"
         android:text="T"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t15" />
@@ -328,7 +332,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="88dp"
         android:text="T"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t16" />
@@ -347,7 +351,7 @@
         android:id="@+id/placeGoalsPerGameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="228dp"
+        android:layout_marginStart="236dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toStartOf="parent"
@@ -367,20 +371,11 @@
         android:id="@+id/placeGoalsAgainstPerGameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="228dp"
+        android:layout_marginStart="236dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeGoalsPerGameTextView" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
