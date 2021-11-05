@@ -64,6 +64,7 @@ class PlayerRepositoryImpl @Inject constructor(
             wing = playerInfo.wing,
             position = playerInfo.position
         )
+
     }
 
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
