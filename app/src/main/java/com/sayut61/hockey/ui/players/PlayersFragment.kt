@@ -47,8 +47,8 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     private fun showError(exception: Exception){
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
-    private fun showListPlayers(playerGeneralInfos: List<PlayerGeneralInfo>){
-        val adapter = PlayersAdapter(playerGeneralInfos, this, activity as Activity)
+    private fun showListPlayers(playerGeneralInfo: List<PlayerGeneralInfo>){
+        val adapter = PlayersAdapter(playerGeneralInfo, this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
     }
     private fun showProgressBar(){

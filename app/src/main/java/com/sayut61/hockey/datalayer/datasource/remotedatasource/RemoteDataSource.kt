@@ -50,7 +50,7 @@ class RemoteDataSource @Inject constructor() {
         suspend fun getPlayersInfoByTeam(@Path("id", encoded = true)id: Int): TeamPlayersInfoFromApi
 
         @GET(value = "/api/v1/people/{playerId}")
-        suspend fun getPlayerFullInfo(@Path("id", encoded = true)id: Int): PlayerInfo
+        suspend fun getPlayerFullInfo(@Path("playerId", encoded = true)playerId: Int): PlayerInfo
     }
 
     private interface RestNHLInfoSecondAPI {

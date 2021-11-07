@@ -11,13 +11,13 @@ import com.sayut61.hockey.ui.utils.loadImage
 interface PlayersAdapterListener{
     fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo)
 }
-class PlayersAdapter(val playerGeneralInfos: List<PlayerGeneralInfo>, val listener: PlayersAdapterListener, val activity: Activity?): RecyclerView.Adapter<PlayersViewHolder>() {
+class PlayersAdapter(private val playerGeneralInfo: List<PlayerGeneralInfo>, private val listener: PlayersAdapterListener, val activity: Activity?): RecyclerView.Adapter<PlayersViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersViewHolder {
         return PlayersViewHolder(PlayersItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: PlayersViewHolder, position: Int) {
-        val player = playerGeneralInfos[position]
+        val player = playerGeneralInfo[position]
         holder.itemView.setOnClickListener {
             listener.onPlayerClick(player)
         }
@@ -25,7 +25,7 @@ class PlayersAdapter(val playerGeneralInfos: List<PlayerGeneralInfo>, val listen
     }
 
     override fun getItemCount(): Int {
-        return playerGeneralInfos.size
+        return playerGeneralInfo.size
     }
 
 }

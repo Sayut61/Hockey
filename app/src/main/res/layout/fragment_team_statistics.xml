@@ -72,16 +72,6 @@
         app:layout_constraintTop_toBottomOf="@+id/t13" />
 
     <TextView
-        android:id="@+id/t6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="голы (соперник): "
-        app:layout_constraintStart_toEndOf="@+id/goalsPerGameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/t14" />
-
-    <TextView
         android:id="@+id/t7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -352,10 +342,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="236dp"
-        android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t6" />
+        tools:layout_editor_absoluteY="264dp" />
 
     <TextView
         android:id="@+id/t19"
@@ -376,6 +365,16 @@
         android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeGoalsPerGameTextView" />
+
+    <TextView
+        android:id="@+id/t6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="голы (соперник): "
+        app:layout_constraintStart_toEndOf="@+id/goalsPerGameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/t14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -49,6 +49,7 @@ class PlayerRepositoryImpl @Inject constructor(
 
     override suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo {
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
+        val logo = remoteDataSource.getTeamsSecondApi().find {team-> playerInfo.teamFullName.endsWith(team.shortName) }
         return PlayerFullInfo(
             playerId = playerInfo.playerId,
             fullName = playerInfo.fullName,
@@ -62,7 +63,8 @@ class PlayerRepositoryImpl @Inject constructor(
             teamId = playerInfo.teamId,
             teamFullName = playerInfo.teamFullName,
             wing = playerInfo.wing,
-            position = playerInfo.position
+            position = playerInfo.position,
+            teamLogo = logo?.wikipediaLogoUrl
         )
 
     }
