@@ -59,6 +59,9 @@ class RemoteDataSource @Inject constructor() {
 
         @GET(value = "Stadiums?key=1dd2b753fe264d2b9d7d08d0988b34e2")
         suspend fun getStadiumInfoBySecondApi(): List<StadiumGeneralInfo>
+
+        @GET(value = "Players?key=1dd2b753fe264d2b9d7d08d0988b34e2")
+        suspend fun getPlayersPhoto(): List<PlayersInfoFromSecondApi>
     }
 
     //Retrofit
@@ -89,6 +92,10 @@ class RemoteDataSource @Inject constructor() {
     private var serviceForSecondApi = retrofitSecondApiInfo.create(RestNHLInfoSecondAPI::class.java)
 
     //Retrofit[
+    suspend fun getPlayersPhoto(): List<PlayersInfoFromSecondApi>{
+        return serviceForSecondApi.getPlayersPhoto()
+    }
+
     suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfoFromApi{
         val player = serviceForFirstApi.getPlayerFullInfo(playerId)
         return playerInfoToPlayerFullInfo(player)

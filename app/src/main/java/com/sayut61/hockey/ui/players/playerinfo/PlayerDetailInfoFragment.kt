@@ -57,6 +57,11 @@ class PlayerDetailInfoFragment : Fragment() {
                 loadImage(logoUrl, activity, binding.teamLogoImageView)
             }
         }
+        playerFullInfo.playerPhoto.let { logoUrl ->
+            if (logoUrl != null) {
+                loadImage(logoUrl, activity, binding.playerPhotoImageView)
+            }
+        }
     }
     private fun showError(ex: Exception){
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG ).show()

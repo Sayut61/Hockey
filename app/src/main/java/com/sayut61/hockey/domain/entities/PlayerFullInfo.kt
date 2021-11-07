@@ -14,5 +14,6 @@ data class PlayerFullInfo(
     val teamFullName: String,
     val wing: String,
     val position: String,
-    val teamLogo: String?
+    val teamLogo: String?,
+    val playerPhoto: String?
 )
