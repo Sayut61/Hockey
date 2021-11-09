@@ -2,13 +2,13 @@ package com.sayut61.hockey.ui.players
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentPlayersBinding
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.ui.adapters.PlayersAdapter
@@ -23,6 +23,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View { _binding = FragmentPlayersBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
         }
-        viewModel.listPlayerGeneralInfoLiveData.observe(viewLifecycleOwner){
+        viewModel.listPlayersLiveData.observe(viewLifecycleOwner){
             showListPlayers(it)
         }
         viewModel.progressBarLiveData.observe(viewLifecycleOwner){
@@ -56,6 +57,22 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     }
     private fun hideProgressBar(){
         binding.progressBar.visibility = View.INVISIBLE
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.top_menu, menu)
+        val itemSearchView =menu.findItem(R.id.searchView)
+        val searchView = itemSearchView.actionView as SearchView
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+            override fun onQueryTextChange(text: String?): Boolean {
+                viewModel.changeFilter(text?:"")
+                return true
+            }
+        })
     }
     override fun onDestroyView() {
         super.onDestroyView()

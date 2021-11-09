@@ -1,9 +1,6 @@
 package com.sayut61.hockey.ui.players
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.usecases.PlayersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,13 +13,21 @@ class PlayersViewModel @Inject constructor(
     private val playersUseCases: PlayersUseCases
 ) : ViewModel() {
     private val _listPlayersLiveData = MutableLiveData<List<PlayerGeneralInfo>>()
-    val listPlayerGeneralInfoLiveData: LiveData<List<PlayerGeneralInfo>> = _listPlayersLiveData
+    var textForFilterLiveData = MutableLiveData<String>()
+    val listPlayersLiveData = MediatorLiveData<List<PlayerGeneralInfo>>().apply {
+        addSource(_listPlayersLiveData){ value = filterPlayers() }
+        addSource(textForFilterLiveData){ value = filterPlayers() }
+    }
 
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
 
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
+
+    fun changeFilter(text: String){
+        textForFilterLiveData.value = text
+    }
 
     fun addToFavorite(){
         viewModelScope.launch {
@@ -44,5 +49,10 @@ class PlayersViewModel @Inject constructor(
             }
             _progressBarLiveData.value = false
         }
+    }
+
+    private fun filterPlayers(): List<PlayerGeneralInfo>? {
+//        val players = _listPlayersLiveData.value
+        return _listPlayersLiveData.value?.filter { it.fullName.contains(textForFilterLiveData.value?:"", true) }
     }
 }
