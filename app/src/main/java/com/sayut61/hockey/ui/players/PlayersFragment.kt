@@ -28,7 +28,6 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.addToFavorite()
         viewModel.refreshFragment()
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
@@ -45,6 +44,15 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
         findNavController().navigate(action)
     }
+
+    override fun onFavoriteButtonClick(playerId: PlayerGeneralInfo) {
+        if(playerId.isInFavorite){
+            viewModel.addToFavorite(playerId)
+        }else{
+            viewModel.removeToFavorite(playerId)
+        }
+    }
+
     private fun showError(exception: Exception){
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }

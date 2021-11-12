@@ -4,14 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class FavoritePlayer (
+data class FavoritePlayer (
     @PrimaryKey
-    val teamId: Int,
-    val teamFullName: String,
-    val teamShortName: String,
-    val jerseyNumber: Int,
     val playerId: Int,
-    val fullName: String,
-    val linkOnPlayerDetailInfo: String,
-    val logo: String?
     )

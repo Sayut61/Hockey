@@ -49,16 +49,13 @@ class CalendarFragment : Fragment(), CalendarAdapterListener {
             else hideProgressBar()
         }
     }
-
     private fun showError(ex: Exception) {
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
-
     private fun showCalendarInfo(gameFullInfo: List<GameFullInfo>) {
         val adapter = CalendarAdapter(gameFullInfo, this, activity)
         binding.recyclerViewCalendar.adapter = adapter
     }
-
     override fun onCalendarClick(gameFullInfo: GameFullInfo) {
         val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameFullInfo.generalInfo)
         findNavController().navigate(action)

@@ -29,14 +29,16 @@ class PlayersViewModel @Inject constructor(
         textForFilterLiveData.value = text
     }
 
-    fun addToFavorite(){
+    fun addToFavorite(playerId: PlayerGeneralInfo){
         viewModelScope.launch {
-            val players = _listPlayersLiveData.value
-            if (players != null) {
-                for (player in players){
-                    playersUseCases.addToFavoritePlayer(player)
-                }
-            }
+            playersUseCases.addToFavoritePlayer(playerId)
+            refreshFragment()
+        }
+    }
+    fun removeToFavorite(playerId: PlayerGeneralInfo){
+        viewModelScope.launch {
+            playersUseCases.removeFromFavoritePlayer(playerId)
+            refreshFragment()
         }
     }
     fun refreshFragment(){

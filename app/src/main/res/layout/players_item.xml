@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageButton
+        android:id="@+id/addToFavoriteImageButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#00FFFFFF"
+        android:minWidth="18dp"
+        android:minHeight="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_favorite_gameminus"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <TextView
         android:id="@+id/playerNumberTextView"
         android:layout_width="wrap_content"
@@ -12,14 +26,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="T"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoPlayerImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/playerFullNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="T"
         app:layout_constraintStart_toEndOf="@+id/playerNumberTextView"
@@ -29,8 +43,9 @@
         android:id="@+id/logoPlayerImageView"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

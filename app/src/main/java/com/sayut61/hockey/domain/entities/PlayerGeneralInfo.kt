@@ -9,5 +9,6 @@ data class PlayerGeneralInfo(
     val playerId: Int,
     val fullName: String,
     val linkOnPlayerDetailInfo: String,
-    val logo: String?
+    val logo: String?,
+    val isInFavorite: Boolean
 )

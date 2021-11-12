@@ -12,7 +12,6 @@ class GameFavoriteRepositoryImpl @Inject constructor(
     val gamesInfoDao: GamesInfoDao,
     val remoteDataSource: RemoteDataSource
 ) : GameFavoriteRepository {
-
     override suspend fun getFavoriteGames(): List<GameFullInfo> {
         val listFavoriteGames = gamesInfoDao.getAllInfo()
         return listFavoriteGames.map { favoriteGame ->
@@ -39,15 +38,12 @@ class GameFavoriteRepositoryImpl @Inject constructor(
             )
         }
     }
-
     override suspend fun removeFromFavoriteGame(gameGeneralInfo: GameGeneralInfo) {
         gamesInfoDao.delete(gameToFavoriteGame(gameGeneralInfo))
     }
-
     override suspend fun addToFavoriteGame(gameGeneralInfo: GameGeneralInfo) {
         gamesInfoDao.insert(gameToFavoriteGame(gameGeneralInfo))
     }
-
     fun gameToFavoriteGame(gameGeneralInfo: GameGeneralInfo): FavoriteGame {
         return FavoriteGame(
             gameGeneralInfo.gameDate,
@@ -61,7 +57,6 @@ class GameFavoriteRepositoryImpl @Inject constructor(
             gameGeneralInfo.awayTeamLogo,
         )
     }
-
     fun favoriteGameToGameGeneralInfo(favoriteGame: FavoriteGame): GameGeneralInfo {
         return GameGeneralInfo(
             favoriteGame.gameDate,

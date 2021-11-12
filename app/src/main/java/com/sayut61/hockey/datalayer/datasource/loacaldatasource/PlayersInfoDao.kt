@@ -6,10 +6,8 @@ import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoritePlay
 interface PlayersInfoDao {
     @Query("SELECT * FROM favoritePlayer" )
     suspend fun getPlayers(): List<FavoritePlayer>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(id: FavoritePlayer)
-
     @Delete
     suspend fun delete(id: FavoritePlayer)
 }

@@ -16,6 +16,7 @@ class PlayerRepositoryImpl @Inject constructor(
         val teams = remoteDataSource.getTeamsSecondApi()
         return remoteDataSource.getListPlayers().map{playerFromApi->
             val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
+            val isInDb = playersInfoDao.getPlayers().find{it.playerId == playerFromApi.playerId}!= null
             PlayerGeneralInfo(
                 teamId = playerFromApi.teamId,
                 teamFullName = playerFromApi.teamFullName,
@@ -24,14 +25,14 @@ class PlayerRepositoryImpl @Inject constructor(
                 playerId = playerFromApi.playerId,
                 fullName = playerFromApi.fullName,
                 linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo,
-                logo = teamInfo?.wikipediaLogoUrl
+                logo = teamInfo?.wikipediaLogoUrl,
+                isInFavorite = isInDb
             )
         }
     }
     override suspend fun getPlayersFromDB(): List<PlayerGeneralInfo> {
         val filteredListPlayers =remoteDataSource.getListPlayers().filter { playersFromApi->
-            playersInfoDao.getPlayers().find { it.teamId == playersFromApi.teamId }!=null
-        }
+            playersInfoDao.getPlayers().find { it.playerId == playersFromApi.playerId }!=null }
         return filteredListPlayers.map {playerGeneralInfoFromApi->
             val logo = remoteDataSource.getTeamsSecondApi().find{it.shortName == playerGeneralInfoFromApi.teamShortName }
             PlayerGeneralInfo(
@@ -42,11 +43,11 @@ class PlayerRepositoryImpl @Inject constructor(
                 playerId = playerGeneralInfoFromApi.playerId,
                 fullName = playerGeneralInfoFromApi.fullName,
                 linkOnPlayerDetailInfo = playerGeneralInfoFromApi.linkOnPlayerDetailInfo,
-                logo = logo!!.wikipediaLogoUrl
+                logo = logo!!.wikipediaLogoUrl,
+                true
             )
         }
     }
-
     override suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo {
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
         val logo = remoteDataSource.getTeamsSecondApi().find {team-> playerInfo.teamFullName.endsWith(team.shortName) }
@@ -68,37 +69,37 @@ class PlayerRepositoryImpl @Inject constructor(
             teamLogo = logo?.wikipediaLogoUrl,
             playerPhoto = photo?.photoUrl
         )
+    }
+    override suspend fun addToFavoritePlayer(playerId: PlayerGeneralInfo) {
+        playersInfoDao.insert(FavoritePlayer(playerId.playerId)) }
 
-    }
+    override suspend fun removeFromFavoritePlayer(playerId: PlayerGeneralInfo) {
+        playersInfoDao.delete(FavoritePlayer(playerId.playerId)) }
 
-    override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
-        playersInfoDao.insert(playerToFavoritePlayer(playerGeneralInfo))
-    }
-    override suspend fun removeFromFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
-        playersInfoDao.delete(playerToFavoritePlayer(playerGeneralInfo))
-    }
-    fun playerToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo): FavoritePlayer{
-        return FavoritePlayer(
-            playerGeneralInfo.teamId,
-            playerGeneralInfo.teamFullName,
-            playerGeneralInfo.teamShortName,
-            playerGeneralInfo.jerseyNumber,
-            playerGeneralInfo.playerId,
-            playerGeneralInfo.fullName,
-            playerGeneralInfo.linkOnPlayerDetailInfo,
-            playerGeneralInfo.logo
-        )
-    }
-    fun favoritePlayerToPlayer(favoritePlayer: FavoritePlayer): PlayerGeneralInfo{
-        return PlayerGeneralInfo(
-            favoritePlayer.teamId,
-            favoritePlayer.teamFullName,
-            favoritePlayer.teamShortName,
-            favoritePlayer.jerseyNumber,
-            favoritePlayer.playerId,
-            favoritePlayer.fullName,
-            favoritePlayer.linkOnPlayerDetailInfo,
-            favoritePlayer.logo
-        )
-    }
+
+//    fun playerToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo): FavoritePlayer{
+//        return FavoritePlayer(
+//            playerGeneralInfo.teamId,
+//            playerGeneralInfo.teamFullName,
+//            playerGeneralInfo.teamShortName,
+//            playerGeneralInfo.jerseyNumber,
+//            playerGeneralInfo.playerId,
+//            playerGeneralInfo.fullName,
+//            playerGeneralInfo.linkOnPlayerDetailInfo,
+//            playerGeneralInfo.logo
+//        )
+//    }
+//    fun favoritePlayerToPlayer(favoritePlayer: FavoritePlayer): PlayerGeneralInfo{
+//        return PlayerGeneralInfo(
+//            favoritePlayer.teamId,
+//            favoritePlayer.teamFullName,
+//            favoritePlayer.teamShortName,
+//            favoritePlayer.jerseyNumber,
+//            favoritePlayer.playerId,
+//            favoritePlayer.fullName,
+//            favoritePlayer.linkOnPlayerDetailInfo,
+//            favoritePlayer.logo,
+//            true
+//        )
+//    }
 }
