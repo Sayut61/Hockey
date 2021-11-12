@@ -24,26 +24,33 @@ class PlayersAdapter(private val playerGeneralInfo: List<PlayerGeneralInfo>,
         holder.itemView.setOnClickListener {
             listener.onPlayerClick(player)
         }
-        holder.binding.addToFavoriteImageButton.setOnClickListener {
-            listener.onFavoriteButtonClick(player)
-        }
-        holder.bind(player, activity)
+        holder.bind(player, activity, listener)
     }
     override fun getItemCount(): Int {
         return playerGeneralInfo.size
     }
-
 }
 class PlayersViewHolder(val binding: PlayersItemBinding): RecyclerView.ViewHolder(binding.root){
-    fun bind(playerGeneralInfo: PlayerGeneralInfo, activity: Activity?){
+    fun bind(playerGeneralInfo: PlayerGeneralInfo, activity: Activity?, listener: PlayersAdapterListener){
         binding.playerNumberTextView.text = playerGeneralInfo.jerseyNumber.toString()
         binding.playerFullNameTextView.text = playerGeneralInfo.fullName
         playerGeneralInfo.logo?.let{ logoUrl->
             loadImage(logoUrl, activity, binding.logoPlayerImageView)
         }
-        binding.addToFavoriteImageButton.setImageResource(if(playerGeneralInfo.isInFavorite)
-            R.drawable.ic_baseline_favorite_gameplus
-        else
-            R.drawable.ic_baseline_favorite_gameminus)
+        setIsInFavoriteButton(playerGeneralInfo.isInFavorite)
+
+        binding.addToFavoriteImageButton.setOnClickListener {
+            listener.onFavoriteButtonClick(playerGeneralInfo)
+            setIsInFavoriteButton(!playerGeneralInfo.isInFavorite)
+        }
+    }
+
+    private fun setIsInFavoriteButton(isInFavorite: Boolean) {
+        binding.addToFavoriteImageButton.setImageResource(
+            if (isInFavorite)
+                R.drawable.ic_baseline_favorite_gameplus
+            else
+                R.drawable.ic_baseline_favorite_gameminus
+        )
     }
 }

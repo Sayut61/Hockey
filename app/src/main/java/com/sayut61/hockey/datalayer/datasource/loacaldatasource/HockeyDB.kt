@@ -5,11 +5,8 @@ import androidx.room.RoomDatabase
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoriteGame
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoritePlayer
 
-@Database(entities = [FavoriteGame::class], version = 1)
-abstract class HockeyGameDB: RoomDatabase() {
+@Database(entities = [FavoriteGame::class, FavoritePlayer::class], version = 1)
+abstract class HockeyDB: RoomDatabase() {
     abstract fun gamesInfoDao(): GamesInfoDao
-}
-@Database(entities = [FavoritePlayer::class], version = 1)
-abstract class HockeyPlayerDB: RoomDatabase() {
     abstract fun playersInfoDao(): PlayersInfoDao
 }

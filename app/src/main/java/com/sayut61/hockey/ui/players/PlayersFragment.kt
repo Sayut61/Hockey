@@ -18,70 +18,77 @@ import java.lang.Exception
 
 @AndroidEntryPoint
 class PlayersFragment : Fragment(), PlayersAdapterListener {
-    private  val viewModel: PlayersViewModel by viewModels()
+    private val viewModel: PlayersViewModel by viewModels()
     private var _binding: FragmentPlayersBinding? = null
     private val binding get() = _binding!!
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View { _binding = FragmentPlayersBinding.inflate(inflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentPlayersBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.refreshFragment()
-        viewModel.errorLiveData.observe(viewLifecycleOwner){
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-        viewModel.listPlayersLiveData.observe(viewLifecycleOwner){
+        viewModel.listPlayersLiveData.observe(viewLifecycleOwner) {
             showListPlayers(it)
         }
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            if(it == true)showProgressBar()
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it == true) showProgressBar()
             else hideProgressBar()
         }
     }
+
     override fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo) {
-        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
+        val action =
+            PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
         findNavController().navigate(action)
     }
 
-    override fun onFavoriteButtonClick(playerId: PlayerGeneralInfo) {
-        if(playerId.isInFavorite){
-            viewModel.addToFavorite(playerId)
-        }else{
-            viewModel.removeToFavorite(playerId)
-        }
+    override fun onFavoriteButtonClick(playerGeneralInfo: PlayerGeneralInfo) {
+        viewModel.onFavoriteClick(playerGeneralInfo)
     }
 
-    private fun showError(exception: Exception){
+
+    private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
-    private fun showListPlayers(playerGeneralInfo: List<PlayerGeneralInfo>){
+
+    private fun showListPlayers(playerGeneralInfo: List<PlayerGeneralInfo>) {
         val adapter = PlayersAdapter(playerGeneralInfo, this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
     }
-    private fun showProgressBar(){
+
+    private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
     }
-    private fun hideProgressBar(){
+
+    private fun hideProgressBar() {
         binding.progressBar.visibility = View.INVISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.top_menu, menu)
-        val itemSearchView =menu.findItem(R.id.searchView)
+        val itemSearchView = menu.findItem(R.id.searchView)
         val searchView = itemSearchView.actionView as SearchView
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true
             }
+
             override fun onQueryTextChange(text: String?): Boolean {
-                viewModel.changeFilter(text?:"")
+                viewModel.changeFilter(text ?: "")
                 return true
             }
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

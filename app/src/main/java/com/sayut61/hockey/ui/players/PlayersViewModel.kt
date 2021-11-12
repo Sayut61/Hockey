@@ -29,27 +29,28 @@ class PlayersViewModel @Inject constructor(
         textForFilterLiveData.value = text
     }
 
-    fun addToFavorite(playerId: PlayerGeneralInfo){
+    fun onFavoriteClick(playerGeneralInfo: PlayerGeneralInfo){
         viewModelScope.launch {
-            playersUseCases.addToFavoritePlayer(playerId)
-            refreshFragment()
+            if (playerGeneralInfo.isInFavorite)
+                playersUseCases.removeFromFavoritePlayer(playerGeneralInfo)
+            else
+                playersUseCases.addToFavoritePlayer(playerGeneralInfo)
+
+            refreshFragment(false)
         }
     }
-    fun removeToFavorite(playerId: PlayerGeneralInfo){
+
+    fun refreshFragment(showProgressBar: Boolean = true){
         viewModelScope.launch {
-            playersUseCases.removeFromFavoritePlayer(playerId)
-            refreshFragment()
-        }
-    }
-    fun refreshFragment(){
-        viewModelScope.launch {
-            _progressBarLiveData.value = true
+            if (showProgressBar)
+                _progressBarLiveData.value = true
             try {
                 _listPlayersLiveData.value = playersUseCases.getPlayersListApi()
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }
-            _progressBarLiveData.value = false
+            if (showProgressBar)
+                _progressBarLiveData.value = false
         }
     }
 

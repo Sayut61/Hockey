@@ -70,11 +70,11 @@ class PlayerRepositoryImpl @Inject constructor(
             playerPhoto = photo?.photoUrl
         )
     }
-    override suspend fun addToFavoritePlayer(playerId: PlayerGeneralInfo) {
-        playersInfoDao.insert(FavoritePlayer(playerId.playerId)) }
+    override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
+        playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId)) }
 
-    override suspend fun removeFromFavoritePlayer(playerId: PlayerGeneralInfo) {
-        playersInfoDao.delete(FavoritePlayer(playerId.playerId)) }
+    override suspend fun removeFromFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
+        playersInfoDao.delete(FavoritePlayer(playerGeneralInfo.playerId)) }
 
 
 //    fun playerToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo): FavoritePlayer{

@@ -20,14 +20,18 @@ import javax.inject.Singleton
 object AppModule{
     @Singleton
     @Provides
-    fun provideGamesInfoDao(@ApplicationContext context: Context): GamesInfoDao {
-        val db = Room.databaseBuilder(context, HockeyGameDB::class.java, "game").build()
+    fun provideHockeyDB(@ApplicationContext context: Context): HockeyDB {
+        return Room.databaseBuilder(context, HockeyDB::class.java, "db").build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideGamesInfoDao(db: HockeyDB): GamesInfoDao {
         return db.gamesInfoDao()
     }
     @Singleton
     @Provides
-    fun providePlayersInfoDao(@ApplicationContext context: Context): PlayersInfoDao {
-        val db = Room.databaseBuilder(context, HockeyPlayerDB::class.java, "player").build()
+    fun providePlayersInfoDao(db: HockeyDB): PlayersInfoDao {
         return db.playersInfoDao()
     }
     @Singleton
