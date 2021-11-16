@@ -53,8 +53,6 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     override fun onFavoriteButtonClick(playerGeneralInfo: PlayerGeneralInfo) {
         viewModel.onFavoriteClick(playerGeneralInfo)
     }
-
-
     private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }

@@ -35,7 +35,6 @@ class PlayersViewModel @Inject constructor(
                 playersUseCases.removeFromFavoritePlayer(playerGeneralInfo)
             else
                 playersUseCases.addToFavoritePlayer(playerGeneralInfo)
-
             refreshFragment(false)
         }
     }
