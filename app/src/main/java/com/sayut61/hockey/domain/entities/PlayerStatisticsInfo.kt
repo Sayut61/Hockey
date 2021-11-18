@@ -1,14 +1,6 @@
-package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players
+package com.sayut61.hockey.domain.entities
 
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.Splits
-
-data class PlayerStatisticsFromFirstApi(
-    val stats: List<Stat>
-)
-data class Stat(
-    val splits: List<Statistics>
-)
-data class Statistics(
+data class PlayerStatisticsInfo(
     val timeOnIce: String,
     val assists: Int,
     val goals: Int,

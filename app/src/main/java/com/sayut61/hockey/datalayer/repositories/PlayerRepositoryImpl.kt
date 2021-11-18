@@ -6,6 +6,7 @@ import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
 import com.sayut61.hockey.domain.PlayerRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
+import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import javax.inject.Inject
 
 class PlayerRepositoryImpl @Inject constructor(
@@ -70,36 +71,32 @@ class PlayerRepositoryImpl @Inject constructor(
             playerPhoto = photo?.photoUrl
         )
     }
+    override suspend fun getPlayerStatistics(playerId: Int): List<PlayerStatisticsInfo> {
+        val playerStatisticsInfo = remoteDataSource.getPlayerStatistics(playerId).stats.flatMap { stat->
+            stat.splits.map { statistics ->
+                PlayerStatisticsInfo(
+                    timeOnIce = statistics.timeOnIce,
+                    assists = statistics.assists,
+                    goals = statistics.goals,
+                    shots = statistics.shots,
+                    games = statistics.games,
+                    hits = statistics.hits,
+                    powerPlayGoals = statistics.powerPlayGoals,
+                    powerPlayPoints = statistics.powerPlayPoints,
+                    powerPlayTimeOnIce = statistics.powerPlayTimeOnIce,
+                    blocked = statistics.blocked,
+                    plusMinus = statistics.plusMinus,
+                    points = statistics.points,
+                    timeOnIcePerGame = statistics.timeOnIcePerGame
+                )
+            }
+        }
+        return playerStatisticsInfo
+    }
+
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
         playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId)) }
 
     override suspend fun removeFromFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
         playersInfoDao.delete(FavoritePlayer(playerGeneralInfo.playerId)) }
-
-
-//    fun playerToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo): FavoritePlayer{
-//        return FavoritePlayer(
-//            playerGeneralInfo.teamId,
-//            playerGeneralInfo.teamFullName,
-//            playerGeneralInfo.teamShortName,
-//            playerGeneralInfo.jerseyNumber,
-//            playerGeneralInfo.playerId,
-//            playerGeneralInfo.fullName,
-//            playerGeneralInfo.linkOnPlayerDetailInfo,
-//            playerGeneralInfo.logo
-//        )
-//    }
-//    fun favoritePlayerToPlayer(favoritePlayer: FavoritePlayer): PlayerGeneralInfo{
-//        return PlayerGeneralInfo(
-//            favoritePlayer.teamId,
-//            favoritePlayer.teamFullName,
-//            favoritePlayer.teamShortName,
-//            favoritePlayer.jerseyNumber,
-//            favoritePlayer.playerId,
-//            favoritePlayer.fullName,
-//            favoritePlayer.linkOnPlayerDetailInfo,
-//            favoritePlayer.logo,
-//            true
-//        )
-//    }
 }
