@@ -51,6 +51,9 @@ class RemoteDataSource @Inject constructor() {
 
         @GET(value = "/api/v1/people/{playerId}")
         suspend fun getPlayerFullInfo(@Path("playerId", encoded = true)playerId: Int): PlayerInfo
+
+        @GET(value = "/api/v1/people/{id}/stats?stats=statsSingleSeason&season=20212022")
+        suspend fun getPlayerStatistic(@Path("playerId", encoded = true)playerId: Int): PlayerStatisticsFromFirstApi
     }
 
     private interface RestNHLInfoSecondAPI {
@@ -91,7 +94,11 @@ class RemoteDataSource @Inject constructor() {
     private var serviceForFirstApi = retrofitFirstApiInfo.create(RestNHLInfoFirstAPI::class.java)
     private var serviceForSecondApi = retrofitSecondApiInfo.create(RestNHLInfoSecondAPI::class.java)
 
-    //Retrofit[
+    //Retrofit
+    suspend fun getPlayerStatistics(playerId: Int): PlayerStatisticsFromFirstApi{
+        return serviceForFirstApi.getPlayerStatistic(playerId)
+    }
+
     suspend fun getPlayersPhoto(): List<PlayersInfoFromSecondApi>{
         return serviceForSecondApi.getPlayersPhoto()
     }
