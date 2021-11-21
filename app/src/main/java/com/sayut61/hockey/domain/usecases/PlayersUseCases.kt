@@ -12,14 +12,11 @@ class PlayersUseCases @Inject constructor(
     suspend fun getPlayersListApi(): List<PlayerGeneralInfo>{
         return playerRepository.getPlayersFromApi()
     }
-    suspend fun getPlayersListDB(): List<PlayerGeneralInfo>{
+    suspend fun getPlayersListDB(): List<PlayerStatisticsInfo>{
         return playerRepository.getPlayersFromDB()
     }
     suspend fun getPlayerFullInfo(playerGeneralInfo: Int):PlayerFullInfo {
         return playerRepository.getPlayerFullInfo(playerGeneralInfo)
-    }
-    suspend fun getPlayerStatisticInfo(playerGeneralInfo: Int): List<PlayerStatisticsInfo> {
-        return playerRepository.getPlayerStatistics(playerGeneralInfo)
     }
     suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo){
         playerRepository.addToFavoritePlayer(playerGeneralInfo)

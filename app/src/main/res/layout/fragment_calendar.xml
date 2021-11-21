@@ -79,4 +79,12 @@
         app:layout_constraintStart_toEndOf="@+id/monthTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewCalendar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

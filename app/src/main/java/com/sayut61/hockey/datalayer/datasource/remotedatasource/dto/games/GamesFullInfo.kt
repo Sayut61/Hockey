@@ -2,11 +2,12 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.sayut61.hockey.domain.entities.PLayerNameAndNumber
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 
 data class FullInfoByGame(
-//    val players: List<String>,
+    val playersAwayTeam: List<PLayerNameAndNumber>?,
+    val playersHomeTeam: List<PLayerNameAndNumber>?,
     val currentPeriod: Int,
     val currentPeriodOrdinal: String,
     val currentPeriodTimeRemaining: String,
@@ -25,10 +26,14 @@ data class FullInfoByGame(
     val hitsHomeTeam: Int,
     val codedGameState: Int
 )
-
 fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame {
+    val playersMap: Map<String, Player>? = gameDetailResponse.gameData.players
+    val listPlayers: List<Player>? = playersMap?.values?.toList()
+    val awayTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.away.team.id }
+    val homeTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.home.team.id }
     return FullInfoByGame(
-//        players = gameDetailResponse.gameData.players,
+        playersAwayTeam = awayTeamPlayers?.map{PLayerNameAndNumber(it.fullName, it.primaryNumber)},
+        playersHomeTeam = homeTeamPlayers?.map{PLayerNameAndNumber(it.fullName, it.primaryNumber)},
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
         currentPeriodOrdinal = gameDetailResponse.liveData.lineScore.currentPeriodOrdinal,
         currentPeriodTimeRemaining = gameDetailResponse.liveData.lineScore.currentPeriodTimeRemaining,
@@ -52,46 +57,53 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
 data class GameDetailResponse(
     val gameData: GameData,
     val liveData: GameLiveData
-)
+    )
 data class GameData(
-    val status: StatusGame
-//    val players: Map<String, Player>?
-)
+    val status: StatusGame,
+    val players: Map<String, Player>?
+    )
 data class StatusGame(
     val codedGameState: Int
-)
-@Serializable
+    )
 data class Player(
     @SerializedName("id")
     val playerId: Int,
-    val fullName: String
-)
+    val fullName: String,
+    val primaryNumber: String,
+    val currentTeam: CurrentTeam
+    )
+data class CurrentTeam(
+    val id: Int
+    )
 //____________________________________
-
 data class GameLiveData(
     @SerializedName("linescore")
     val lineScore: CurrentInfo,
     @SerializedName("boxscore")
     val boxScore: TeamsScore
-)
-
+    )
 // Информация по общим игровым моментам за всю игру(голы, броски, блокированные броски, силовые приемы)
 data class TeamsScore(
     val teams: HomeOrAwayTeamScore
-)
+    )
 data class HomeOrAwayTeamScore(
     val away: TeamAwayStats,
     val home: HomeTeamStats
-)
+    )
 data class TeamAwayStats(
+    val team: Team,
     val teamStats: TeamAwaySkaterStats
-)
+    )
+data class Team(
+    val id: Int
+    )
 data class HomeTeamStats(
+    val team: Team,
     val teamStats: TeamHomeSkaterStats
-)
+    )
 data class TeamAwaySkaterStats(
     val teamSkaterStats: TeamAwaySkaterState
-)
+    )
 data class TeamHomeSkaterStats(
     val teamSkaterStats: TeamHomeSkaterState
     )
@@ -106,8 +118,7 @@ data class TeamHomeSkaterState(
     val shots: Int,
     val blocked: Int,
     val hits: Int
-)
-
+    )
 // Корректная информация по игре в реальном времени (период, время периода)
 data class CurrentInfo(
     val currentPeriod: Int,
@@ -123,17 +134,16 @@ data class PeriodsInfo(
     @SerializedName("home")
     val homeTeam: HomeTeamScore,
     @SerializedName("away")
-    val awayTeam: AwayTeamScore,
-): Parcelable
+    val awayTeam: AwayTeamScore
+    ): Parcelable
 @Parcelize
 data class HomeTeamScore(
     val goals: Int,
     val shotsOnGoal: Int
-): Parcelable
-
+    ): Parcelable
 @Parcelize
 data class AwayTeamScore(
     val goals: Int,
     val shotsOnGoal: Int
-): Parcelable
+    ): Parcelable
 

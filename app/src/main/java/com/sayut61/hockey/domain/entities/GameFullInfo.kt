@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GameFullInfo(
     val generalInfo: GameGeneralInfo,
-//    val players: List<String>,
+    val playersAwayTeam: List<PLayerNameAndNumber>?,
+    val playersHomeTeam: List<PLayerNameAndNumber>?,
     val currentPeriod: Int,
     val currentPeriodOrdinal: String,
     val currentPeriodTimeRemaining: String,
@@ -25,4 +26,10 @@ data class GameFullInfo(
     val blockedHomeTeam: Int,
     val hitsHomeTeam: Int,
     val gameState: String
+): Parcelable
+
+@Parcelize
+data class PLayerNameAndNumber(
+    val name: String,
+    val number: String
 ): Parcelable

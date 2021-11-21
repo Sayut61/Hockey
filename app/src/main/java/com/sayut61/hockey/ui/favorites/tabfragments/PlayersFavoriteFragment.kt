@@ -1,5 +1,6 @@
 package com.sayut61.hockey.ui.favorites.tabfragments
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentGameFavoriteBinding
 import com.sayut61.hockey.databinding.FragmentPlayerFavoriteBinding
 import com.sayut61.hockey.ui.adapters.PlayersAdapterListener
+import com.sayut61.hockey.ui.adapters.PlayersFavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,8 +27,12 @@ class PlayersFavoriteFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.playersFavoriteLiveData.observe(viewLifecycleOwner){
+            val adapter = PlayersFavoriteAdapter(it, activity as Activity )
+            binding.playerStatisticsRecyclerView.adapter = adapter
+        }
+        viewModel.refreshFavoriteFragment()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

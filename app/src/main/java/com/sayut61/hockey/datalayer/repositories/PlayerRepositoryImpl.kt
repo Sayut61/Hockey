@@ -31,24 +31,39 @@ class PlayerRepositoryImpl @Inject constructor(
             )
         }
     }
-    override suspend fun getPlayersFromDB(): List<PlayerGeneralInfo> {
-        val filteredListPlayers =remoteDataSource.getListPlayers().filter { playersFromApi->
-            playersInfoDao.getPlayers().find { it.playerId == playersFromApi.playerId }!=null }
-        return filteredListPlayers.map {playerGeneralInfoFromApi->
-            val logo = remoteDataSource.getTeamsSecondApi().find{it.shortName == playerGeneralInfoFromApi.teamShortName }
-            PlayerGeneralInfo(
-                teamId = playerGeneralInfoFromApi.teamId,
-                teamFullName = playerGeneralInfoFromApi.teamFullName,
-                teamShortName = playerGeneralInfoFromApi.teamShortName,
-                jerseyNumber = playerGeneralInfoFromApi.jerseyNumber,
-                playerId = playerGeneralInfoFromApi.playerId,
-                fullName = playerGeneralInfoFromApi.fullName,
-                linkOnPlayerDetailInfo = playerGeneralInfoFromApi.linkOnPlayerDetailInfo,
-                logo = logo!!.wikipediaLogoUrl,
-                true
-            )
+    override suspend fun getPlayersFromDB(): List<PlayerStatisticsInfo> {
+        val playersFromDB = playersInfoDao.getPlayers()
+        return playersFromDB.map{favoritePlayer->
+            getPlayerStatById(favoritePlayer.playerId)
         }
     }
+
+    private suspend fun getPlayerStatById(id: Int): PlayerStatisticsInfo {
+        val playerStatFromApi = remoteDataSource.getPlayerStatistics(id)
+        val statistics = playerStatFromApi.stats[0].splits[0].stat
+        val playerFullInfo = remoteDataSource.getPlayerFullInfo(id)
+        val photo = remoteDataSource.getPlayersPhoto()
+            .find { (playerFullInfo.fullName == it.draftKingsName) || (playerFullInfo.fullName == it.fanDuelName) || (playerFullInfo.fullName == it.yahooName) }
+        return PlayerStatisticsInfo(
+            id = id,
+            name = playerFullInfo.fullName,
+            photo = photo?.photoUrl,
+            timeOnIce = statistics.timeOnIce,
+            assists = statistics.assists,
+            goals = statistics.goals,
+            shots = statistics.shots,
+            games = statistics.games,
+            hits = statistics.hits,
+            powerPlayGoals = statistics.powerPlayGoals,
+            powerPlayPoints = statistics.powerPlayPoints,
+            powerPlayTimeOnIce = statistics.powerPlayTimeOnIce,
+            blocked = statistics.blocked,
+            plusMinus = statistics.plusMinus,
+            points = statistics.points,
+            timeOnIcePerGame = statistics.timeOnIcePerGame
+        )
+    }
+
     override suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo {
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
         val logo = remoteDataSource.getTeamsSecondApi().find {team-> playerInfo.teamFullName.endsWith(team.shortName) }
@@ -71,28 +86,7 @@ class PlayerRepositoryImpl @Inject constructor(
             playerPhoto = photo?.photoUrl
         )
     }
-    override suspend fun getPlayerStatistics(playerId: Int): List<PlayerStatisticsInfo> {
-        val playerStatisticsInfo = remoteDataSource.getPlayerStatistics(playerId).stats.flatMap { stat->
-            stat.splits.map { statistics ->
-                PlayerStatisticsInfo(
-                    timeOnIce = statistics.timeOnIce,
-                    assists = statistics.assists,
-                    goals = statistics.goals,
-                    shots = statistics.shots,
-                    games = statistics.games,
-                    hits = statistics.hits,
-                    powerPlayGoals = statistics.powerPlayGoals,
-                    powerPlayPoints = statistics.powerPlayPoints,
-                    powerPlayTimeOnIce = statistics.powerPlayTimeOnIce,
-                    blocked = statistics.blocked,
-                    plusMinus = statistics.plusMinus,
-                    points = statistics.points,
-                    timeOnIcePerGame = statistics.timeOnIcePerGame
-                )
-            }
-        }
-        return playerStatisticsInfo
-    }
+
 
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
         playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId)) }

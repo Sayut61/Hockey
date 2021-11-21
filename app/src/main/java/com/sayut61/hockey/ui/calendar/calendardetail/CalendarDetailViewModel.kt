@@ -1,5 +1,6 @@
 package com.sayut61.hockey.ui.calendar.calendardetail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,7 +31,9 @@ class CalendarDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _progressBarLiveData.value = true
             try {
-                _getGameInfo.value = gamesUseCases.getGameFullInfo(gameGeneralInfo)
+                val result = gamesUseCases.getGameFullInfo(gameGeneralInfo)
+                _getGameInfo.value = result
+                Log.d("playersAwayTeam", result.playersAwayTeam.toString())
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }

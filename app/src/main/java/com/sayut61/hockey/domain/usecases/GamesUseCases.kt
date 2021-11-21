@@ -15,7 +15,4 @@ class GamesUseCases @Inject constructor(
     suspend fun getGameFullInfo(gameGeneralInfo: GameGeneralInfo): GameFullInfo{
         return gameRepository.getGameFullInfo(gameGeneralInfo)
     }
-//    suspend fun getGameFullInfo(date: LocalDate): GameFullInfo{
-//        return gamesRepositories.getGameFullInfo(gameGeneralInfo)
-//    }
 }

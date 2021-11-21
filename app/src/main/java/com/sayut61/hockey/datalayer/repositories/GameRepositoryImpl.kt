@@ -61,7 +61,9 @@ class GameRepositoryImpl @Inject constructor(
             blockedHomeTeam = fullInfo.blockedHomeTeam,
             hitsHomeTeam = fullInfo.hitsHomeTeam,
             hitsAwayTeam = fullInfo.hitsAwayTeam,
-            gameState = getStatusByNumber(fullInfo.codedGameState)
+            gameState = getStatusByNumber(fullInfo.codedGameState),
+            playersAwayTeam = fullInfo.playersAwayTeam,
+            playersHomeTeam = fullInfo.playersHomeTeam
         )
     }
 }

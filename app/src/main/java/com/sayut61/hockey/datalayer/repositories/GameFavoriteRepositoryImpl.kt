@@ -34,7 +34,9 @@ class GameFavoriteRepositoryImpl @Inject constructor(
                 blockedHomeTeam = gameFromApi.blockedHomeTeam,
                 hitsHomeTeam = gameFromApi.hitsHomeTeam,
                 hitsAwayTeam = gameFromApi.hitsAwayTeam,
-                gameState = getStatusByNumber(gameFromApi.codedGameState)
+                gameState = getStatusByNumber(gameFromApi.codedGameState),
+                playersAwayTeam = gameFromApi.playersAwayTeam,
+                playersHomeTeam = gameFromApi.playersHomeTeam
             )
         }
     }

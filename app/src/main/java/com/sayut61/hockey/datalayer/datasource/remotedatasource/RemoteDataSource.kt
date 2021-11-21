@@ -53,7 +53,7 @@ class RemoteDataSource @Inject constructor() {
         suspend fun getPlayerFullInfo(@Path("playerId", encoded = true)playerId: Int): PlayerInfo
 
         @GET(value = "/api/v1/people/{id}/stats?stats=statsSingleSeason&season=20212022")
-        suspend fun getPlayerStatistic(@Path("playerId", encoded = true)playerId: Int): PlayerStatisticsFromFirstApi
+        suspend fun getPlayerStatistic(@Path("id", encoded = true)playerId: Int): PlayerStatisticsFromFirstApi
     }
 
     private interface RestNHLInfoSecondAPI {
@@ -73,16 +73,16 @@ class RemoteDataSource @Inject constructor() {
         .newBuilder()
         .addInterceptor(ErrorInterceptor())
         .build()
-    fun createGsonConverter(): Converter.Factory? {
+   /* fun createGsonConverter(): Converter.Factory? {
         val gsonBuilder = GsonBuilder()
         gsonBuilder.registerTypeAdapter(Player::class.java, RedirectionInfoDeserializer())
         val gson = gsonBuilder.create()
         return GsonConverterFactory.create(gson)
-    }
+    }*/
     private var retrofitFirstApiInfo = Retrofit.Builder()
         .baseUrl("https://statsapi.web.nhl.com")
         .client(client)
-        .addConverterFactory(createGsonConverter())
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
     private var retrofitSecondApiInfo = Retrofit.Builder()
         .baseUrl("https://api.sportsdata.io/v3/nhl/scores/json/")
@@ -162,6 +162,7 @@ class ErrorInterceptor : Interceptor {
 //https://statsapi.web.nhl.com/api/v1/game/2021020001/feed/live
 
 
+/*
 internal class RedirectionInfoDeserializer : JsonDeserializer<GameData> {
     override fun deserialize(
         json: JsonElement,
@@ -196,4 +197,4 @@ internal class RedirectionInfoDeserializer : JsonDeserializer<GameData> {
     companion object {
         private const val KEY_PARAMETERS = "players"
     }
-}
+}*/
