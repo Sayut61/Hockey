@@ -22,13 +22,18 @@ val playersUseCases: PlayersUseCases
     private val _errorLiveData = MutableLiveData<java.lang.Exception>()
     val errorLiveData: LiveData<java.lang.Exception> = _errorLiveData
 
+    private val _progressBarLiveData = MutableLiveData<Boolean>()
+    val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
+
     fun refreshFavoriteFragment(){
         viewModelScope.launch {
+            _progressBarLiveData.value = true
             try {
                 _playersFavoriteLiveData.value = playersUseCases.getPlayersListDB()
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }
+            _progressBarLiveData.value = false
         }
     }
 }

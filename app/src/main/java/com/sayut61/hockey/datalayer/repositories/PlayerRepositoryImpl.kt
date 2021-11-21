@@ -37,7 +37,6 @@ class PlayerRepositoryImpl @Inject constructor(
             getPlayerStatById(favoritePlayer.playerId)
         }
     }
-
     private suspend fun getPlayerStatById(id: Int): PlayerStatisticsInfo {
         val playerStatFromApi = remoteDataSource.getPlayerStatistics(id)
         val statistics = playerStatFromApi.stats[0].splits[0].stat
