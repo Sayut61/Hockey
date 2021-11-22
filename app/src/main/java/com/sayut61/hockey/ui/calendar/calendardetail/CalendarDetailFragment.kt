@@ -65,7 +65,6 @@ class CalendarDetailFragment : Fragment() {
             }else hideProgressBar()
         }
     }
-
     private fun showFullInfo(gameFullInfo: GameFullInfo) {
         binding.dateAndTimeGameTextView.text = gameFullInfo.generalInfo.gameDate
         binding.homeTeamScoreTextView.text = gameFullInfo.goalsHomeTeam.toString()

@@ -73,12 +73,6 @@ class RemoteDataSource @Inject constructor() {
         .newBuilder()
         .addInterceptor(ErrorInterceptor())
         .build()
-   /* fun createGsonConverter(): Converter.Factory? {
-        val gsonBuilder = GsonBuilder()
-        gsonBuilder.registerTypeAdapter(Player::class.java, RedirectionInfoDeserializer())
-        val gson = gsonBuilder.create()
-        return GsonConverterFactory.create(gson)
-    }*/
     private var retrofitFirstApiInfo = Retrofit.Builder()
         .baseUrl("https://statsapi.web.nhl.com")
         .client(client)
@@ -158,43 +152,3 @@ class ErrorInterceptor : Interceptor {
         return response
     }
 }
-
-//https://statsapi.web.nhl.com/api/v1/game/2021020001/feed/live
-
-
-/*
-internal class RedirectionInfoDeserializer : JsonDeserializer<GameData> {
-    override fun deserialize(
-        json: JsonElement,
-        typeOfT: Type?,
-        context: JsonDeserializationContext?
-    ): GameData {
-        val jsonObject = json.asJsonObject
-
-        // Read simple String values.
-        //val uri = jsonObject[KEY_URI].asString
-
-        // Read the dynamic parameters object.
-        val parameters = readParametersMap(jsonObject)
-        val result = GameData(StatusGame(hashCode()))
-        return result
-    }
-
-    @Nullable
-    private fun readParametersMap(jsonObject: JsonObject): Map<String, Player>? {
-        val paramsElement = jsonObject[KEY_PARAMETERS]
-            ?: // value not present at all, just return null
-            return null
-        val parametersObject = paramsElement.asJsonObject
-        val parameters: MutableMap<String, Player> = HashMap()
-        for ((key, value1) in parametersObject.entrySet()) {
-            val value = Json.decodeFromString<Player>(Player.serializer(), value1.asString)
-            parameters[key] = value
-        }
-        return parameters
-    }
-
-    companion object {
-        private const val KEY_PARAMETERS = "players"
-    }
-}*/

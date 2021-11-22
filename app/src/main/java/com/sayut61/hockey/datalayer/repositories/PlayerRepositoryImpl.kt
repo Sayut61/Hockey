@@ -41,8 +41,8 @@ class PlayerRepositoryImpl @Inject constructor(
         val playerStatFromApi = remoteDataSource.getPlayerStatistics(id)
         val statistics = playerStatFromApi.stats[0].splits[0].stat
         val playerFullInfo = remoteDataSource.getPlayerFullInfo(id)
-        val photo = remoteDataSource.getPlayersPhoto()
-            .find { (playerFullInfo.fullName == it.draftKingsName) || (playerFullInfo.fullName == it.fanDuelName) || (playerFullInfo.fullName == it.yahooName) }
+        val photo = remoteDataSource.getPlayersPhoto().
+        find { (playerFullInfo.fullName == it.draftKingsName) || (playerFullInfo.fullName == it.fanDuelName) || (playerFullInfo.fullName == it.yahooName) }
         return PlayerStatisticsInfo(
             id = id,
             name = playerFullInfo.fullName,

@@ -33,7 +33,6 @@ class CalendarDetailViewModel @Inject constructor(
             try {
                 val result = gamesUseCases.getGameFullInfo(gameGeneralInfo)
                 _getGameInfo.value = result
-                Log.d("playersAwayTeam", result.playersAwayTeam.toString())
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }

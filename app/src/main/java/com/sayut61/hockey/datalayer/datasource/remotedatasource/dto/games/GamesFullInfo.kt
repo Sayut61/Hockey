@@ -2,12 +2,12 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.sayut61.hockey.domain.entities.PLayerNameAndNumber
+import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
 import kotlinx.parcelize.Parcelize
 
 data class FullInfoByGame(
-    val playersAwayTeam: List<PLayerNameAndNumber>?,
-    val playersHomeTeam: List<PLayerNameAndNumber>?,
+    val playersAwayTeam: List<PlayerNameAndNumber>?,
+    val playersHomeTeam: List<PlayerNameAndNumber>?,
     val currentPeriod: Int,
     val currentPeriodOrdinal: String,
     val currentPeriodTimeRemaining: String,
@@ -32,8 +32,8 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
     val awayTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.away.team.id }
     val homeTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.home.team.id }
     return FullInfoByGame(
-        playersAwayTeam = awayTeamPlayers?.map{PLayerNameAndNumber(it.fullName, it.primaryNumber)},
-        playersHomeTeam = homeTeamPlayers?.map{PLayerNameAndNumber(it.fullName, it.primaryNumber)},
+        playersAwayTeam = awayTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber)},
+        playersHomeTeam = homeTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber)},
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
         currentPeriodOrdinal = gameDetailResponse.liveData.lineScore.currentPeriodOrdinal,
         currentPeriodTimeRemaining = gameDetailResponse.liveData.lineScore.currentPeriodTimeRemaining,
