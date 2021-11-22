@@ -44,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
-        android:text="0"
         app:layout_constraintStart_toEndOf="@+id/homeTeamImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
-        android:text="0"
         app:layout_constraintStart_toEndOf="@+id/awayTeamImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="64dp"
-        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,7 +71,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="64dp"
-        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="0"
         app:layout_constraintStart_toEndOf="@+id/homeTeamImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,7 +89,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/deleteFavoriteButton"
         app:layout_constraintTop_toTopOf="parent" />
 

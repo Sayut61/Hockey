@@ -28,8 +28,8 @@ class HomeTeamRecyclerFragment : Fragment(){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val gameGeneralInfo = args.game
-//        viewModel.refreshFragment(gameGeneralInfo)
+        val gameGeneralInfo = args.game
+        viewModel.refreshFragment(gameGeneralInfo)
         viewModel.homePlayersLiveData.observe(viewLifecycleOwner){
             val adapter = HomeTeamAdapter(it)
             binding.homeTeamRecyclerView.adapter = adapter

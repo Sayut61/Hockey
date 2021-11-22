@@ -27,8 +27,8 @@ class AwayTeamRecyclerFragment: Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val gameGeneralInfo = args.game
-//        viewModel.refreshFragment(gameGeneralInfo)
+        val gameGeneralInfo = args.game
+        viewModel.refreshFragment(gameGeneralInfo)
         viewModel.awayPlayersLiveData.observe(viewLifecycleOwner){
             val adapter = AwayTeamAdapter(it)
             binding.awayTeamRecyclerView.adapter = adapter

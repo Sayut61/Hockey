@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,7 +98,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t10"
         app:layout_constraintTop_toBottomOf="@+id/powerPlayOpportunitiesTextView" />
 
@@ -129,7 +127,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t9"
         app:layout_constraintTop_toBottomOf="@+id/t8" />
 
@@ -149,7 +146,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t11"
         app:layout_constraintTop_toBottomOf="@+id/t8" />
 
@@ -169,7 +165,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t12"
         app:layout_constraintTop_toBottomOf="@+id/powerPlayGoalsTextView" />
 
@@ -199,7 +194,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t7" />
 
@@ -209,7 +203,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shotsPerGameTextView" />
 
@@ -219,7 +212,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t14"
         app:layout_constraintTop_toBottomOf="@+id/t7" />
 
@@ -229,7 +221,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t14"
         app:layout_constraintTop_toBottomOf="@+id/shotsAllowedTextView" />
 
@@ -239,7 +230,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t1" />
 
@@ -249,7 +239,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/winsTextView" />
 
@@ -259,7 +248,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lossesTextView" />
 
@@ -269,7 +257,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
-        android:text="T"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t1" />
 
@@ -313,7 +300,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
-        android:text="T"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t15" />
 
@@ -323,7 +309,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="88dp"
-        android:text="T"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t16" />
 
@@ -343,7 +328,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="236dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t6" />
 
@@ -363,7 +347,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="236dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/placeGoalsPerGameTextView" />
 

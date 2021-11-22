@@ -26,7 +26,7 @@ class HomeTeamRecyclerViewModel @Inject constructor(
         viewModelScope.launch {
             _progressBarLiveData.value = true
             try {
-                _homePlayersLiveData.value = gamesUseCases.getGameFullInfo(gameGeneralInfo).playersAwayTeam!!
+                _homePlayersLiveData.value = gamesUseCases.getGameFullInfo(gameGeneralInfo).playersHomeTeam!!
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }

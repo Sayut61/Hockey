@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t2"
         app:layout_constraintTop_toBottomOf="@+id/playerNumberTextView" />
 
@@ -82,7 +79,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t3"
         app:layout_constraintTop_toBottomOf="@+id/t2" />
 
@@ -102,7 +98,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t4"
         app:layout_constraintTop_toBottomOf="@+id/birthCityTextView" />
 
@@ -123,7 +118,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t6"
         app:layout_constraintTop_toBottomOf="@+id/t5" />
 
@@ -162,7 +156,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t8"
         app:layout_constraintTop_toBottomOf="@+id/t7" />
 
@@ -193,7 +186,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="T"
         app:layout_constraintStart_toEndOf="@+id/t7"
         app:layout_constraintTop_toBottomOf="@+id/t6" />
 </androidx.constraintlayout.widget.ConstraintLayout>
