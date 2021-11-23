@@ -44,7 +44,6 @@ class GameRepositoryImpl @Inject constructor(
         val fullInfo = remoteDataSource.getGameDetails(gameGeneralInfo.linkOnDetailInfoByGame)
         return GameFullInfo(
             generalInfo = gameGeneralInfo,
-//            players = fullInfo.players,
             currentPeriod = fullInfo.currentPeriod,
             currentPeriodOrdinal = fullInfo.currentPeriodOrdinal,
             currentPeriodTimeRemaining = fullInfo.currentPeriodTimeRemaining,

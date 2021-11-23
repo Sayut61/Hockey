@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sayut61.hockey.domain.entities.GameFullInfo
+import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import com.sayut61.hockey.domain.usecases.PlayersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,13 @@ val playersUseCases: PlayersUseCases
 
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
+
+    fun deleteFromFavorite(playerId: Int){
+        viewModelScope.launch {
+            playersUseCases.removeFromFavoritePlayer(playerId)
+            refreshFavoriteFragment()
+        }
+    }
 
     fun refreshFavoriteFragment(){
         viewModelScope.launch {

@@ -13,26 +13,26 @@ import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
 interface FavoriteAdapterListener{
-    fun deleteButtonClick(player: PlayerGeneralInfo)
+    fun deleteButtonClick(playerId: Int)
 }
 class PlayersFavoriteAdapter(
     val favoritePlayers: List<PlayerStatisticsInfo>,
-//    val listener: FavoriteAdapterListener,
+    val listener: FavoriteAdapterListener,
     val activity: Activity
 ): RecyclerView.Adapter<PlayersFavoriteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersFavoriteViewHolder {
         return PlayersFavoriteViewHolder(FavoritePlayerStatItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-
     override fun onBindViewHolder(holder: PlayersFavoriteViewHolder, position: Int) {
         val player = favoritePlayers[position]
+        holder.binding.deleteImageButton.setOnClickListener {
+            listener.deleteButtonClick(player.id)
+        }
         holder.bind(player, activity)
     }
-
     override fun getItemCount(): Int {
         return favoritePlayers.size
     }
-
 }
 class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): RecyclerView.ViewHolder(binding.root){
     fun bind(player: PlayerStatisticsInfo, activity: Activity){
@@ -55,6 +55,5 @@ class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): Rec
         binding.timeOnIcePerGameTextView.text = player.timeOnIcePerGame
         binding.PPGoalsTextView.text = player.powerPlayGoals.toString()
         binding.PPPointsTextView.text = player.powerPlayPoints.toString()
-
     }
 }

@@ -21,7 +21,7 @@ class PlayersUseCases @Inject constructor(
     suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo){
         playerRepository.addToFavoritePlayer(playerGeneralInfo)
     }
-    suspend fun removeFromFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo){
-        playerRepository.removeFromFavoritePlayer(playerGeneralInfo)
+    suspend fun removeFromFavoritePlayer(playerId: Int){
+        playerRepository.removeFromFavoritePlayer(playerId)
     }
 }

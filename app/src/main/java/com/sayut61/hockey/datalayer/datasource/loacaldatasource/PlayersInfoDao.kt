@@ -7,7 +7,7 @@ interface PlayersInfoDao {
     @Query("SELECT * FROM favoritePlayer" )
     suspend fun getPlayers(): List<FavoritePlayer>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(id: FavoritePlayer)
+    suspend fun insert(favoritePlayer: FavoritePlayer)
     @Delete
-    suspend fun delete(id: FavoritePlayer)
+    suspend fun delete(favoritePlayer: FavoritePlayer)
 }

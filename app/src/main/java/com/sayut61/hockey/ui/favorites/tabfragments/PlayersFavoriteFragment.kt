@@ -9,17 +9,15 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.google.android.material.tabs.TabLayoutMediator
-import com.sayut61.hockey.R
-import com.sayut61.hockey.databinding.FragmentGameFavoriteBinding
 import com.sayut61.hockey.databinding.FragmentPlayerFavoriteBinding
-import com.sayut61.hockey.ui.adapters.PlayersAdapterListener
+import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
+import com.sayut61.hockey.ui.adapters.FavoriteAdapterListener
 import com.sayut61.hockey.ui.adapters.PlayersFavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
 @AndroidEntryPoint
-class PlayersFavoriteFragment : Fragment(){
+class PlayersFavoriteFragment : Fragment(), FavoriteAdapterListener {
     private val viewModel: PlayersFavoriteViewModel by viewModels()
     private var _binding: FragmentPlayerFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +28,7 @@ class PlayersFavoriteFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.playersFavoriteLiveData.observe(viewLifecycleOwner){
-            val adapter = PlayersFavoriteAdapter(it, activity as Activity )
+            val adapter = PlayersFavoriteAdapter(it, this, activity as Activity)
             binding.playerStatisticsRecyclerView.adapter = adapter
         }
         viewModel.refreshFavoriteFragment()
@@ -41,6 +39,9 @@ class PlayersFavoriteFragment : Fragment(){
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
         }
+    }
+    override fun deleteButtonClick(playerId: Int) {
+        viewModel.deleteFromFavorite(playerId)
     }
     private fun showProgressBar(){
         binding.progressBar.visibility = ProgressBar.VISIBLE

@@ -45,8 +45,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     }
 
     override fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo) {
-        val action =
-            PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
+        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
         findNavController().navigate(action)
     }
 

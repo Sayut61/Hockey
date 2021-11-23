@@ -32,7 +32,7 @@ class PlayersViewModel @Inject constructor(
     fun onFavoriteClick(playerGeneralInfo: PlayerGeneralInfo){
         viewModelScope.launch {
             if (playerGeneralInfo.isInFavorite)
-                playersUseCases.removeFromFavoritePlayer(playerGeneralInfo)
+                playersUseCases.removeFromFavoritePlayer(playerGeneralInfo.playerId)
             else
                 playersUseCases.addToFavoritePlayer(playerGeneralInfo)
             refreshFragment(false)

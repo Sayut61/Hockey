@@ -12,12 +12,13 @@ import javax.inject.Inject
 class PlayerRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val playersInfoDao: PlayersInfoDao
-): PlayerRepository {
+) : PlayerRepository {
     override suspend fun getPlayersFromApi(): List<PlayerGeneralInfo> {
         val teams = remoteDataSource.getTeamsSecondApi()
-        return remoteDataSource.getListPlayers().map{playerFromApi->
+        return remoteDataSource.getListPlayers().map { playerFromApi ->
             val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
-            val isInDb = playersInfoDao.getPlayers().find{it.playerId == playerFromApi.playerId}!= null
+            val isInDb =
+                playersInfoDao.getPlayers().find { it.playerId == playerFromApi.playerId } != null
             PlayerGeneralInfo(
                 teamId = playerFromApi.teamId,
                 teamFullName = playerFromApi.teamFullName,
@@ -27,46 +28,59 @@ class PlayerRepositoryImpl @Inject constructor(
                 fullName = playerFromApi.fullName,
                 linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo,
                 logo = teamInfo?.wikipediaLogoUrl,
-                isInFavorite = isInDb
+                isInFavorite = isInDb,
+//                playerStatisticsInfo = getPlayerStatById(playerFromApi.playerId)
             )
         }
     }
+
     override suspend fun getPlayersFromDB(): List<PlayerStatisticsInfo> {
         val playersFromDB = playersInfoDao.getPlayers()
-        return playersFromDB.map{favoritePlayer->
+        return playersFromDB.map { favoritePlayer ->
             getPlayerStatById(favoritePlayer.playerId)
         }
     }
+
     private suspend fun getPlayerStatById(id: Int): PlayerStatisticsInfo {
-        val playerStatFromApi = remoteDataSource.getPlayerStatistics(id)
-        val statistics = playerStatFromApi.stats[0].splits[0].stat
         val playerFullInfo = remoteDataSource.getPlayerFullInfo(id)
-        val photo = remoteDataSource.getPlayersPhoto().
-        find { (playerFullInfo.fullName == it.draftKingsName) || (playerFullInfo.fullName == it.fanDuelName) || (playerFullInfo.fullName == it.yahooName) }
-        return PlayerStatisticsInfo(
-            id = id,
-            name = playerFullInfo.fullName,
-            photo = photo?.photoUrl,
-            timeOnIce = statistics.timeOnIce,
-            assists = statistics.assists,
-            goals = statistics.goals,
-            shots = statistics.shots,
-            games = statistics.games,
-            hits = statistics.hits,
-            powerPlayGoals = statistics.powerPlayGoals,
-            powerPlayPoints = statistics.powerPlayPoints,
-            powerPlayTimeOnIce = statistics.powerPlayTimeOnIce,
-            blocked = statistics.blocked,
-            plusMinus = statistics.plusMinus,
-            points = statistics.points,
-            timeOnIcePerGame = statistics.timeOnIcePerGame
-        )
+        val photo = remoteDataSource.getPlayersPhoto()
+            .find { (playerFullInfo.fullName == it.draftKingsName) || (playerFullInfo.fullName == it.fanDuelName) || (playerFullInfo.fullName == it.yahooName) }
+        val playerStatFromApi = remoteDataSource.getPlayerStatistics(id)
+        return if (playerStatFromApi.stats.isEmpty() || playerStatFromApi.stats[0].splits.isEmpty())
+            PlayerStatisticsInfo(
+                id = id,
+                name = playerFullInfo.fullName,
+                photo = photo?.photoUrl
+            )
+        else {
+            val statistics = playerStatFromApi.stats[0].splits[0].stat
+            PlayerStatisticsInfo(
+                id = id,
+                name = playerFullInfo.fullName,
+                photo = photo?.photoUrl,
+                timeOnIce = statistics.timeOnIce,
+                assists = statistics.assists,
+                goals = statistics.goals,
+                shots = statistics.shots,
+                games = statistics.games,
+                hits = statistics.hits,
+                powerPlayGoals = statistics.powerPlayGoals,
+                powerPlayPoints = statistics.powerPlayPoints,
+                powerPlayTimeOnIce = statistics.powerPlayTimeOnIce,
+                blocked = statistics.blocked,
+                plusMinus = statistics.plusMinus,
+                points = statistics.points,
+                timeOnIcePerGame = statistics.timeOnIcePerGame
+            )
+        }
     }
 
     override suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo {
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
-        val logo = remoteDataSource.getTeamsSecondApi().find {team-> playerInfo.teamFullName.endsWith(team.shortName) }
-        val photo = remoteDataSource.getPlayersPhoto().find { (playerInfo.fullName == it.draftKingsName)||(playerInfo.fullName == it.fanDuelName)||(playerInfo.fullName == it.yahooName) }
+        val logo = remoteDataSource.getTeamsSecondApi()
+            .find { team -> playerInfo.teamFullName.endsWith(team.shortName) }
+        val photo = remoteDataSource.getPlayersPhoto()
+            .find { (playerInfo.fullName == it.draftKingsName) || (playerInfo.fullName == it.fanDuelName) || (playerInfo.fullName == it.yahooName) }
         return PlayerFullInfo(
             playerId = playerInfo.playerId,
             fullName = playerInfo.fullName,
@@ -86,10 +100,11 @@ class PlayerRepositoryImpl @Inject constructor(
         )
     }
 
-
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
-        playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId)) }
+        playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId))
+    }
 
-    override suspend fun removeFromFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
-        playersInfoDao.delete(FavoritePlayer(playerGeneralInfo.playerId)) }
+    override suspend fun removeFromFavoritePlayer(playerId: Int) {
+        playersInfoDao.delete(FavoritePlayer(playerId))
+    }
 }
