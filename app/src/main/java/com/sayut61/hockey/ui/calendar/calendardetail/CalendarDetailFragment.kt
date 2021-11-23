@@ -33,9 +33,10 @@ class CalendarDetailFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val fragmentList = arrayListOf(
-            AwayTeamRecyclerFragment(),
-            HomeTeamRecyclerFragment()
+            AwayTeamRecyclerFragment.getInstance(args.game),
+            HomeTeamRecyclerFragment.getInstance(args.game)
         )
         val adapter = ViewPagerAdapterGame(
             fragmentList,

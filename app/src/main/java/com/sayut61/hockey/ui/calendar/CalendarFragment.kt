@@ -22,7 +22,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
     private val viewModel: CalendarViewModel by viewModels()
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
-    private val myCalendar = MyCalendar()
+    lateinit var  myCalendar: MyCalendar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,6 +35,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myCalendar = MyCalendar(requireContext())
 
         viewModel.gameFullInfoLiveData.observe(viewLifecycleOwner) {
             showCalendarInfo(it)

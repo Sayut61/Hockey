@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.sayut61.hockey.databinding.FragmentAwayTeamPlayersBinding
 import com.sayut61.hockey.databinding.FragmentHomeTeamPlayersBinding
+import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
@@ -19,7 +20,6 @@ class HomeTeamRecyclerFragment : Fragment(){
     private val viewModel: HomeTeamRecyclerViewModel by viewModels()
     private var _binding: FragmentHomeTeamPlayersBinding? = null
     private val binding get() = _binding!!
-    private val args: CalendarDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -28,7 +28,7 @@ class HomeTeamRecyclerFragment : Fragment(){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val gameGeneralInfo = args.game
+        val gameGeneralInfo = arguments?.getParcelable<GameGeneralInfo>(GAME_KEY)!!
         viewModel.refreshFragment(gameGeneralInfo)
         viewModel.homePlayersLiveData.observe(viewLifecycleOwner){
             val adapter = HomeTeamAdapter(it)
@@ -54,5 +54,16 @@ class HomeTeamRecyclerFragment : Fragment(){
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object{
+        private const val GAME_KEY = "game"
+        fun getInstance(game: GameGeneralInfo): HomeTeamRecyclerFragment{
+            return HomeTeamRecyclerFragment().apply {
+                arguments = Bundle().apply{
+                    putParcelable(GAME_KEY,game)
+                }
+            }
+        }
     }
 }
