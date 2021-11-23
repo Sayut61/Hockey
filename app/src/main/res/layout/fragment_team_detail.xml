@@ -47,12 +47,12 @@
       <com.google.android.material.tabs.TabItem
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Статистика" />
+          android:text="@string/fragmentTeamDetail_statistics" />
 
       <com.google.android.material.tabs.TabItem
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Состав" />
+          android:text="@string/fragmentTeamDetail_rooster" />
 
    </com.google.android.material.tabs.TabLayout>
 
@@ -70,7 +70,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_marginEnd="24dp"
-       android:text="создан в "
+       android:text="@string/fragmentTeamDetail_birthday_team"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toTopOf="@+id/firstYearOfPlayTextView" />

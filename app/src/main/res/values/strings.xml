@@ -5,4 +5,54 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="player_number">number:</string>
+    <string name="favoritePlayerStatItem_timeOnIceInPP">time on ice in power play</string>
+    <string name="favoritePlayerStatItem_pointsInPP">points in power play:</string>
+    <string name="favoritePlayerStatItem_goalsInPP">goals in power play:</string>
+    <string name="favoritePlayerStatItem_timeOnIcePerGame">time on ice per game:</string>
+    <string name="favoritePlayerStatItem_games">goals:</string>
+    <string name="favoritePlayerStatItem_hits">hits:</string>
+    <string name="favoritePlayerStatItem_plusMinus">plus minus:</string>
+    <string name="favoritePlayerStatItem_shots">shots:</string>
+    <string name="favoritePlayerStatItem_goals">goals:</string>
+    <string name="favoritePlayerStatItem_assists">assists:</string>
+    <string name="favoritePlayerStatItem_points">points:</string>
+    <string name="favoritePlayerStatItem_allTimeInIce">all time on ice:</string>
+    <string name="favoritePlayerStatItem_blockShots">blocked shots:</string>
+    <string name="colon" translatable="false">:</string>
+    <string name="number_period_2" translatable="false">2</string>
+    <string name="number_period_1" translatable="false">1</string>
+    <string name="number_period_3" translatable="false">3</string>
+    <string name="home_team">HOME</string>
+    <string name="away_team">AWAY</string>
+    <string name="game_favorite">games favorite</string>
+    <string name="players_favorite">players favorite</string>
+    <string name="fragmentPlayerInfo_birthday">date birthday:</string>
+    <string name="fragmentPlayerInfo_city">city:</string>
+    <string name="fragmentPlayerInfo_nationality">nationality:</string>
+    <string name="fragmentPlayerInfo_games_params">game parameters:</string>
+    <string name="fragmentPlayerInfo_position">position:</string>
+    <string name="fragmentPlayerInfo_wing">wing:</string>
+    <string name="fragmentPlayerInfo_team">team:</string>
+    <string name="fragmentTeamDetail_statistics">Statistics</string>
+    <string name="fragmentTeamDetail_rooster">Line-up</string>
+    <string name="fragmentTeamDetail_birthday_team">established in</string>
+    <string name="fragmentTeamStatistics_games_finished">matches played:</string>
+    <string name="fragmentTeamStatistics_wins">wins:</string>
+    <string name="fragmentTeamStatistics_looses">loosses:</string>
+    <string name="fragmentTeamStatistics_points">points:</string>
+    <string name="fragmentTeamStatistics_goals">goals:</string>
+    <string name="fragmentTeamStatistics_average_per_match">average per match:</string>
+    <string name="fragmentTeamStatistics_PP">power play statistics:</string>
+    <string name="fragmentTeamStatistics_PP_goals">goals:</string>
+    <string name="fragmentTeamStatistics_PP_percent">percentag:</string>
+    <string name="fragmentTeamStatistics_PP_attempts">attempts:</string>
+    <string name="fragmentTeamStatistics_conceded_goals">conceded goals:</string>
+    <string name="fragmentTeamStatistics_shots">shots:</string>
+    <string name="fragmentTeamStatistics_shots_rival">shots (rival):</string>
+    <string name="fragmentTeamStatistics_place_for_wins">place for wins:</string>
+    <string name="fragmentTeamStatistics_place_for_looses">place for losing:</string>
+    <string name="fragmentTeamStatistics_place_for_points">place for points</string>
+    <string name="fragmentTeamStatistics_place_for_goals">place for goals:</string>
+    <string name="fragmentTeamStatistics_place_on_the_missed_washers">place on te misses washers:</string>
+    <string name="fragmentTeamStatistics_goals_rival">goals (rival):</string>
 </resources>

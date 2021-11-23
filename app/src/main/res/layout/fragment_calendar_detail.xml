@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="96dp"
-            android:text=":"
+            android:text="@string/colon"
             app:layout_constraintEnd_toStartOf="@+id/awayTeamImageView"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toEndOf="@+id/homeTeamImageView"
@@ -171,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="192dp"
-            android:text="2"
+            android:text="@string/number_period_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="192dp"
             android:layout_marginEnd="8dp"
-            android:text="1"
+            android:text="@string/number_period_1"
             app:layout_constraintEnd_toStartOf="@+id/secondPeriodTextView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,7 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="192dp"
-            android:text="3"
+            android:text="@string/number_period_3"
             app:layout_constraintStart_toEndOf="@+id/secondPeriodTextView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -228,12 +228,12 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HOME" />
+                android:text="@string/home_team" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AWAY" />
+                android:text="@string/away_team" />
 
         </com.google.android.material.tabs.TabLayout>
 
