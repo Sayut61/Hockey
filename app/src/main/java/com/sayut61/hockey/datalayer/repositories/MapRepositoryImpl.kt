@@ -11,11 +11,13 @@ class MapRepositoryImpl @Inject constructor(
     override suspend fun getStadiumsInfo(): List<Stadium> {
         val listStadiumInfo = remoteDataSource.getStadiumInfo()
         return listStadiumInfo.map { stadiumInfo ->
+            val teamName = remoteDataSource.getTeamsFirstApi().find { it.venue.nameStadium.contains(stadiumInfo.stadiumName, true) }
                 Stadium(
                     nameStadium = stadiumInfo.stadiumName,
                     geoLat = stadiumInfo.GeoLat,
                     geoLong = stadiumInfo.GeoLong,
-                    StadiumID = stadiumInfo.StadiumID
+                    StadiumID = stadiumInfo.StadiumID,
+                    fullTeamName = teamName?.fullTeamName
                 )
         }
     }

@@ -11,5 +11,10 @@ data class TeamInfoFromFirstApi(
     val fullTeamName: String,
     @SerializedName("teamName")
     val shortTeamName: String,
-    val officialSiteUrl: String
+    val officialSiteUrl: String,
+    val venue: Venue
+)
+data class Venue(
+    @SerializedName("name")
+    val nameStadium: String
 )

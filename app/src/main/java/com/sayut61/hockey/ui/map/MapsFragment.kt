@@ -34,17 +34,15 @@ class MapsFragment : Fragment() {
             binding.mapView.onResume()
         }
     }
-
-    private fun addMarker(googleMap: GoogleMap, markers: List<Stadium>) {
+    private fun addMarker(googleMap: GoogleMap,markers: List<Stadium>) {
         markers.forEach {
             googleMap.addMarker(
                 MarkerOptions()
                     .position(LatLng(it.geoLat, it.geoLong))
-                    .title(it.nameStadium)
+                    .title((it.fullTeamName +" "+ it.nameStadium))
             )
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

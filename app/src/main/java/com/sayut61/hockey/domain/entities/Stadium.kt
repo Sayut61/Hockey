@@ -4,5 +4,6 @@ data class Stadium (
 val nameStadium: String,
 val geoLat: Double,
 val geoLong: Double,
-val StadiumID: Int
+val StadiumID: Int,
+val fullTeamName: String?
         )
