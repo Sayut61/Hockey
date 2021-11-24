@@ -6,13 +6,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.AwayTeamPlayersItemBinding
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
-
-class AwayTeamAdapter(val awayPlayers: List<PlayerNameAndNumber>): RecyclerView.Adapter<AwayTeamViewHolder>() {
+interface AwayTeamAdapterListener{
+    fun onPlayerClick(player: PlayerNameAndNumber)
+}
+class AwayTeamAdapter(val awayPlayers: List<PlayerNameAndNumber>,
+                      val listener: AwayTeamAdapterListener
+): RecyclerView.Adapter<AwayTeamViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwayTeamViewHolder {
         return AwayTeamViewHolder(AwayTeamPlayersItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
     override fun onBindViewHolder(holder: AwayTeamViewHolder, position: Int) {
         val player = awayPlayers[position]
+        holder.itemView.setOnClickListener {
+            listener.onPlayerClick(player)
+        }
         holder.bind(player)
     }
     override fun getItemCount(): Int {

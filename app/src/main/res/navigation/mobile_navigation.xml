@@ -72,6 +72,9 @@
         <argument
             android:name="game"
             app:argType="com.sayut61.hockey.domain.entities.GameGeneralInfo" />
+        <action
+            android:id="@+id/action_calendarDetailFragment_to_playerDetailInfoFragment"
+            app:destination="@id/playerDetailInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"

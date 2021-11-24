@@ -7,16 +7,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.sayut61.hockey.databinding.FragmentAwayTeamPlayersBinding
 import com.sayut61.hockey.databinding.FragmentHomeTeamPlayersBinding
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
+import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
+import com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragment
 import com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragmentArgs
+import com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
 @AndroidEntryPoint
-class HomeTeamRecyclerFragment : Fragment(){
+class HomeTeamRecyclerFragment : Fragment(), HomeTeamAdapterListener{
     private val viewModel: HomeTeamRecyclerViewModel by viewModels()
     private var _binding: FragmentHomeTeamPlayersBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +35,7 @@ class HomeTeamRecyclerFragment : Fragment(){
         val gameGeneralInfo = arguments?.getParcelable<GameGeneralInfo>(GAME_KEY)!!
         viewModel.refreshFragment(gameGeneralInfo)
         viewModel.homePlayersLiveData.observe(viewLifecycleOwner){
-            val adapter = HomeTeamAdapter(it)
+            val adapter = HomeTeamAdapter(it, this)
             binding.homeTeamRecyclerView.adapter = adapter
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner){
@@ -51,11 +55,6 @@ class HomeTeamRecyclerFragment : Fragment(){
     private fun showError(exception: Exception){
         Toast.makeText(requireContext(), "Ошибка: ${exception.message}", Toast.LENGTH_LONG).show()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     companion object{
         private const val GAME_KEY = "game"
         fun getInstance(game: GameGeneralInfo): HomeTeamRecyclerFragment{
@@ -65,5 +64,13 @@ class HomeTeamRecyclerFragment : Fragment(){
                 }
             }
         }
+    }
+    override fun onPlayerClick(player: PlayerNameAndNumber) {
+        val action = CalendarDetailFragmentDirections.actionCalendarDetailFragmentToPlayerDetailInfoFragment(player.id)
+        findNavController().navigate(action)
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

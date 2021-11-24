@@ -7,15 +7,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.sayut61.hockey.databinding.FragmentAwayTeamPlayersBinding
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
+import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
 import com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragmentArgs
+import com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
 @AndroidEntryPoint
-class AwayTeamRecyclerFragment: Fragment() {
+class AwayTeamRecyclerFragment: Fragment(), AwayTeamAdapterListener {
     private val viewModel: AwayTeamRecyclerViewModel by viewModels()
     private var _binding: FragmentAwayTeamPlayersBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +33,7 @@ class AwayTeamRecyclerFragment: Fragment() {
         val gameGeneralInfo = arguments?.getParcelable<GameGeneralInfo>(GAME_KEY)!!
         viewModel.refreshFragment(gameGeneralInfo)
         viewModel.awayPlayersLiveData.observe(viewLifecycleOwner){
-            val adapter = AwayTeamAdapter(it)
+            val adapter = AwayTeamAdapter(it, this)
             binding.awayTeamRecyclerView.adapter = adapter
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner){
@@ -50,11 +53,6 @@ class AwayTeamRecyclerFragment: Fragment() {
     private fun showError(exception: Exception){
         Toast.makeText(requireContext(), "Ошибка: ${exception.message}", Toast.LENGTH_LONG).show()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     companion object{
         private const val GAME_KEY = "game"
         fun getInstance(game: GameGeneralInfo): AwayTeamRecyclerFragment{
@@ -65,4 +63,13 @@ class AwayTeamRecyclerFragment: Fragment() {
             }
         }
     }
+    override fun onPlayerClick(player: PlayerNameAndNumber) {
+        val action = CalendarDetailFragmentDirections.actionCalendarDetailFragmentToPlayerDetailInfoFragment(player.id)
+        findNavController().navigate(action)
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

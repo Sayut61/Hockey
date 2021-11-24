@@ -29,7 +29,6 @@ class PlayerRepositoryImpl @Inject constructor(
                 linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo,
                 logo = teamInfo?.wikipediaLogoUrl,
                 isInFavorite = isInDb,
-//                playerStatisticsInfo = getPlayerStatById(playerFromApi.playerId)
             )
         }
     }
@@ -103,7 +102,6 @@ class PlayerRepositoryImpl @Inject constructor(
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
         playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId))
     }
-
     override suspend fun removeFromFavoritePlayer(playerId: Int) {
         playersInfoDao.delete(FavoritePlayer(playerId))
     }

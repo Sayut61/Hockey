@@ -24,7 +24,7 @@ data class FullInfoByGame(
     val shotsHomeTeam: Int,
     val blockedHomeTeam: Int,
     val hitsHomeTeam: Int,
-    val codedGameState: Int
+    val codedGameState: Int,
 )
 fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame {
     val playersMap: Map<String, Player>? = gameDetailResponse.gameData.players
@@ -32,8 +32,8 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
     val awayTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.away.team.id }
     val homeTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.home.team.id }
     return FullInfoByGame(
-        playersAwayTeam = awayTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber)},
-        playersHomeTeam = homeTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber)},
+        playersAwayTeam = awayTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId)},
+        playersHomeTeam = homeTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId)},
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
         currentPeriodOrdinal = gameDetailResponse.liveData.lineScore.currentPeriodOrdinal,
         currentPeriodTimeRemaining = gameDetailResponse.liveData.lineScore.currentPeriodTimeRemaining,
@@ -50,7 +50,7 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
         blockedHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.blocked,
         hitsAwayTeam = gameDetailResponse.liveData.boxScore.teams.away.teamStats.teamSkaterStats.hits,
         hitsHomeTeam = gameDetailResponse.liveData.boxScore.teams.home.teamStats.teamSkaterStats.hits,
-        codedGameState = gameDetailResponse.gameData.status.codedGameState
+        codedGameState = gameDetailResponse.gameData.status.codedGameState,
     )
 }
 

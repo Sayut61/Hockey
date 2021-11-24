@@ -31,5 +31,6 @@ data class GameFullInfo(
 @Parcelize
 data class PlayerNameAndNumber(
     val name: String,
-    val number: String
+    val number: String,
+    val id: Int
 ): Parcelable
