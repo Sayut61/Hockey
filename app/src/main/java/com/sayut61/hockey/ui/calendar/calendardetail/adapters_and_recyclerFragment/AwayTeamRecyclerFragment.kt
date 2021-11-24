@@ -22,7 +22,6 @@ class AwayTeamRecyclerFragment: Fragment(), AwayTeamAdapterListener {
     private val viewModel: AwayTeamRecyclerViewModel by viewModels()
     private var _binding: FragmentAwayTeamPlayersBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAwayTeamPlayersBinding.inflate(inflater, container, false)

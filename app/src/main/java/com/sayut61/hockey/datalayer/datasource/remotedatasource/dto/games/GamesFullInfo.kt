@@ -32,8 +32,8 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
     val awayTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.away.team.id }
     val homeTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.home.team.id }
     return FullInfoByGame(
-        playersAwayTeam = awayTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId)},
-        playersHomeTeam = homeTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId)},
+        playersAwayTeam = awayTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId, it.primaryPosition.name, it.primaryPosition.type)},
+        playersHomeTeam = homeTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId, it.primaryPosition.name, it.primaryPosition.type)},
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
         currentPeriodOrdinal = gameDetailResponse.liveData.lineScore.currentPeriodOrdinal,
         currentPeriodTimeRemaining = gameDetailResponse.liveData.lineScore.currentPeriodTimeRemaining,
@@ -70,8 +70,13 @@ data class Player(
     val playerId: Int,
     val fullName: String,
     val primaryNumber: String,
-    val currentTeam: CurrentTeam
+    val currentTeam: CurrentTeam,
+    val primaryPosition: PrimaryPosition
     )
+data class PrimaryPosition(
+    val name: String,
+    val type: String
+)
 data class CurrentTeam(
     val id: Int
     )

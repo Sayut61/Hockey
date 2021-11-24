@@ -11,7 +11,7 @@ interface AwayTeamAdapterListener{
 }
 class AwayTeamAdapter(val awayPlayers: List<PlayerNameAndNumber>,
                       val listener: AwayTeamAdapterListener
-): RecyclerView.Adapter<AwayTeamViewHolder>() {
+                      ): RecyclerView.Adapter<AwayTeamViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwayTeamViewHolder {
         return AwayTeamViewHolder(AwayTeamPlayersItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -30,5 +30,7 @@ class AwayTeamViewHolder(val binding: AwayTeamPlayersItemBinding): RecyclerView.
     fun bind(gameFullInfo: PlayerNameAndNumber){
         binding.nameTextView.text = gameFullInfo.name
         binding.numberTextView.text = gameFullInfo.number
+        binding.positionTextView.text = gameFullInfo.primaryPosition
+        binding.typePositionTextView.text = gameFullInfo.typePosition
     }
 }

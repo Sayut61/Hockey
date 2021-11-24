@@ -2,6 +2,7 @@ package com.sayut61.hockey.domain.entities
 
 import android.os.Parcelable
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.PeriodsInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.PrimaryPosition
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -32,5 +33,7 @@ data class GameFullInfo(
 data class PlayerNameAndNumber(
     val name: String,
     val number: String,
-    val id: Int
+    val id: Int,
+    val primaryPosition: String,
+    val typePosition: String
 ): Parcelable
