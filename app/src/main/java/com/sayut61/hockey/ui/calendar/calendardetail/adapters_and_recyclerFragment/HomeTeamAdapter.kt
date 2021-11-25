@@ -29,7 +29,6 @@ class HomeTeamViewHolder(val binding: HomeTeamPlayersItemBinding): RecyclerView.
     fun bind(gameFullInfo: PlayerNameAndNumber){
         binding.nameTextView.text = gameFullInfo.name
         binding.numberTextView.text = gameFullInfo.number
-        binding.positionTextView.text = gameFullInfo.primaryPosition
         binding.typePositionTextView.text = gameFullInfo.typePosition
     }
 }

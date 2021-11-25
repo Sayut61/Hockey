@@ -3,6 +3,7 @@ package com.sayut61.hockey.ui.players
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AnimationUtils
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
