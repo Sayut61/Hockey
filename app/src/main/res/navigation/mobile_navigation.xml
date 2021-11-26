@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_teams" >
         <action
             android:id="@+id/action_teamsFragment_to_teamDetailFragment"
-            app:destination="@id/teamDetailFragment" />
+            app:destination="@id/teamDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/teamDetailFragment"
@@ -23,7 +27,11 @@
             app:argType="com.sayut61.hockey.domain.entities.TeamGeneralInfo" />
         <action
             android:id="@+id/action_teamDetailFragment_to_playerDetailInfoFragment"
-            app:destination="@id/playerDetailInfoFragment" />
+            app:destination="@id/playerDetailInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/playersFragment"
@@ -32,7 +40,11 @@
         tools:layout="@layout/fragment_players" >
         <action
             android:id="@+id/action_playersFragment_to_playerInfoFragment"
-            app:destination="@id/playerDetailInfoFragment" />
+            app:destination="@id/playerDetailInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/playerDetailInfoFragment"
@@ -50,7 +62,11 @@
         tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_favoriteFragment_to_calendarDetailFragment"
-            app:destination="@id/calendarDetailFragment" />
+            app:destination="@id/calendarDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -59,32 +75,33 @@
         tools:layout="@layout/fragment_calendar" >
         <action
             android:id="@+id/action_calendarFragment_to_calendarDetailFragment"
-            app:destination="@id/calendarDetailFragment" />
+            app:destination="@id/calendarDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/calendarDetailFragment"
         android:name="com.sayut61.hockey.ui.calendar.calendardetail.CalendarDetailFragment"
         android:label="Информация по матчу"
         tools:layout="@layout/fragment_calendar_detail">
-        <action
-            android:id="@+id/action_calendarDetailFragment_to_teamDetailFragment"
-            app:destination="@id/teamDetailFragment" />
         <argument
             android:name="game"
             app:argType="com.sayut61.hockey.domain.entities.GameGeneralInfo" />
         <action
             android:id="@+id/action_calendarDetailFragment_to_playerDetailInfoFragment"
-            app:destination="@id/playerDetailInfoFragment" />
+            app:destination="@id/playerDetailInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.sayut61.hockey.ui.map.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" >
-        <action
-            android:id="@+id/action_mapsFragment2_to_teamDetailFragment"
-            app:destination="@id/teamDetailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_maps" />
     <fragment
         android:id="@+id/gameFavoriteFragment"
         android:name="com.sayut61.hockey.ui.favorites.tabfragments.GamesFavoriteFragment"
