@@ -3,6 +3,7 @@ package com.sayut61.hockey.ui.adapters
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.PlayersItemBinding
@@ -21,6 +22,8 @@ class PlayersAdapter(private val playerGeneralInfo: List<PlayerGeneralInfo>,
     }
     override fun onBindViewHolder(holder: PlayersViewHolder, position: Int) {
         val player = playerGeneralInfo[position]
+        holder.binding.addToFavoriteImageButton.animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recycler_anim2_1)
+        holder.binding.logoPlayerImageView.animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recycler_anim2_2)
         holder.itemView.setOnClickListener {
             listener.onPlayerClick(player)
         }
@@ -38,13 +41,11 @@ class PlayersViewHolder(val binding: PlayersItemBinding): RecyclerView.ViewHolde
             loadImage(logoUrl, activity, binding.logoPlayerImageView)
         }
         setIsInFavoriteButton(playerGeneralInfo.isInFavorite)
-
         binding.addToFavoriteImageButton.setOnClickListener {
             listener.onFavoriteButtonClick(playerGeneralInfo)
             setIsInFavoriteButton(!playerGeneralInfo.isInFavorite)
         }
     }
-
     private fun setIsInFavoriteButton(isInFavorite: Boolean) {
         binding.addToFavoriteImageButton.setImageResource(
             if (isInFavorite)
