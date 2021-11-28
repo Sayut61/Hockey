@@ -7,4 +7,5 @@ import androidx.room.PrimaryKey
 data class FavoritePlayer (
     @PrimaryKey
     val playerId: Int,
+    val fullName: String
     )

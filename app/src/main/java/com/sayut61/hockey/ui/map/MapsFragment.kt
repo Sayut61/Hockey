@@ -39,7 +39,7 @@ class MapsFragment : Fragment() {
             googleMap.addMarker(
                 MarkerOptions()
                     .position(LatLng(it.geoLat, it.geoLong))
-                    .title((it.fullTeamName +" "+ it.nameStadium))
+                    .title((it.fullTeamName +" - "+ it.nameStadium))
             )
         }
     }

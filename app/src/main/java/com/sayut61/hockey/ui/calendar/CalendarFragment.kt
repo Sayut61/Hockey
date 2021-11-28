@@ -72,9 +72,17 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         binding.monthTextView.text = myCalendar.getCurrentMonthName()
         binding.yearTextView.text = myCalendar.year.toString()
     }
-    private fun showCalendarInfo(gameFullInfo: List<GameFullInfo>) {
-        val adapter = CalendarAdapter(gameFullInfo, this, activity)
-        binding.recyclerViewCalendar.adapter = adapter
+    private fun showCalendarInfo(gamesFullInfo: List<GameFullInfo>) {
+        if (gamesFullInfo.isNotEmpty()) {
+            val adapter = CalendarAdapter(gamesFullInfo, this, activity)
+            binding.recyclerViewCalendar.adapter = adapter
+            binding.recyclerViewCalendar.visibility = View.VISIBLE
+            binding.emptyListTextView.visibility = View.GONE
+        }else {
+            binding.emptyListTextView.visibility = View.VISIBLE
+            binding.recyclerViewCalendar.visibility = View.INVISIBLE
+        }
+
     }
     override fun onCalendarClick(gameFullInfo: GameFullInfo) {
         val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameFullInfo.generalInfo)

@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
         android:contentDescription="TODO"
         android:minHeight="48dp"
         android:src="@drawable/ic_baseline_navigate_before_24"
@@ -48,12 +49,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="TODO"
         android:minHeight="48dp"
         android:src="@drawable/ic_baseline_navigate_next_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:contentDescription="TODO" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/monthTextView"
@@ -87,6 +89,17 @@
         android:id="@+id/currentDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewCalendar" />
+
+    <TextView
+        android:id="@+id/emptyListTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_games"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewCalendar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recyclerViewCalendar" />

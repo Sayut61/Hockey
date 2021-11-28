@@ -3,6 +3,7 @@ package com.sayut61.hockey.datalayer.repositories
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoritePlayer
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerInfoFromSecondApi
 import com.sayut61.hockey.domain.PlayerRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
@@ -35,27 +36,27 @@ class PlayerRepositoryImpl @Inject constructor(
 
     override suspend fun getPlayersFromDB(): List<PlayerStatisticsInfo> {
         val playersFromDB = playersInfoDao.getPlayers()
+        val photos = remoteDataSource.getPlayersPhotos()
         return playersFromDB.map { favoritePlayer ->
-            getPlayerStatById(favoritePlayer.playerId)
+            getPlayerStatById(favoritePlayer, photos)
         }
     }
 
-    private suspend fun getPlayerStatById(id: Int): PlayerStatisticsInfo {
-        val playerFullInfo = remoteDataSource.getPlayerFullInfo(id)
-        val photo = remoteDataSource.getPlayersPhoto()
-            .find { (playerFullInfo.fullName == it.draftKingsName) || (playerFullInfo.fullName == it.fanDuelName) || (playerFullInfo.fullName == it.yahooName) }
-        val playerStatFromApi = remoteDataSource.getPlayerStatistics(id)
+    private suspend fun getPlayerStatById(favoritePlayer: FavoritePlayer, photos: List<PlayerInfoFromSecondApi>): PlayerStatisticsInfo {
+        val photo = photos
+            .find { (favoritePlayer.fullName == it.draftKingsName) || (favoritePlayer.fullName == it.fanDuelName) || (favoritePlayer.fullName == it.yahooName) }
+        val playerStatFromApi = remoteDataSource.getPlayerStatistics(favoritePlayer.playerId)
         return if (playerStatFromApi.stats.isEmpty() || playerStatFromApi.stats[0].splits.isEmpty())
             PlayerStatisticsInfo(
-                id = id,
-                name = playerFullInfo.fullName,
+                id = favoritePlayer.playerId,
+                name = favoritePlayer.fullName,
                 photo = photo?.photoUrl
             )
         else {
             val statistics = playerStatFromApi.stats[0].splits[0].stat
             PlayerStatisticsInfo(
-                id = id,
-                name = playerFullInfo.fullName,
+                id = favoritePlayer.playerId,
+                name = favoritePlayer.fullName,
                 photo = photo?.photoUrl,
                 timeOnIce = statistics.timeOnIce,
                 assists = statistics.assists,
@@ -78,7 +79,7 @@ class PlayerRepositoryImpl @Inject constructor(
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
         val logo = remoteDataSource.getTeamsSecondApi()
             .find { team -> playerInfo.teamFullName.endsWith(team.shortName) }
-        val photo = remoteDataSource.getPlayersPhoto()
+        val photo = remoteDataSource.getPlayersPhotos()
             .find { (playerInfo.fullName == it.draftKingsName) || (playerInfo.fullName == it.fanDuelName) || (playerInfo.fullName == it.yahooName) }
         return PlayerFullInfo(
             playerId = playerInfo.playerId,
@@ -100,9 +101,9 @@ class PlayerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
-        playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId))
+        playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId, playerGeneralInfo.fullName))
     }
     override suspend fun removeFromFavoritePlayer(playerId: Int) {
-        playersInfoDao.delete(FavoritePlayer(playerId))
+        playersInfoDao.delete(FavoritePlayer(playerId,""))
     }
 }

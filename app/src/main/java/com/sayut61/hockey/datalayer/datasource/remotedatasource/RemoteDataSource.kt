@@ -2,26 +2,20 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource
 
 import android.os.Build
 import android.util.Log
-import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
-import com.google.gson.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumGeneralInfo
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.*
-import com.sayut61.hockey.domain.entities.TeamPlayersInfo
-import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.lang.reflect.Type
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -64,7 +58,7 @@ class RemoteDataSource @Inject constructor() {
         suspend fun getStadiumInfoBySecondApi(): List<StadiumGeneralInfo>
 
         @GET(value = "Players?key=1dd2b753fe264d2b9d7d08d0988b34e2")
-        suspend fun getPlayersPhoto(): List<PlayersInfoFromSecondApi>
+        suspend fun getPlayersPhoto(): List<PlayerInfoFromSecondApi>
     }
 
     //Retrofit
@@ -93,7 +87,7 @@ class RemoteDataSource @Inject constructor() {
         return serviceForFirstApi.getPlayerStatistic(playerId)
     }
 
-    suspend fun getPlayersPhoto(): List<PlayersInfoFromSecondApi>{
+    suspend fun getPlayersPhotos(): List<PlayerInfoFromSecondApi>{
         return serviceForSecondApi.getPlayersPhoto()
     }
 

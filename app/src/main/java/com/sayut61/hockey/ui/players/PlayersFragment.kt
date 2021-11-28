@@ -3,7 +3,6 @@ package com.sayut61.hockey.ui.players
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
-import android.view.animation.AnimationUtils
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -22,6 +21,8 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
     private val viewModel: PlayersViewModel by viewModels()
     private var _binding: FragmentPlayersBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var adapter: PlayersAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -36,8 +37,11 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-        viewModel.listPlayersLiveData.observe(viewLifecycleOwner) {
-            showListPlayers(it)
+        adapter = PlayersAdapter(this, activity as Activity)
+        binding.playersRecyclerView.adapter = adapter
+        binding.playersRecyclerView.itemAnimator = null
+        viewModel.listPlayersLiveData.observe(viewLifecycleOwner) {playersGeneralInfo->
+            adapter.submitList(playersGeneralInfo)
         }
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
             if (it == true) showProgressBar()
@@ -57,10 +61,6 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
 
-    private fun showListPlayers(playerGeneralInfo: List<PlayerGeneralInfo>) {
-        val adapter = PlayersAdapter(playerGeneralInfo, this, activity as Activity)
-        binding.playersRecyclerView.adapter = adapter
-    }
 
     private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
