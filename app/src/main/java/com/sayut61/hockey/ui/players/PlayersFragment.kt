@@ -48,28 +48,22 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
             else hideProgressBar()
         }
     }
-
     override fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo) {
         val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
         findNavController().navigate(action)
     }
-
     override fun onFavoriteButtonClick(playerGeneralInfo: PlayerGeneralInfo) {
         viewModel.onFavoriteClick(playerGeneralInfo)
     }
     private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
-
-
     private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
     }
-
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.INVISIBLE
     }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.top_menu, menu)
@@ -79,14 +73,12 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true
             }
-
             override fun onQueryTextChange(text: String?): Boolean {
                 viewModel.changeFilter(text ?: "")
                 return true
             }
         })
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

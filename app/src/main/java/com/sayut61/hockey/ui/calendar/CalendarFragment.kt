@@ -23,7 +23,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
     lateinit var  myCalendar: MyCalendar
-
+    lateinit var adapter: CalendarAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -31,14 +31,22 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         setHasOptionsMenu(true)
         return binding.root
     }
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myCalendar = MyCalendar(requireContext())
-
+        adapter = CalendarAdapter(this, activity)
+        binding.recyclerViewCalendar.adapter = adapter
+        binding.recyclerViewCalendar.itemAnimator = null
         viewModel.gameFullInfoLiveData.observe(viewLifecycleOwner) {
-            showCalendarInfo(it)
+            if (it.isNotEmpty()) {
+                adapter.submitList(it)
+                binding.recyclerViewCalendar.visibility = View.VISIBLE
+                binding.emptyListTextView.visibility = View.GONE
+            }else {
+                binding.emptyListTextView.visibility = View.VISIBLE
+                binding.recyclerViewCalendar.visibility = View.INVISIBLE
+            }
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
@@ -71,18 +79,6 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         binding.daysOfMonthRecyclerView.scrollToPosition(myCalendar.day-1)
         binding.monthTextView.text = myCalendar.getCurrentMonthName()
         binding.yearTextView.text = myCalendar.year.toString()
-    }
-    private fun showCalendarInfo(gamesFullInfo: List<GameFullInfo>) {
-        if (gamesFullInfo.isNotEmpty()) {
-            val adapter = CalendarAdapter(gamesFullInfo, this, activity)
-            binding.recyclerViewCalendar.adapter = adapter
-            binding.recyclerViewCalendar.visibility = View.VISIBLE
-            binding.emptyListTextView.visibility = View.GONE
-        }else {
-            binding.emptyListTextView.visibility = View.VISIBLE
-            binding.recyclerViewCalendar.visibility = View.INVISIBLE
-        }
-
     }
     override fun onCalendarClick(gameFullInfo: GameFullInfo) {
         val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameFullInfo.generalInfo)

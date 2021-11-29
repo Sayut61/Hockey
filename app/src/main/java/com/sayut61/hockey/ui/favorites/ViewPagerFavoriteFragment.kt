@@ -35,8 +35,8 @@ class ViewPagerFavoriteFragment : Fragment() {
         binding.viewPager2.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             when (position) {
-                0 -> tab.text = "GAMES"
-                1 -> tab.text = "PLAYERS"
+                0 -> tab.text = "ИГРЫ"
+                1 -> tab.text = "ИГРОКИ"
             }
         }.attach()
     }

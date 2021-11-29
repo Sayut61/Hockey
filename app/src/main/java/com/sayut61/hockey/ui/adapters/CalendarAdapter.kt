@@ -3,6 +3,8 @@ package com.sayut61.hockey.ui.adapters
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.CalendarItemBinding
@@ -15,15 +17,18 @@ interface CalendarAdapterListener{
     fun onFavButtonClick(gameFullInfo: GameFullInfo)
 }
 class CalendarAdapter(
-    private val getGameFullInfo: List<GameFullInfo>,
     private val listener: CalendarAdapterListener,
     private val activity: Activity?
-    ): RecyclerView.Adapter<CalendarViewHolder>(){
+    ): ListAdapter<GameFullInfo, CalendarViewHolder>(CalendarDiffUtil()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
-        return CalendarViewHolder(CalendarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return CalendarViewHolder(
+            CalendarItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false))
     }
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
-        val calendar = getGameFullInfo[position]
+        val calendar = getItem(position)
         holder.itemView.setOnClickListener{
             listener.onCalendarClick(calendar)
         }
@@ -31,9 +36,6 @@ class CalendarAdapter(
             listener.onFavButtonClick(calendar)
         }
         holder.bind(calendar, activity)
-    }
-    override fun getItemCount(): Int {
-        return getGameFullInfo.size
     }
 }
 class CalendarViewHolder(val binding: CalendarItemBinding):
@@ -56,4 +58,14 @@ class CalendarViewHolder(val binding: CalendarItemBinding):
         else
             R.drawable.ic_baseline_favorite_gameminus)
     }
+}
+class CalendarDiffUtil: DiffUtil.ItemCallback<GameFullInfo>(){
+    override fun areItemsTheSame(oldItem: GameFullInfo, newItem: GameFullInfo): Boolean {
+        return oldItem.generalInfo.gameId == newItem.generalInfo.gameId
+    }
+
+    override fun areContentsTheSame(oldItem: GameFullInfo, newItem: GameFullInfo): Boolean {
+        return oldItem == newItem
+    }
+
 }

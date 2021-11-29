@@ -8,7 +8,7 @@
         android:id="@+id/teamsFragment"
         android:name="com.sayut61.hockey.ui.teams.TeamsFragment"
         android:label="@string/title_teams_fragment"
-        tools:layout="@layout/fragment_teams" >
+        tools:layout="@layout/fragment_teams">
         <action
             android:id="@+id/action_teamsFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment"
@@ -36,8 +36,8 @@
     <fragment
         android:id="@+id/playersFragment"
         android:name="com.sayut61.hockey.ui.players.PlayersFragment"
-        android:label="fragment_players"
-        tools:layout="@layout/fragment_players" >
+        android:label="Игроки"
+        tools:layout="@layout/fragment_players">
         <action
             android:id="@+id/action_playersFragment_to_playerInfoFragment"
             app:destination="@id/playerDetailInfoFragment"
@@ -49,8 +49,8 @@
     <fragment
         android:id="@+id/playerDetailInfoFragment"
         android:name="com.sayut61.hockey.ui.players.playerinfo.PlayerDetailInfoFragment"
-        android:label="fragment_player_info"
-        tools:layout="@layout/fragment_player_info" >
+        android:label="Информация по игроку"
+        tools:layout="@layout/fragment_player_info">
         <argument
             android:name="playerId"
             app:argType="integer" />
@@ -58,7 +58,7 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.sayut61.hockey.ui.favorites.ViewPagerFavoriteFragment"
-        android:label="fragment_favorite"
+        android:label="Избранное"
         tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_favoriteFragment_to_calendarDetailFragment"
@@ -71,8 +71,8 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.sayut61.hockey.ui.calendar.CalendarFragment"
-        android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" >
+        android:label="Календарь игр"
+        tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_calendarDetailFragment"
             app:destination="@id/calendarDetailFragment"
@@ -100,11 +100,11 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.sayut61.hockey.ui.map.MapsFragment"
-        android:label="fragment_maps"
+        android:label="Карта стадионов"
         tools:layout="@layout/fragment_maps" />
     <fragment
         android:id="@+id/gameFavoriteFragment"
         android:name="com.sayut61.hockey.ui.favorites.tabfragments.GamesFavoriteFragment"
-        android:label="fragment_game_favorite"
+        android:label="Избранные игры"
         tools:layout="@layout/fragment_game_favorite" />
 </navigation>

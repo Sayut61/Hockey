@@ -16,7 +16,6 @@ interface PlayersAdapterListener {
     fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo)
     fun onFavoriteButtonClick(playerId: PlayerGeneralInfo)
 }
-
 class PlayersAdapter(
     private val listener: PlayersAdapterListener,
     val activity: Activity?
@@ -31,7 +30,6 @@ class PlayersAdapter(
             )
         )
     }
-
     override fun onBindViewHolder(holder: PlayersViewHolder, position: Int) {
         val player = getItem(position)
 
@@ -50,26 +48,20 @@ class PlayersAdapter(
             holder.setIsInFavoriteButton(!player.isInFavorite)
             favoriteClickPlayer = player
         }
-
     }
 }
-
 class PlayersViewHolder(val binding: PlayersItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
     fun bind(
         playerGeneralInfo: PlayerGeneralInfo,
         activity: Activity?,
     ) {
         binding.playerNumberTextView.text = playerGeneralInfo.jerseyNumber.toString()
         binding.playerFullNameTextView.text = playerGeneralInfo.fullName
-
-
         playerGeneralInfo.logo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.logoPlayerImageView)
         }
         setIsInFavoriteButton(playerGeneralInfo.isInFavorite)
     }
-
     fun setIsInFavoriteButton(isInFavorite: Boolean) {
         binding.addToFavoriteImageButton.setImageResource(
             if (isInFavorite)
@@ -79,16 +71,11 @@ class PlayersViewHolder(val binding: PlayersItemBinding) : RecyclerView.ViewHold
         )
     }
 }
-
 class PlayerGeneralInfoDiffUtil : DiffUtil.ItemCallback<PlayerGeneralInfo>() {
     override fun areItemsTheSame(oldItem: PlayerGeneralInfo, newItem: PlayerGeneralInfo): Boolean {
         return oldItem.playerId == newItem.playerId
     }
-
-    override fun areContentsTheSame(
-        oldItem: PlayerGeneralInfo,
-        newItem: PlayerGeneralInfo
-    ): Boolean {
+    override fun areContentsTheSame(oldItem: PlayerGeneralInfo, newItem: PlayerGeneralInfo): Boolean {
         return oldItem == newItem
     }
 
