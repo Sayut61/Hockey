@@ -31,7 +31,14 @@ class PlayersFavoriteFragment : Fragment(), FavoriteAdapterListener {
         adapter = PlayersFavoriteAdapter(this, activity as Activity)
         binding.playerStatisticsRecyclerView.adapter = adapter
         viewModel.playersFavoriteLiveData.observe(viewLifecycleOwner){
-            adapter.submitList(it)
+            if(it.isNotEmpty()) {
+                adapter.submitList(it)
+                binding.playerStatisticsRecyclerView.visibility = View.VISIBLE
+                binding.emptyListTextView.visibility = View.GONE
+            }else{
+                binding.playerStatisticsRecyclerView.visibility = View.INVISIBLE
+                binding.emptyListTextView.visibility = View.VISIBLE
+            }
         }
         viewModel.refreshFavoriteFragment()
         viewModel.progressBarLiveData.observe(viewLifecycleOwner){

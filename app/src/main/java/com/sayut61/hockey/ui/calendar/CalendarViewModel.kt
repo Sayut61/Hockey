@@ -29,9 +29,7 @@ class CalendarViewModel @Inject constructor(
     val errorLiveData: LiveData<Exception> = _errorLiveData
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
-
     var date: LocalDate? = null
-
     fun changeDate(date: LocalDate) {
         this.date = date
         refreshViewModel(date)

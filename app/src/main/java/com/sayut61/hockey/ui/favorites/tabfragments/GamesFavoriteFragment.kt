@@ -33,7 +33,14 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
         adapter = GameFavoriteAdapter(this, activity as? Activity)
         binding.favoriteGameRecyclerView.adapter = adapter
         viewModel.gamesFavoriteLiveData.observe(viewLifecycleOwner){
-            adapter.submitList(it)
+            if (it.isNotEmpty()) {
+                adapter.submitList(it)
+                binding.emptyListTextView.visibility = View.GONE
+                binding.favoriteGameRecyclerView.visibility = View.VISIBLE
+            }else{
+                binding.emptyListTextView.visibility = View.VISIBLE
+                binding.favoriteGameRecyclerView.visibility = View.INVISIBLE
+            }
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)

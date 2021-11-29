@@ -56,4 +56,6 @@
     <string name="fragmentTeamStatistics_place_on_the_missed_washers">place on te misses washers:</string>
     <string name="fragmentTeamStatistics_goals_rival">goals (rival):</string>
     <string name="no_games">Игр нет</string>
+    <string name="fragmentGameFavorite_emptyListText">Нет избранных игр</string>
+    <string name="fragmentPlayerFavorite_emptyListText">Нет избранных игроков</string>
 </resources>

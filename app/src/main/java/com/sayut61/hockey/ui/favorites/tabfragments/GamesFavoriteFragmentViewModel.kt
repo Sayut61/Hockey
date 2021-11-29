@@ -17,25 +17,19 @@ import javax.inject.Inject
 @HiltViewModel
 class GamesFavoriteFragmentViewModel @Inject constructor(
     private val gamesFavUseCases: GamesFavUseCases,
-    private val gamesUseCases: GamesUseCases
 ) : ViewModel() {
     private val _gamesFavoriteLiveData = MutableLiveData<List<GameFullInfo>>()
     val gamesFavoriteLiveData: MutableLiveData<List<GameFullInfo>> = _gamesFavoriteLiveData
-
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
-
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
-
-
     fun deleteFromFavorite(gameGeneralInfo: GameGeneralInfo) {
         viewModelScope.launch {
             gamesFavUseCases.removeFromFavoriteGame(gameGeneralInfo)
         }
         refreshFavoriteFragment()
     }
-
     fun refreshFavoriteFragment() {
         viewModelScope.launch {
             _progressBarLiveData.value = true
