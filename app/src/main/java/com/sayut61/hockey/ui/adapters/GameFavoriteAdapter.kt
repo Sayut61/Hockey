@@ -18,7 +18,7 @@ interface GameFavoriteAdapterListener {
 class GameFavoriteAdapter(
     private val listener: GameFavoriteAdapterListener,
     private val activity: Activity?
-) : ListAdapter<GameFullInfo, GameFavoriteViewHolder>(GameFavoriteDiffUtil()) {
+) : ListAdapter<GameFullInfo, GameFavoriteViewHolder>(GamesFavoriteDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameFavoriteViewHolder {
         return GameFavoriteViewHolder(GameFavItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -53,7 +53,7 @@ class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
         }
     }
 }
-class GameFavoriteDiffUtil: DiffUtil.ItemCallback<GameFullInfo>(){
+class GamesFavoriteDiffUtil: DiffUtil.ItemCallback<GameFullInfo>(){
     override fun areItemsTheSame(oldItem: GameFullInfo, newItem: GameFullInfo): Boolean {
        return oldItem.generalInfo.gameId == newItem.generalInfo.gameId
     }

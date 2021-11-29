@@ -21,15 +21,17 @@ class PlayersFavoriteFragment : Fragment(), FavoriteAdapterListener {
     private val viewModel: PlayersFavoriteViewModel by viewModels()
     private var _binding: FragmentPlayerFavoriteBinding? = null
     private val binding get() = _binding!!
+    lateinit var adapter: PlayersFavoriteAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentPlayerFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = PlayersFavoriteAdapter(this, activity as Activity)
+        binding.playerStatisticsRecyclerView.adapter = adapter
         viewModel.playersFavoriteLiveData.observe(viewLifecycleOwner){
-            val adapter = PlayersFavoriteAdapter(it, this, activity as Activity)
-            binding.playerStatisticsRecyclerView.adapter = adapter
+            adapter.submitList(it)
         }
         viewModel.refreshFavoriteFragment()
         viewModel.progressBarLiveData.observe(viewLifecycleOwner){

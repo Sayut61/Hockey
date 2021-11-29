@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.menu.MenuView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.FavoritePlayerStatItemBinding
 import com.sayut61.hockey.databinding.FragmentPlayerFavoriteBinding
@@ -16,22 +18,22 @@ interface FavoriteAdapterListener{
     fun deleteButtonClick(playerId: Int)
 }
 class PlayersFavoriteAdapter(
-    val favoritePlayers: List<PlayerStatisticsInfo>,
     val listener: FavoriteAdapterListener,
     val activity: Activity
-): RecyclerView.Adapter<PlayersFavoriteViewHolder>() {
+): ListAdapter<PlayerStatisticsInfo, PlayersFavoriteViewHolder>(PlayersFavoriteDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersFavoriteViewHolder {
-        return PlayersFavoriteViewHolder(FavoritePlayerStatItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return PlayersFavoriteViewHolder(
+            FavoritePlayerStatItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false))
     }
     override fun onBindViewHolder(holder: PlayersFavoriteViewHolder, position: Int) {
-        val player = favoritePlayers[position]
+        val player = getItem(position)
         holder.binding.deleteImageButton.setOnClickListener {
             listener.deleteButtonClick(player.id)
         }
         holder.bind(player, activity)
-    }
-    override fun getItemCount(): Int {
-        return favoritePlayers.size
     }
 }
 class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): RecyclerView.ViewHolder(binding.root){
@@ -56,4 +58,20 @@ class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): Rec
         binding.PPGoalsTextView.text = player.powerPlayGoals.toString()
         binding.PPPointsTextView.text = player.powerPlayPoints.toString()
     }
+}
+class PlayersFavoriteDiffUtil: DiffUtil.ItemCallback<PlayerStatisticsInfo>(){
+    override fun areItemsTheSame(
+        oldItem: PlayerStatisticsInfo,
+        newItem: PlayerStatisticsInfo
+    ): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(
+        oldItem: PlayerStatisticsInfo,
+        newItem: PlayerStatisticsInfo
+    ): Boolean {
+        return oldItem == newItem
+    }
+
 }
