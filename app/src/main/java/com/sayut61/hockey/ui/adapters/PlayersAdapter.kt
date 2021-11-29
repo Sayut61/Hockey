@@ -26,9 +26,7 @@ class PlayersAdapter(
             PlayersItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
-        )
+                false))
     }
     override fun onBindViewHolder(holder: PlayersViewHolder, position: Int) {
         val player = getItem(position)

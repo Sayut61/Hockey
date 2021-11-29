@@ -22,16 +22,18 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
     private val viewModel: GamesFavoriteFragmentViewModel by viewModels()
     private var _binding: FragmentGameFavoriteBinding? = null
     private val binding get() = _binding!!
+    lateinit var adapter: GameFavoriteAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentGameFavoriteBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = GameFavoriteAdapter(this, activity as? Activity)
+        binding.favoriteGameRecyclerView.adapter = adapter
         viewModel.gamesFavoriteLiveData.observe(viewLifecycleOwner){
-            showGameInfo(it)
+            adapter.submitList(it)
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
@@ -41,11 +43,6 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
             else hideProgressBar()
         }
         viewModel.refreshFavoriteFragment()
-    }
-
-    fun showGameInfo(gameGeneralInfo: List<GameFullInfo>){
-        val adapter = GameFavoriteAdapter(gameGeneralInfo, this, activity as? Activity)
-        binding.favoriteGameRecyclerView.adapter = adapter
     }
     override fun onGameClick(gameGeneralInfo: GameGeneralInfo) {
         val action = ViewPagerFavoriteFragmentDirections.actionFavoriteFragmentToCalendarDetailFragment(gameGeneralInfo)
@@ -57,18 +54,14 @@ class GamesFavoriteFragment() : Fragment(), GameFavoriteAdapterListener{
     private fun hideProgressBar(){
         binding.progressBar.visibility = View.INVISIBLE
     }
-
     override fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo) {
         viewModel.deleteFromFavorite(gameGeneralInfo)
     }
-
     private fun showError(ex: Exception){
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }
