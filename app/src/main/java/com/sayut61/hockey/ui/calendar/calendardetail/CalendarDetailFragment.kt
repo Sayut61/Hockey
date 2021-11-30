@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.contains
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.map
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sayut61.hockey.databinding.FragmentCalendarDetailBinding
@@ -22,7 +25,6 @@ class CalendarDetailFragment : Fragment() {
     private var _binding: FragmentCalendarDetailBinding? = null
     private val binding get() = _binding!!
     private val args: CalendarDetailFragmentArgs by navArgs()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,7 +35,6 @@ class CalendarDetailFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val fragmentList = arrayListOf(
             HomeTeamRecyclerFragment.getInstance(args.game),
             AwayTeamRecyclerFragment.getInstance(args.game)
@@ -43,19 +44,28 @@ class CalendarDetailFragment : Fragment() {
             requireActivity().supportFragmentManager,
             lifecycle)
         binding.calendarViewPager.adapter = adapter
-        TabLayoutMediator(binding.calendarTabLayout, binding.calendarViewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "HOME"
-                1 -> tab.text = "AWAY"
-            }
-        }.attach()
-
+        binding.calendarTabLayout.visibility = View.INVISIBLE
+        binding.calendarViewPager.visibility = View.INVISIBLE
+            TabLayoutMediator(binding.calendarTabLayout, binding.calendarViewPager) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "ХОЗЯЕВА"
+                    1 -> tab.text = "ГОСТИ"
+                }
+            }.attach()
         //__________________________________________________________________________
         val gameGeneralInfo = args.game
         viewModel.refreshViewModel(gameGeneralInfo)
-
         viewModel.getGameInfo.observe(viewLifecycleOwner) {
             showFullInfo(it)
+            if((it.gameState == "окончен")|| (it.gameState ==("идет"))){
+                binding.calendarTabLayout.visibility = View.VISIBLE
+                binding.calendarViewPager.visibility = View.VISIBLE
+                binding.emptyListTextView.visibility = View.GONE
+            }else{
+                binding.calendarTabLayout.visibility = View.INVISIBLE
+                binding.calendarViewPager.visibility = View.INVISIBLE
+                binding.emptyListTextView.visibility = View.VISIBLE
+            }
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)

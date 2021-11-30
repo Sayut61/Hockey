@@ -51,4 +51,8 @@
     <string name="fragmentTeamStatistics_place_for_goals">место по забитым голам:</string>
     <string name="fragmentTeamStatistics_place_on_the_missed_washers">место по пропущенным голам:</string>
     <string name="fragmentTeamStatistics_goals_rival">голы (соперник):</string>
+    <string name="no_games">Игр нет</string>
+    <string name="fragmentGameFavorite_emptyListText">Нет избранных игр</string>
+    <string name="fragmentPlayerFavorite_emptyListText">Нет избранных игроков</string>
+    <string name="calendarDetailFragment_emptyListText">Актуальные составы появятся перед началом матча</string>
 </resources>

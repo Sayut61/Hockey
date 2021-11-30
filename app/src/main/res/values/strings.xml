@@ -55,7 +55,8 @@
     <string name="fragmentTeamStatistics_place_for_goals">place for goals:</string>
     <string name="fragmentTeamStatistics_place_on_the_missed_washers">place on te misses washers:</string>
     <string name="fragmentTeamStatistics_goals_rival">goals (rival):</string>
-    <string name="no_games">Игр нет</string>
-    <string name="fragmentGameFavorite_emptyListText">Нет избранных игр</string>
-    <string name="fragmentPlayerFavorite_emptyListText">Нет избранных игроков</string>
+    <string name="no_games">no games</string>
+    <string name="fragmentPlayerFavorite_emptyListText">no favorite players</string>
+    <string name="calendarDetailFragment_emptyListText">"Сurrent lineups will appear before the start of the match "</string>
+    <string name="fragmentGameFavorite_emptyListText">no favorite games</string>
 </resources>
