@@ -86,10 +86,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFavButtonClick(gameFullInfo: GameFullInfo) {
-        if (gameFullInfo.generalInfo.isInFavoriteGame)
-            viewModel.removeGameInDB(gameFullInfo.generalInfo)
-        else
-            viewModel.addGameInDB(gameFullInfo.generalInfo)
+        viewModel.onFavoriteClick(gameFullInfo.generalInfo)
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onDayClick(day: CalendarDay) {

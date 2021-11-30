@@ -32,15 +32,12 @@ class CalendarAdapter(
         holder.itemView.setOnClickListener{
             listener.onCalendarClick(calendar)
         }
-        holder.binding.addToFavoriteButton.setOnClickListener {
-            listener.onFavButtonClick(calendar)
-        }
-        holder.bind(calendar, activity)
+        holder.bind(calendar, activity, listener)
     }
 }
 class CalendarViewHolder(val binding: CalendarItemBinding):
     RecyclerView.ViewHolder(binding.root){
-    fun bind(gameFullInfo: GameFullInfo, activity: Activity?){
+    fun bind(gameFullInfo: GameFullInfo, activity: Activity?, listener: CalendarAdapterListener){
         binding.firstTeamTextView.text = gameFullInfo.generalInfo.homeTeamNameFull
         binding.secondTeamTextView.text = gameFullInfo.generalInfo.awayTeamNameFull
         binding.dateTimeTextView.text = gameFullInfo.generalInfo.gameDate
@@ -53,10 +50,19 @@ class CalendarViewHolder(val binding: CalendarItemBinding):
         gameFullInfo.generalInfo.homeTeamLogo?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.firstTeamImageView)
         }
-        binding.addToFavoriteButton.setImageResource(if(gameFullInfo.generalInfo.isInFavoriteGame)
-            R.drawable.ic_baseline_favorite_gameplus
-        else
-            R.drawable.ic_baseline_favorite_gameminus)
+        setIsInFavoriteButton(gameFullInfo.generalInfo.isInFavoriteGame)
+        binding.addToFavoriteButton.setOnClickListener {
+            listener.onFavButtonClick(gameFullInfo)
+            setIsInFavoriteButton(!gameFullInfo.generalInfo.isInFavoriteGame)
+        }
+    }
+    private fun setIsInFavoriteButton(isInFavorite: Boolean) {
+        binding.addToFavoriteButton.setImageResource(
+            if (isInFavorite)
+                R.drawable.ic_baseline_favorite_gameplus
+            else
+                R.drawable.ic_baseline_favorite_gameminus
+        )
     }
 }
 class CalendarDiffUtil: DiffUtil.ItemCallback<GameFullInfo>(){

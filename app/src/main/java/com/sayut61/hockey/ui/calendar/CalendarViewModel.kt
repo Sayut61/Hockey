@@ -34,25 +34,20 @@ class CalendarViewModel @Inject constructor(
         this.date = date
         refreshViewModel(date)
     }
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun addGameInDB(gameGeneralInfo: GameGeneralInfo) {
+    fun onFavoriteClick(gameGeneralInfo: GameGeneralInfo){
         viewModelScope.launch {
-            gamesFavUseCases.addToFavoriteGame(gameGeneralInfo)
-            date?.let {
-                refreshViewModel(it)
+            if(gameGeneralInfo.isInFavoriteGame) {
+                gamesFavUseCases.removeFromFavoriteGame(gameGeneralInfo)
+                date?.let{ refreshViewModel(it, false) }
+            } else {
+                gamesFavUseCases.addToFavoriteGame(gameGeneralInfo)
+                date?.let {refreshViewModel(it, false)}
             }
         }
     }
-    fun removeGameInDB(gameGeneralInfo: GameGeneralInfo) {
+    private fun refreshViewModel(date: LocalDate, showProgressBar: Boolean = true) {
         viewModelScope.launch {
-            gamesFavUseCases.removeFromFavoriteGame(gameGeneralInfo)
-            date?.let {
-                refreshViewModel(it)
-            }
-        }
-    }
-    private fun refreshViewModel(date: LocalDate) {
-        viewModelScope.launch {
+            if(showProgressBar)
             _progressBarLiveData.value = true
             try {
                 val gamesGeneralInfo =  gamesUseCases.getGamesInfo(date)
@@ -62,6 +57,7 @@ class CalendarViewModel @Inject constructor(
             } catch (ex: Exception) {
                 _errorLiveData.value = ex
             }
+            if(showProgressBar)
             _progressBarLiveData.value = false
         }
     }
