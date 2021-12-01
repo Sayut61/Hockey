@@ -13,6 +13,7 @@ import com.sayut61.hockey.ui.utils.loadImage
 interface TeamAdapterListener {
     fun onTeamClick(teamGeneralInfo: TeamGeneralInfo)
 }
+
 class TeamsAdapter(
     private val getTeamGeneralInfoName: List<TeamGeneralInfo>,
     private val listener: TeamAdapterListener,
@@ -23,22 +24,36 @@ class TeamsAdapter(
             LayoutInflater.from(parent.context).inflate(R.layout.team_item, parent, false)
         )
     }
+
     override fun onBindViewHolder(holder: TeamsViewHolder, position: Int) {
         val team = getTeamGeneralInfoName[position]
         holder.itemView.setOnClickListener {
             listener.onTeamClick(team)
         }
-        holder.bind(team, activity)
+        holder.bind(team, activity, position)
     }
+
     override fun getItemCount(): Int {
         return getTeamGeneralInfoName.size
     }
 }
+
 class TeamsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(teamGeneralInfo: TeamGeneralInfo, activity: Activity?) {
+    fun bind(teamGeneralInfo: TeamGeneralInfo, activity: Activity?, position: Int) {
         val binding = TeamItemBinding.bind(itemView)
-        teamGeneralInfo.urlLogoTeam?.let{ logoUrl->
+        teamGeneralInfo.urlLogoTeam?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.logoImageView)
         }
+        val color = if (position % 4 == 0 || (position - 3) % 4 == 0)
+            R.color.design_default_color_primary_dark
+        else
+            R.color.black
+
+        binding.root.setBackgroundColor(
+            itemView.context.resources.getColor(
+                color,
+                itemView.context.theme
+            )
+        )
     }
 }

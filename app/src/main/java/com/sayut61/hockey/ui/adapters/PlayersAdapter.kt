@@ -35,12 +35,6 @@ class PlayersAdapter(
             listener.onPlayerClick(player)
         }
         holder.bind(player, activity)
-        if (player.playerId != favoriteClickPlayer?.playerId) {
-            holder.binding.addToFavoriteImageButton.animation =
-                AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recycler_anim2_1)
-            holder.binding.logoPlayerImageView.animation =
-                AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recycler_anim2_2)
-        }
         holder.binding.addToFavoriteImageButton.setOnClickListener {
             listener.onFavoriteButtonClick(player)
             holder.setIsInFavoriteButton(!player.isInFavorite)

@@ -10,4 +10,5 @@ interface PlayerRepository {
     suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo
     suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo)
     suspend fun removeFromFavoritePlayer(playerId: Int)
+    suspend fun getPlayerStat(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo
 }

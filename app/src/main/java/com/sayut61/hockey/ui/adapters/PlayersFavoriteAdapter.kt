@@ -44,7 +44,7 @@ class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): Rec
                 loadImage(logoUrl, activity, binding.photoFavPlayerImageView)
             }
         }
-        binding.goalsTextView.text = player.goals.toString()
+        binding.goalsTextView.text = (player.goals ?: 0).toString()
         binding.assistsTextView.text = player.assists.toString()
         binding.shotsTextView.text = player.shots.toString()
         binding.pointsTextView.text = player.points.toString()

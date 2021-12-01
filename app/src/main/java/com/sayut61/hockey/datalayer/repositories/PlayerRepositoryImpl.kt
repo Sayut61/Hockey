@@ -41,6 +41,10 @@ class PlayerRepositoryImpl @Inject constructor(
             getPlayerStatById(favoritePlayer, photos)
         }
     }
+    override suspend fun getPlayerStat(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo {
+        val photos = remoteDataSource.getPlayersPhotos()
+        return getPlayerStatById(FavoritePlayer(playerFullInfo.playerId, playerFullInfo.fullName),photos)
+    }
 
     private suspend fun getPlayerStatById(favoritePlayer: FavoritePlayer, photos: List<PlayerInfoFromSecondApi>): PlayerStatisticsInfo {
         val photo = photos

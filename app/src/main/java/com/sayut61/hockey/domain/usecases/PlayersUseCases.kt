@@ -24,4 +24,8 @@ class PlayersUseCases @Inject constructor(
     suspend fun removeFromFavoritePlayer(playerId: Int){
         playerRepository.removeFromFavoritePlayer(playerId)
     }
+
+    suspend fun getPlayerStatistic(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo{
+        return playerRepository.getPlayerStat(playerFullInfo)
+    }
 }

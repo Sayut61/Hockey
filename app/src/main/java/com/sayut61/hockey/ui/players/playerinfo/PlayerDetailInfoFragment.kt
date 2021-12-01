@@ -34,6 +34,10 @@ class PlayerDetailInfoFragment : Fragment() {
         viewModel.playerLiveData.observe(viewLifecycleOwner){
             showPlayerFullInfo(it)
         }
+
+        viewModel.playerStatisticLiveData.observe(viewLifecycleOwner){
+            binding.textView.text = it.timeOnIcePerGame
+        }
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
         }
