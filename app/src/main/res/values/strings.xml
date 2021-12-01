@@ -35,7 +35,7 @@
     <string name="fragmentPlayerInfo_team">team:</string>
     <string name="fragmentTeamDetail_statistics">Statistics</string>
     <string name="fragmentTeamDetail_rooster">Line-up</string>
-    <string name="fragmentTeamDetail_birthday_team">established in</string>
+    <string name="fragmentTeamDetail_birthday_team">"established in "</string>
     <string name="fragmentTeamStatistics_games_finished">matches played:</string>
     <string name="fragmentTeamStatistics_wins">wins:</string>
     <string name="fragmentTeamStatistics_looses">loosses:</string>

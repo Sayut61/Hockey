@@ -37,7 +37,6 @@ class TeamsAdapter(
 class TeamsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(teamGeneralInfo: TeamGeneralInfo, activity: Activity?) {
         val binding = TeamItemBinding.bind(itemView)
-        binding.teamNameTextView.text = teamGeneralInfo.shortTeamName
         teamGeneralInfo.urlLogoTeam?.let{ logoUrl->
             loadImage(logoUrl, activity, binding.logoImageView)
         }

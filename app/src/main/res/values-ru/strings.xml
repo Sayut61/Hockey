@@ -31,7 +31,7 @@
     <string name="fragmentPlayerInfo_city">город:</string>
     <string name="fragmentTeamDetail_statistics">Статистика</string>
     <string name="fragmentTeamDetail_rooster">Состав</string>
-    <string name="fragmentTeamDetail_birthday_team">создан в</string>
+    <string name="fragmentTeamDetail_birthday_team">"создан в "</string>
     <string name="fragmentTeamStatistics_games_finished">матчей сыграно:</string>
     <string name="fragmentTeamStatistics_wins">победы:</string>
     <string name="fragmentTeamStatistics_looses">поражения:</string>

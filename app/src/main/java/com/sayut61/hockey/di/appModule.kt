@@ -23,7 +23,6 @@ object AppModule{
     fun provideHockeyDB(@ApplicationContext context: Context): HockeyDB {
         return Room.databaseBuilder(context, HockeyDB::class.java, "db").build()
     }
-
     @Singleton
     @Provides
     fun provideGamesInfoDao(db: HockeyDB): GamesInfoDao {
