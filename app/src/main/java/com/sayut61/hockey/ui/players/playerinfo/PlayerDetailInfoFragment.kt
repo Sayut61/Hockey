@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.sayut61.hockey.databinding.FragmentPlayerInfoBinding
+import com.sayut61.hockey.databinding.FragmentPlayerDetailBinding
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
+import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import com.sayut61.hockey.ui.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
@@ -17,13 +18,13 @@ import java.lang.Exception
 @AndroidEntryPoint
 class PlayerDetailInfoFragment : Fragment() {
     private val viewModel: PlayerDetailInfoViewModel by viewModels()
-    private var _binding: FragmentPlayerInfoBinding? = null
+    private var _binding: FragmentPlayerDetailBinding? = null
     private val binding get() = _binding!!
     private val args: PlayerDetailInfoFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentPlayerInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentPlayerDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +37,7 @@ class PlayerDetailInfoFragment : Fragment() {
         }
 
         viewModel.playerStatisticLiveData.observe(viewLifecycleOwner){
-            binding.textView.text = it.timeOnIcePerGame
+            showPlayerStatistics(it)
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner){
             showError(it)
@@ -45,6 +46,14 @@ class PlayerDetailInfoFragment : Fragment() {
             if(it == true)showProgressBar()
             else hideProgressBar()
         }
+    }
+
+    private fun showPlayerStatistics(playerStatisticsInfo: PlayerStatisticsInfo){
+        binding.gamesTextView.text = (playerStatisticsInfo.games ?: 0).toString()
+        binding.assistsTextView.text = (playerStatisticsInfo.assists ?: 0).toString()
+        binding.pointsTextView.text = (playerStatisticsInfo.points ?: 0).toString()
+        binding.plusMinusTextView.text = (playerStatisticsInfo.plusMinus ?: 0).toString()
+        binding.goalsTextView.text = (playerStatisticsInfo.goals ?: 0).toString()
     }
 
     private fun showPlayerFullInfo(playerFullInfo: PlayerFullInfo) {

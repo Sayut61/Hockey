@@ -50,7 +50,7 @@
         android:id="@+id/playerDetailInfoFragment"
         android:name="com.sayut61.hockey.ui.players.playerinfo.PlayerDetailInfoFragment"
         android:label="Информация по игроку"
-        tools:layout="@layout/fragment_player_info">
+        tools:layout="@layout/fragment_player_detail">
         <argument
             android:name="playerId"
             app:argType="integer" />

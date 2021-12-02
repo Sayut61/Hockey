@@ -11,7 +11,7 @@
     <string name="favoritePlayerStatItem_timeOnIcePerGame">time on ice per game:</string>
     <string name="favoritePlayerStatItem_games">goals:</string>
     <string name="favoritePlayerStatItem_hits">hits:</string>
-    <string name="favoritePlayerStatItem_plusMinus">plus minus:</string>
+    <string name="favoritePlayerStatItem_plusMinus">"plus minus: "</string>
     <string name="favoritePlayerStatItem_shots">shots:</string>
     <string name="favoritePlayerStatItem_goals">goals:</string>
     <string name="favoritePlayerStatItem_assists">assists:</string>
@@ -29,7 +29,7 @@
     <string name="fragmentPlayerInfo_birthday">date birthday:</string>
     <string name="fragmentPlayerInfo_city">city:</string>
     <string name="fragmentPlayerInfo_nationality">nationality:</string>
-    <string name="fragmentPlayerInfo_games_params">game parameters:</string>
+    <string name="fragmentPlayerInfo_games_params">Game parameters:</string>
     <string name="fragmentPlayerInfo_position">position:</string>
     <string name="fragmentPlayerInfo_wing">wing:</string>
     <string name="fragmentPlayerInfo_team">team:</string>
@@ -59,4 +59,10 @@
     <string name="fragmentPlayerFavorite_emptyListText">no favorite players</string>
     <string name="calendarDetailFragment_emptyListText">"Сurrent lineups will appear before the start of the match "</string>
     <string name="fragmentGameFavorite_emptyListText">no favorite games</string>
+    <string name="fragmentPlayerDetail_games">"games: "</string>
+    <string name="fragmentPlayerDetail_statistics">"Statistics: "</string>
+    <string name="fragmentPlayerDetail_points">"points: "</string>
+    <string name="fragmentPlayerDetail_goals">"goals: "</string>
+    <string name="fragmentPlayerDetail_assists">"assists: "</string>
+    <string name="fragmentPlayerDetail_plusMinus">"plus minus: "</string>
 </resources>
