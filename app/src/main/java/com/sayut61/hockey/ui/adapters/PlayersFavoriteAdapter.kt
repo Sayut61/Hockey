@@ -45,18 +45,18 @@ class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): Rec
             }
         }
         binding.goalsTextView.text = (player.goals ?: 0).toString()
-        binding.assistsTextView.text = player.assists.toString()
-        binding.shotsTextView.text = player.shots.toString()
-        binding.pointsTextView.text = player.points.toString()
-        binding.hitsTextView.text = player.hits.toString()
-        binding.blockTextView.text = player.blocked.toString()
-        binding.plusMinusTextView.text = player.plusMinus.toString()
-        binding.gamesTextView.text = player.games.toString()
+        binding.assistsTextView.text = (player.assists ?: 0).toString()
+        binding.shotsTextView.text = (player.shots ?: 0).toString()
+        binding.pointsTextView.text = (player.points ?: 0).toString()
+        binding.hitsTextView.text = (player.hits ?: 0).toString()
+        binding.blockTextView.text = (player.blocked ?: 0).toString()
+        binding.plusMinusTextView.text = (player.plusMinus ?: 0).toString()
+        binding.gamesTextView.text = (player.games ?: 0).toString()
         binding.PPTimeTextView.text = player.powerPlayTimeOnIce
         binding.timeOnIceFullTextView.text = player.timeOnIce
         binding.timeOnIcePerGameTextView.text = player.timeOnIcePerGame
-        binding.PPGoalsTextView.text = player.powerPlayGoals.toString()
-        binding.PPPointsTextView.text = player.powerPlayPoints.toString()
+        binding.PPGoalsTextView.text = (player.powerPlayGoals ?: 0).toString()
+        binding.PPPointsTextView.text = (player.powerPlayPoints ?: 0).toString()
     }
 }
 class PlayersFavoriteDiffUtil: DiffUtil.ItemCallback<PlayerStatisticsInfo>(){
