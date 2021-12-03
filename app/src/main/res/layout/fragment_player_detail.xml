@@ -22,6 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,6 +32,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="#060404"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#090707"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t2"
         app:layout_constraintTop_toBottomOf="@+id/playerNumberTextView" />
 
@@ -79,6 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#010101"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t3"
         app:layout_constraintTop_toBottomOf="@+id/t2" />
 
@@ -98,6 +107,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#010101"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t4"
         app:layout_constraintTop_toBottomOf="@+id/birthCityTextView" />
 
@@ -107,6 +118,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/fragmentPlayerInfo_games_params"
+        android:textColor="#090707"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,6 +131,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#070505"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t6"
         app:layout_constraintTop_toBottomOf="@+id/t5" />
 
@@ -156,6 +171,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#070505"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t8"
         app:layout_constraintTop_toBottomOf="@+id/t7" />
 
@@ -186,6 +203,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#0B0909"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t7"
         app:layout_constraintTop_toBottomOf="@+id/t6" />
 
@@ -205,6 +224,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/fragmentPlayerDetail_statistics"
+        android:textColor="#070505"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -256,6 +277,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="#060505"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t10"
         app:layout_constraintTop_toBottomOf="@+id/t9" />
 
@@ -265,6 +288,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#030202"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t11"
         app:layout_constraintTop_toBottomOf="@+id/gamesTextView" />
 
@@ -274,6 +299,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#0E0B0B"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t12"
         app:layout_constraintTop_toBottomOf="@+id/pointsTextView" />
 
@@ -283,6 +310,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t13"
         app:layout_constraintTop_toBottomOf="@+id/goalsTextView" />
 
@@ -292,6 +321,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#040303"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/t14"
         app:layout_constraintTop_toBottomOf="@+id/assistsTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

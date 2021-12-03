@@ -2,6 +2,8 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams
 
 import com.google.gson.annotations.SerializedName
 import java.lang.Exception
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 data class FullInfoByTeam(
@@ -27,6 +29,12 @@ data class FullInfoByTeam(
     val placeGoalsPerGame: String,
     val placeGoalsAgainstPerGame: String
 )
+
+fun roundOffDecimal(number: Double): Double? {
+    val df = DecimalFormat("#.##")
+    df.roundingMode = RoundingMode.CEILING
+    return df.format(number).toDouble()
+}
 
 fun teamFullInfoFromFirstApiResponseToFullInfoByTeams(teams: TeamFullInfoFromFirstApiResponse): FullInfoByTeam {
     val stats = teams.teams[0].teamStats[0].splits
