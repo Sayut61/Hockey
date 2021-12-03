@@ -10,12 +10,13 @@
         android:id="@+id/recyclerViewCalendar"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysOfMonthRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/currentDayTextView"
         app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
@@ -37,6 +38,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:contentDescription="TODO"
+        android:minWidth="48dp"
         android:minHeight="48dp"
         android:src="@drawable/ic_baseline_navigate_before_24"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +53,7 @@
         android:layout_marginEnd="32dp"
         android:background="@android:color/transparent"
         android:contentDescription="TODO"
+        android:minWidth="48dp"
         android:minHeight="48dp"
         android:src="@drawable/ic_baseline_navigate_next_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toStartOf="@+id/nextImageButton"
         app:layout_constraintStart_toEndOf="@+id/beforeImageButton"
         app:layout_constraintTop_toTopOf="parent" />
@@ -86,14 +90,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/currentDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewCalendar" />
-
-    <TextView
         android:id="@+id/emptyListTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,5 +99,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recyclerViewCalendar" />
+
+    <TextView
+        android:id="@+id/currentDayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/daysOfMonthRecyclerView" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/fragmentCalendar_point"
+        app:layout_constraintStart_toEndOf="@+id/currentDayTextView"
+        app:layout_constraintTop_toBottomOf="@+id/daysOfMonthRecyclerView" />
+
+    <TextView
+        android:id="@+id/currentMounthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/daysOfMonthRecyclerView" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/fragmentCalendar_dateClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysOfMonthRecyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

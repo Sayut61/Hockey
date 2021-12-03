@@ -13,7 +13,6 @@ import com.sayut61.hockey.ui.utils.loadImage
 interface TeamAdapterListener {
     fun onTeamClick(teamGeneralInfo: TeamGeneralInfo)
 }
-
 class TeamsAdapter(
     private val getTeamGeneralInfoName: List<TeamGeneralInfo>,
     private val listener: TeamAdapterListener,
@@ -32,7 +31,6 @@ class TeamsAdapter(
         }
         holder.bind(team, activity, position)
     }
-
     override fun getItemCount(): Int {
         return getTeamGeneralInfoName.size
     }

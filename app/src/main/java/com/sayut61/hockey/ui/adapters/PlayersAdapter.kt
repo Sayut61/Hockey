@@ -45,7 +45,7 @@ class PlayersAdapter(
 class PlayersViewHolder(val binding: PlayersItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
         playerGeneralInfo: PlayerGeneralInfo,
-        activity: Activity?,
+        activity: Activity?
     ) {
         binding.playerNumberTextView.text = playerGeneralInfo.jerseyNumber.toString()
         binding.playerFullNameTextView.text = playerGeneralInfo.fullName
@@ -53,6 +53,17 @@ class PlayersViewHolder(val binding: PlayersItemBinding) : RecyclerView.ViewHold
             loadImage(logoUrl, activity, binding.logoPlayerImageView)
         }
         setIsInFavoriteButton(playerGeneralInfo.isInFavorite)
+
+//        val color = if(position %2 == 0){
+//            R.color.my_colour
+//        }else{
+//            R.color.white
+//        }
+//        binding.root.setBackgroundColor(
+//            itemView.context.resources.getColor(
+//                color,
+//                itemView.context.theme
+//            ))
     }
     fun setIsInFavoriteButton(isInFavorite: Boolean) {
         binding.addToFavoriteImageButton.setImageResource(

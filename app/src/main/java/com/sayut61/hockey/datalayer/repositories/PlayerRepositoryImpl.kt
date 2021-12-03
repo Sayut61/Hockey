@@ -33,7 +33,6 @@ class PlayerRepositoryImpl @Inject constructor(
             )
         }
     }
-
     override suspend fun getPlayersFromDB(): List<PlayerStatisticsInfo> {
         val playersFromDB = playersInfoDao.getPlayers()
         val photos = remoteDataSource.getPlayersPhotos()
@@ -45,7 +44,6 @@ class PlayerRepositoryImpl @Inject constructor(
         val photos = remoteDataSource.getPlayersPhotos()
         return getPlayerStatById(FavoritePlayer(playerFullInfo.playerId, playerFullInfo.fullName),photos)
     }
-
     private suspend fun getPlayerStatById(favoritePlayer: FavoritePlayer, photos: List<PlayerInfoFromSecondApi>): PlayerStatisticsInfo {
         val photo = photos
             .find { (favoritePlayer.fullName == it.draftKingsName) || (favoritePlayer.fullName == it.fanDuelName) || (favoritePlayer.fullName == it.yahooName) }
@@ -78,7 +76,6 @@ class PlayerRepositoryImpl @Inject constructor(
             )
         }
     }
-
     override suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo {
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
         val logo = remoteDataSource.getTeamsSecondApi()
@@ -103,7 +100,6 @@ class PlayerRepositoryImpl @Inject constructor(
             playerPhoto = photo?.photoUrl
         )
     }
-
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
         playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId, playerGeneralInfo.fullName))
     }

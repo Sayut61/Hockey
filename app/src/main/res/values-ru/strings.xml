@@ -61,4 +61,5 @@
     <string name="fragmentPlayerDetail_goals">"голы: "</string>
     <string name="fragmentPlayerDetail_assists">"передачи: "</string>
     <string name="fragmentPlayerDetail_plusMinus">"показатель полезности: "</string>
+    <string name="fragmentCalendar_dateClick">"Выбранная дата: "</string>
 </resources>

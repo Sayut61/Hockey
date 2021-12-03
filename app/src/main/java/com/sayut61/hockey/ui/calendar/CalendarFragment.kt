@@ -22,7 +22,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
     private val viewModel: CalendarViewModel by viewModels()
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
-    lateinit var  myCalendar: MyCalendar
+    lateinit var myCalendar: MyCalendar
     lateinit var adapter: CalendarAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -91,6 +91,8 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onDayClick(day: CalendarDay) {
         viewModel.changeDate(LocalDate.of(day.year, day.month, day.number))
+        binding.currentDayTextView.text = day.number.toString()
+        binding.currentMounthTextView.text = day.month.toString()
     }
     //----------------------------------------------------------------------------
     private fun showError(ex: Exception) {
