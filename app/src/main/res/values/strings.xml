@@ -66,5 +66,5 @@
     <string name="fragmentPlayerDetail_assists">"assists: "</string>
     <string name="fragmentPlayerDetail_plusMinus">"plus minus: "</string>
     <string name="fragmentCalendar_dateClick">" Selected date: "</string>
-    <string name="fragmentCalendar_point">.</string>
+    <string name="fragmentCalendar_point" translatable="false">.</string>
 </resources>

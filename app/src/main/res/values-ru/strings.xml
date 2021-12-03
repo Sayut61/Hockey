@@ -4,7 +4,7 @@
     <string name="title_teams_fragment">Команды</string>
     <string name="title_team_details_fragment">Полная информация</string>
     <string name="player_number">номер:</string>
-    <string name="favoritePlayerStatItem_timeOnIceInPP">время на льду в большинстве:</string>
+    <string name="favoritePlayerStatItem_timeOnIceInPP">время в большинстве:</string>
     <string name="favoritePlayerStatItem_pointsInPP">очки в большинстве:</string>
     <string name="favoritePlayerStatItem_allTimeInIce">все время на льду:</string>
     <string name="favoritePlayerStatItem_goalsInPP">голы в большинстве:</string>
@@ -12,7 +12,7 @@
     <string name="favoritePlayerStatItem_blockShots">блок. броски:</string>
     <string name="favoritePlayerStatItem_games">игры:</string>
     <string name="favoritePlayerStatItem_hits">силовые:</string>
-    <string name="favoritePlayerStatItem_plusMinus">"коэф. полезности: "</string>
+    <string name="favoritePlayerStatItem_plusMinus">"полезность: "</string>
     <string name="favoritePlayerStatItem_shots">броски:</string>
     <string name="favoritePlayerStatItem_goals">голы:</string>
     <string name="favoritePlayerStatItem_assists">передачи:</string>
