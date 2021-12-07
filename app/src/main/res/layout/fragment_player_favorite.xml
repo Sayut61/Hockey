@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_player_favorite_scene"
     tools:context=".ui.favorites.tabfragments.PlayersFavoriteFragment"
-    android:background="@color/my_colour">
+    android:background="@color/my_colour_for_background">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playerStatisticsRecyclerView"

@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentAwayTeamPlayersBinding
 import com.sayut61.hockey.databinding.FragmentHomeTeamPlayersBinding
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
@@ -45,6 +48,9 @@ class HomeTeamRecyclerFragment : Fragment(), HomeTeamAdapterListener{
             if(it == true) showProgressBar()
             else hideProgressBar()
         }
+        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
+        binding.homeTeamRecyclerView.addItemDecoration(dividerItemDecoration)
     }
     private fun showProgressBar(){
         binding.progressBar.visibility = View.VISIBLE
