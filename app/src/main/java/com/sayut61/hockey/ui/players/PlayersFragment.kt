@@ -42,9 +42,9 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
             showError(it)
         }
         //---------------------------------------------------------------------
-        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
-        binding.playersRecyclerView.addItemDecoration(dividerItemDecoration)
+//        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+//        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
+//        binding.playersRecyclerView.addItemDecoration(dividerItemDecoration)
         //---------------------------------------------------------------------
         adapter = PlayersAdapter(this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
