@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentTeamPlayersBinding
 import com.sayut61.hockey.domain.entities.TeamPlayersInfo
 import com.sayut61.hockey.ui.adapters.TeamPlayersAdapter
@@ -41,6 +44,9 @@ class TeamPlayersDetailFragment(): Fragment(), TeamPlayersAdapterListener {
         viewModel.playersLiveData.observe(viewLifecycleOwner){
             showPlayers(it)
         }
+        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
+        binding.listPlayersRecyclerView.addItemDecoration(dividerItemDecoration)
     }
     private fun showPlayers(players: List<TeamPlayersInfo>){
         val adapter = TeamPlayersAdapter(players, this)
