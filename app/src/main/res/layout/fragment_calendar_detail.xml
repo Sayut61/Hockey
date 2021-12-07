@@ -6,6 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".ui.calendar.calendardetail.CalendarDetailFragment">
 
+<!--    <TableLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/border">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/homeTeamDetailImageView"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:layout_marginTop="38dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/firstPeriodHomeTeamGoalTextView"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/homeTeamFullNameTextView" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/firstPeriodHomeTeamGoalTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:textColor="#000000" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/secondPeriodHomeTeamGoalTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:textColor="#000000" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/thirdPeriodHomeTeamGoalTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:textColor="#000000" />-->
+<!--        </TableRow>-->
+<!--        <TableRow-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            >-->
+<!--            -->
+<!--        </TableRow>-->
+
+<!--    </TableLayout>-->
 
     <TextView
         android:id="@+id/secondPeriodAwayTeamGoalTextView"
@@ -18,16 +68,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondPeriodHomeTeamGoalTextView" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/firstPeriodAwayTeamGoalTextView"
@@ -91,23 +141,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/homeTeamImageView"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/homeTeamImageView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/awayTeamImageView"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/awayTeamImageView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/gameStatusTextView"
@@ -195,42 +245,42 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/firstPeriodTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="192dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/number_period_1"
-            app:layout_constraintEnd_toStartOf="@+id/secondPeriodTextView"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/firstPeriodTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/number_period_1"
+        app:layout_constraintEnd_toStartOf="@+id/secondPeriodTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/thirdPeriodTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="192dp"
-            android:text="@string/number_period_3"
-            app:layout_constraintStart_toEndOf="@+id/secondPeriodTextView"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/thirdPeriodTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="192dp"
+        android:text="@string/number_period_3"
+        app:layout_constraintStart_toEndOf="@+id/secondPeriodTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/homeTeamDetailImageView"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="38dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/firstPeriodHomeTeamGoalTextView"
-            app:layout_constraintTop_toBottomOf="@+id/homeTeamFullNameTextView" />
+    <ImageView
+        android:id="@+id/homeTeamDetailImageView"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/firstPeriodHomeTeamGoalTextView"
+        app:layout_constraintTop_toBottomOf="@+id/homeTeamFullNameTextView" />
 
-        <ImageView
-            android:id="@+id/awayTeamDetailImageView"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="66dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/firstPeriodAwayTeamGoalTextView"
-            app:layout_constraintTop_toBottomOf="@+id/homeTeamFullNameTextView" />
+    <ImageView
+        android:id="@+id/awayTeamDetailImageView"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/firstPeriodAwayTeamGoalTextView"
+        app:layout_constraintTop_toBottomOf="@+id/homeTeamFullNameTextView" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/calendarTabLayout"
@@ -253,15 +303,15 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/calendarViewPager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calendarTabLayout" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/calendarViewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendarTabLayout" />
 
     <TextView
         android:id="@+id/emptyListTextView"

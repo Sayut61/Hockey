@@ -21,8 +21,8 @@ data class FullInfoByTeam(
     val powerPlayGoals: Double,
     val powerPlayGoalsAgainst: Double,
     val powerPlayOpportunities: Double,
-    val shotsPerGame: Double,
-    val shotsAllowed: Double,
+    val shotsPerGame: Int,
+    val shotsAllowed: Int,
     val placeOnWins: String,
     val placeOnLosses: String,
     val placeOnPts: String,
@@ -30,11 +30,11 @@ data class FullInfoByTeam(
     val placeGoalsAgainstPerGame: String
 )
 
-fun roundOffDecimal(number: Double): Double? {
-    val df = DecimalFormat("#.##")
-    df.roundingMode = RoundingMode.CEILING
-    return df.format(number).toDouble()
-}
+//fun roundOffDecimal(number: Double?): Double? {
+//    if(number == null)
+//        return null
+//
+//}
 
 fun teamFullInfoFromFirstApiResponseToFullInfoByTeams(teams: TeamFullInfoFromFirstApiResponse): FullInfoByTeam {
     val stats = teams.teams[0].teamStats[0].splits
@@ -56,8 +56,8 @@ fun teamFullInfoFromFirstApiResponseToFullInfoByTeams(teams: TeamFullInfoFromFir
         powerPlayGoals = (statByNumbers.powerPlayGoals as? Double)?: throw Exception("error get teams info"),
         powerPlayGoalsAgainst = (statByNumbers.powerPlayGoalsAgainst as? Double)?: throw Exception("error get teams info"),
         powerPlayOpportunities = (statByNumbers.powerPlayOpportunities as? Double)?: throw Exception("error get teams info"),
-        shotsPerGame = (statByNumbers.shotsPerGame as? Double)?: throw Exception("error get teams info"),
-        shotsAllowed = (statByNumbers.shotsAllowed as? Double)?: throw Exception("error get teams info"),
+        shotsPerGame = (statByNumbers.shotsPerGame as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
+        shotsAllowed = (statByNumbers.shotsAllowed as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
         placeOnWins = (statByPlaces.wins as? String)?: throw Exception("error get teams info"),
         placeOnLosses = (statByPlaces.losses as? String)?: throw Exception("error get teams info"),
         placeOnPts = (statByPlaces.pts as? String)?: throw Exception("error get teams info"),

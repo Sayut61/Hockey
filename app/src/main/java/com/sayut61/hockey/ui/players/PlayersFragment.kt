@@ -1,13 +1,17 @@
 package com.sayut61.hockey.ui.players
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
+import android.widget.HorizontalScrollView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentPlayersBinding
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
@@ -30,12 +34,18 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         setHasOptionsMenu(true)
         return binding.root
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.refreshFragment()
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
+        //---------------------------------------------------------------------
+        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
+        binding.playersRecyclerView.addItemDecoration(dividerItemDecoration)
+        //---------------------------------------------------------------------
         adapter = PlayersAdapter(this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
         binding.playersRecyclerView.itemAnimator = null

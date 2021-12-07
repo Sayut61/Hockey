@@ -29,8 +29,8 @@ data class FullInfoByGame(
 fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame {
     val playersMap: Map<String, Player>? = gameDetailResponse.gameData.players
     val listPlayers: List<Player>? = playersMap?.values?.toList()
-    val awayTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.away.team.id }
-    val homeTeamPlayers = listPlayers?.filter { it.currentTeam.id == gameDetailResponse.liveData.boxScore.teams.home.team.id }
+    val awayTeamPlayers = listPlayers?.filter { it.currentTeam?.id == gameDetailResponse.liveData.boxScore.teams.away.team.id }
+    val homeTeamPlayers = listPlayers?.filter { it.currentTeam?.id == gameDetailResponse.liveData.boxScore.teams.home.team.id }
     return FullInfoByGame(
         playersAwayTeam = awayTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId, it.primaryPosition.name, it.primaryPosition.type)},
         playersHomeTeam = homeTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId, it.primaryPosition.name, it.primaryPosition.type)},
@@ -70,7 +70,7 @@ data class Player(
     val playerId: Int,
     val fullName: String,
     val primaryNumber: String,
-    val currentTeam: CurrentTeam,
+    val currentTeam: CurrentTeam?,
     val primaryPosition: PrimaryPosition
     )
 data class PrimaryPosition(
@@ -78,7 +78,7 @@ data class PrimaryPosition(
     val type: String
 )
 data class CurrentTeam(
-    val id: Int
+    val id: Int?
     )
 //____________________________________
 data class GameLiveData(

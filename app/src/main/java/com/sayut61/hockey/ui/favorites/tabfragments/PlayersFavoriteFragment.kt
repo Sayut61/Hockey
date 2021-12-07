@@ -8,7 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.LayoutInflaterCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentPlayerFavoriteBinding
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.ui.adapters.FavoriteAdapterListener
@@ -28,6 +33,9 @@ class PlayersFavoriteFragment : Fragment(), FavoriteAdapterListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
+        binding.playerStatisticsRecyclerView.addItemDecoration(dividerItemDecoration)
         adapter = PlayersFavoriteAdapter(this, activity as Activity)
         binding.playerStatisticsRecyclerView.adapter = adapter
         viewModel.playersFavoriteLiveData.observe(viewLifecycleOwner){

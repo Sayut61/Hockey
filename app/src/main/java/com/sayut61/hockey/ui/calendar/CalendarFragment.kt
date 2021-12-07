@@ -1,16 +1,22 @@
 package com.sayut61.hockey.ui.calendar
 
+import android.graphics.drawable.ClipDrawable.HORIZONTAL
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentCalendarBinding
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.ui.adapters.*
@@ -36,6 +42,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         super.onViewCreated(view, savedInstanceState)
         myCalendar = MyCalendar(requireContext())
         adapter = CalendarAdapter(this, activity)
+        setSelectedDayTitle(myCalendar.getCalendarDay())
         binding.recyclerViewCalendar.adapter = adapter
         binding.recyclerViewCalendar.itemAnimator = null
         viewModel.gameFullInfoLiveData.observe(viewLifecycleOwner) {
@@ -70,6 +77,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
             else hideProgressBar()
         }
     }
+
     //-----------------------------------------------------------------
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateCalendarView() {
@@ -91,9 +99,14 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onDayClick(day: CalendarDay) {
         viewModel.changeDate(LocalDate.of(day.year, day.month, day.number))
+        setSelectedDayTitle(day)
+    }
+
+    private fun setSelectedDayTitle(day: CalendarDay) {
         binding.currentDayTextView.text = day.number.toString()
         binding.currentMounthTextView.text = day.month.toString()
     }
+
     //----------------------------------------------------------------------------
     private fun showError(ex: Exception) {
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
