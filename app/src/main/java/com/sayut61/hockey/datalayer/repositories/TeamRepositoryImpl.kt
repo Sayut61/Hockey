@@ -13,11 +13,15 @@ import javax.inject.Inject
 class TeamRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : TeamRepository {
+    var teamsCache: List<TeamGeneralInfo>? = null
     override suspend fun getTeamsInfo(): List<TeamGeneralInfo> {
+        teamsCache?.let {
+            return it
+        }
         val teamsInfoFromFirstApi: List<TeamInfoFromFirstApi> = remoteDataSource.getTeamsFirstApi()
         val teamsGeneralInfoFromSecondApi: List<TeamGeneralInfoFromSecondApi> =
             remoteDataSource.getTeamsSecondApi()
-        return teamsInfoFromFirstApi.map { team ->
+        val result = teamsInfoFromFirstApi.map { team ->
             val teamInfoFromSecondApi = teamsGeneralInfoFromSecondApi.find { it.shortName == team.shortTeamName }
             TeamGeneralInfo(
                 fullTeamName = team.fullTeamName,
@@ -29,6 +33,8 @@ class TeamRepositoryImpl @Inject constructor(
                 stadiumID = teamInfoFromSecondApi?.stadiumID
             )
         }
+        teamsCache = result
+        return result
     }
 
     override suspend fun getTeamFullInfo(teamId: Int): TeamFullInfo {
