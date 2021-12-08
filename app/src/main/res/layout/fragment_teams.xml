@@ -5,7 +5,8 @@
     android:id="@+id/teamsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.teams.TeamsFragment">
+    tools:context=".ui.teams.TeamsFragment"
+    android:background="@color/my_colour_for_background">
 
 
     <androidx.recyclerview.widget.RecyclerView

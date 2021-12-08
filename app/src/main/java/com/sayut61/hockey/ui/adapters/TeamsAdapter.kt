@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.TeamItemBinding
+
 import com.sayut61.hockey.domain.entities.TeamGeneralInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
@@ -42,16 +43,23 @@ class TeamsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         teamGeneralInfo.urlLogoTeam?.let { logoUrl ->
             loadImage(logoUrl, activity, binding.logoImageView)
         }
-        val color = if (position % 4 == 0 || (position - 3) % 4 == 0)
-            R.color.design_default_color_primary_dark
-        else
-            R.color.black
+        binding.textView7.text = teamGeneralInfo.cityName
+        binding.textView9.text = teamGeneralInfo.shortTeamName
+//       val color = if(teamGeneralInfo.fullTeamName.equals("Chicago Blackhawks"))
+//            R.color.black
+//        else
+//           android.R.color.transparent
 
-        binding.root.setBackgroundColor(
-            itemView.context.resources.getColor(
-                color,
-                itemView.context.theme
-            )
-        )
+//        val color = if (position % 4 == 0 || (position - 3) % 4 == 0)
+//            R.color.design_default_color_primary_dark
+//        else
+//            R.color.black
+//
+//        binding.root.setBackgroundColor(
+//            itemView.context.resources.getColor(
+//                color,
+//                itemView.context.theme
+//            )
+//        )
     }
 }

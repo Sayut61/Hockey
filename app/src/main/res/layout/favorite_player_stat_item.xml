@@ -10,8 +10,7 @@
     android:layout_margin="4dp"
     android:clickable="true"
     app:cardElevation="7dp"
-    android:focusable="true"
-    android:foreground="?selectableItemBackground">
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

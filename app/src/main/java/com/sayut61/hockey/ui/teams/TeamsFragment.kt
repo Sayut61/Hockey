@@ -33,7 +33,7 @@ class TeamsFragment : Fragment(), TeamAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerViewTeams.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.recyclerViewTeams.layoutManager = GridLayoutManager(requireContext(), 3)
 
         viewModel.refreshTeamsFragment()
 
