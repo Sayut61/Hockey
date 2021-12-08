@@ -3,9 +3,10 @@ package com.sayut61.hockey.domain
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
+import kotlinx.coroutines.flow.Flow
 
 interface PlayerRepository {
-    suspend fun getPlayersFromApi(): List<PlayerGeneralInfo>
+    fun getPlayersFromApi(): Flow<List<PlayerGeneralInfo>>
     suspend fun getPlayersFromDB(): List<PlayerStatisticsInfo>
     suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo
     suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo)

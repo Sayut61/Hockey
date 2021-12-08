@@ -8,15 +8,22 @@ import com.sayut61.hockey.domain.PlayerRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.random.Random
 
 class PlayerRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val playersInfoDao: PlayersInfoDao
 ) : PlayerRepository {
-    override suspend fun getPlayersFromApi(): List<PlayerGeneralInfo> {
+    var cachePlayers: List<PlayerGeneralInfo>? = null
+    override fun getPlayersFromApi(): Flow<List<PlayerGeneralInfo>> = flow {
+        cachePlayers?.let {
+            emit(it)
+        }
         val teams = remoteDataSource.getTeamsSecondApi()
-        return remoteDataSource.getListPlayers().map { playerFromApi ->
+        val result = remoteDataSource.getListPlayers().map { playerFromApi ->
             val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
             val isInDb =
                 playersInfoDao.getPlayers().find { it.playerId == playerFromApi.playerId } != null
@@ -32,7 +39,18 @@ class PlayerRepositoryImpl @Inject constructor(
                 isInFavorite = isInDb,
             )
         }
+        var equals = true
+        for (i in 0..result.lastIndex)
+            if (result[i] != cachePlayers?.get(i)) {
+                equals = false
+                break
+            }
+        if (!equals) {
+            cachePlayers = result
+            emit(result)
+        }
     }
+
     override suspend fun getPlayersFromDB(): List<PlayerStatisticsInfo> {
         val playersFromDB = playersInfoDao.getPlayers()
         val photos = remoteDataSource.getPlayersPhotos()
@@ -40,11 +58,19 @@ class PlayerRepositoryImpl @Inject constructor(
             getPlayerStatById(favoritePlayer, photos)
         }
     }
+
     override suspend fun getPlayerStat(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo {
         val photos = remoteDataSource.getPlayersPhotos()
-        return getPlayerStatById(FavoritePlayer(playerFullInfo.playerId, playerFullInfo.fullName),photos)
+        return getPlayerStatById(
+            FavoritePlayer(playerFullInfo.playerId, playerFullInfo.fullName),
+            photos
+        )
     }
-    private suspend fun getPlayerStatById(favoritePlayer: FavoritePlayer, photos: List<PlayerInfoFromSecondApi>): PlayerStatisticsInfo {
+
+    private suspend fun getPlayerStatById(
+        favoritePlayer: FavoritePlayer,
+        photos: List<PlayerInfoFromSecondApi>
+    ): PlayerStatisticsInfo {
         val photo = photos
             .find { (favoritePlayer.fullName == it.draftKingsName) || (favoritePlayer.fullName == it.fanDuelName) || (favoritePlayer.fullName == it.yahooName) }
         val playerStatFromApi = remoteDataSource.getPlayerStatistics(favoritePlayer.playerId)
@@ -76,6 +102,7 @@ class PlayerRepositoryImpl @Inject constructor(
             )
         }
     }
+
     override suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo {
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
         val logo = remoteDataSource.getTeamsSecondApi()
@@ -100,10 +127,17 @@ class PlayerRepositoryImpl @Inject constructor(
             playerPhoto = photo?.photoUrl
         )
     }
+
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
-        playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId, playerGeneralInfo.fullName))
+        playersInfoDao.insert(
+            FavoritePlayer(
+                playerGeneralInfo.playerId,
+                playerGeneralInfo.fullName
+            )
+        )
     }
+
     override suspend fun removeFromFavoritePlayer(playerId: Int) {
-        playersInfoDao.delete(FavoritePlayer(playerId,""))
+        playersInfoDao.delete(FavoritePlayer(playerId, ""))
     }
 }

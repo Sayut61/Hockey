@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.usecases.PlayersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
@@ -15,8 +16,8 @@ class PlayersViewModel @Inject constructor(
     private val _listPlayersLiveData = MutableLiveData<List<PlayerGeneralInfo>>()
     var textForFilterLiveData = MutableLiveData<String>()
     val listPlayersLiveData = MediatorLiveData<List<PlayerGeneralInfo>>().apply {
-        addSource(_listPlayersLiveData){ value = filterPlayers() }
-        addSource(textForFilterLiveData){ value = filterPlayers() }
+        addSource(_listPlayersLiveData) { value = filterPlayers() }
+        addSource(textForFilterLiveData) { value = filterPlayers() }
     }
 
     private val _errorLiveData = MutableLiveData<Exception>()
@@ -25,11 +26,11 @@ class PlayersViewModel @Inject constructor(
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
 
-    fun changeFilter(text: String){
+    fun changeFilter(text: String) {
         textForFilterLiveData.value = text
     }
 
-    fun onFavoriteClick(playerGeneralInfo: PlayerGeneralInfo){
+    fun onFavoriteClick(playerGeneralInfo: PlayerGeneralInfo) {
         viewModelScope.launch {
             if (playerGeneralInfo.isInFavorite)
                 playersUseCases.removeFromFavoritePlayer(playerGeneralInfo.playerId)
@@ -39,22 +40,31 @@ class PlayersViewModel @Inject constructor(
         }
     }
 
-    fun refreshFragment(showProgressBar: Boolean = true){
+    fun refreshFragment(showProgressBar: Boolean = true) {
         viewModelScope.launch {
             if (showProgressBar)
                 _progressBarLiveData.value = true
             try {
-                _listPlayersLiveData.value = playersUseCases.getPlayersListApi()
-            }catch (ex: Exception){
+                playersUseCases.getPlayersListApi().collect {
+                    _listPlayersLiveData.value = it
+                    if (showProgressBar)
+                        _progressBarLiveData.value = false
+                }
+            } catch (ex: Exception) {
                 _errorLiveData.value = ex
+                if (showProgressBar)
+                    _progressBarLiveData.value = false
             }
-            if (showProgressBar)
-                _progressBarLiveData.value = false
+
         }
     }
 
     private fun filterPlayers(): List<PlayerGeneralInfo>? {
 //        val players = _listPlayersLiveData.value
-        return _listPlayersLiveData.value?.filter { it.fullName.contains(textForFilterLiveData.value?:"", true) }
+        return _listPlayersLiveData.value?.filter {
+            it.fullName.contains(
+                textForFilterLiveData.value ?: "", true
+            )
+        }
     }
 }

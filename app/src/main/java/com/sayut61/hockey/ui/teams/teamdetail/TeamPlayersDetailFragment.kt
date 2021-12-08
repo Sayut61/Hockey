@@ -45,7 +45,7 @@ class TeamPlayersDetailFragment(): Fragment(), TeamPlayersAdapterListener {
             showPlayers(it)
         }
         val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
+        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable, requireContext().theme))
         binding.listPlayersRecyclerView.addItemDecoration(dividerItemDecoration)
     }
     private fun showPlayers(players: List<TeamPlayersInfo>){

@@ -46,6 +46,8 @@ class PlayerDetailInfoFragment : Fragment() {
             if(it == true)showProgressBar()
             else hideProgressBar()
         }
+
+
     }
 
     private fun showPlayerStatistics(playerStatisticsInfo: PlayerStatisticsInfo){
@@ -74,7 +76,17 @@ class PlayerDetailInfoFragment : Fragment() {
             if (logoUrl != null) {
                 loadImage(logoUrl, activity, binding.playerPhotoImageView)
             }
+
+            binding.playerPhotoImageView.setOnClickListener {
+                PlayerPhotoFragment().apply{
+                    arguments = Bundle().apply {
+                        putString("photoUrl", logoUrl)
+                    }
+                }.show(childFragmentManager, null)
+            }
         }
+
+
     }
     private fun showError(ex: Exception){
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG ).show()
