@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class PlayerStatisticsInfo(
     val id: Int,
     val name: String,
-    val photo: String? = null,
+    val photo: String?,
+    val teamLogo: String?,
     val timeOnIce: String?= "0",
     val assists: Int?= 0,
     val goals: Int?= 0,

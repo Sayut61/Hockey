@@ -39,9 +39,15 @@ class PlayersFavoriteAdapter(
 class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): RecyclerView.ViewHolder(binding.root){
     fun bind(player: PlayerStatisticsInfo, activity: Activity){
         binding.nameFavPlayerTextView.text = player.name
+
         player.photo.let { logoUrl ->
             if (logoUrl != null) {
                 loadImage(logoUrl, activity, binding.photoFavPlayerImageView)
+            }
+        }
+        player.teamLogo.let{logo->
+            if(logo != null){
+                loadImage(logo, activity, binding.teamLogoImageView)
             }
         }
         binding.goalsTextView.text = (player.goals ?: 0).toString()
@@ -57,6 +63,7 @@ class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): Rec
         binding.timeOnIcePerGameTextView.text = player.timeOnIcePerGame
         binding.PPGoalsTextView.text = (player.powerPlayGoals ?: 0).toString()
         binding.PPPointsTextView.text = (player.powerPlayPoints ?: 0).toString()
+
     }
 }
 class PlayersFavoriteDiffUtil: DiffUtil.ItemCallback<PlayerStatisticsInfo>(){

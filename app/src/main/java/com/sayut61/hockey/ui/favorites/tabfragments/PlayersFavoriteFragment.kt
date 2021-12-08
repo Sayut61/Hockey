@@ -33,9 +33,6 @@ class PlayersFavoriteFragment : Fragment(), FavoriteAdapterListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-//        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable))
-//        binding.playerStatisticsRecyclerView.addItemDecoration(dividerItemDecoration)
         adapter = PlayersFavoriteAdapter(this, activity as Activity)
         binding.playerStatisticsRecyclerView.adapter = adapter
         viewModel.playersFavoriteLiveData.observe(viewLifecycleOwner){

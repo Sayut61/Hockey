@@ -78,7 +78,8 @@ class PlayerRepositoryImpl @Inject constructor(
             PlayerStatisticsInfo(
                 id = favoritePlayer.playerId,
                 name = favoritePlayer.fullName,
-                photo = photo?.photoUrl
+                photo = photo?.photoUrl,
+                teamLogo = getPlayerFullInfo(favoritePlayer.playerId).teamLogo
             )
         else {
             val statistics = playerStatFromApi.stats[0].splits[0].stat
@@ -98,7 +99,8 @@ class PlayerRepositoryImpl @Inject constructor(
                 blocked = statistics.blocked,
                 plusMinus = statistics.plusMinus,
                 points = statistics.points,
-                timeOnIcePerGame = statistics.timeOnIcePerGame
+                timeOnIcePerGame = statistics.timeOnIcePerGame,
+                teamLogo = getPlayerFullInfo(favoritePlayer.playerId).teamLogo
             )
         }
     }
