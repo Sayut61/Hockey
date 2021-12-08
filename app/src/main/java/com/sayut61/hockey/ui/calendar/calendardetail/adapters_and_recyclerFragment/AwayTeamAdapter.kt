@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.AwayTeamPlayersItemBinding
-import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
+import com.sayut61.hockey.ui.utils.changePositionName
+
 interface AwayTeamAdapterListener{
     fun onPlayerClick(player: PlayerNameAndNumber)
 }
@@ -30,6 +31,6 @@ class AwayTeamViewHolder(val binding: AwayTeamPlayersItemBinding): RecyclerView.
     fun bind(gameFullInfo: PlayerNameAndNumber){
         binding.nameTextView.text = gameFullInfo.name
         binding.numberTextView.text = gameFullInfo.number
-        binding.typePositionTextView.text = gameFullInfo.typePosition
+        binding.typePositionTextView.text = changePositionName(gameFullInfo.typePosition)
     }
 }

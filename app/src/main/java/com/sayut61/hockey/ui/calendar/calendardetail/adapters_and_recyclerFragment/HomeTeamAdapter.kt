@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.HomeTeamPlayersItemBinding
 import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
+import com.sayut61.hockey.ui.utils.changePositionName
+
 interface HomeTeamAdapterListener{
     fun onPlayerClick(player: PlayerNameAndNumber)
 }
@@ -29,6 +31,6 @@ class HomeTeamViewHolder(val binding: HomeTeamPlayersItemBinding): RecyclerView.
     fun bind(gameFullInfo: PlayerNameAndNumber){
         binding.nameTextView.text = gameFullInfo.name
         binding.numberTextView.text = gameFullInfo.number
-        binding.typePositionTextView.text = gameFullInfo.typePosition
+        binding.typePositionTextView.text = changePositionName(gameFullInfo.typePosition)
     }
 }
