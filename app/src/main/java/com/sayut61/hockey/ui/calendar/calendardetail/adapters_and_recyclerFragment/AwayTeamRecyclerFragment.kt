@@ -45,9 +45,6 @@ class AwayTeamRecyclerFragment: Fragment(), AwayTeamAdapterListener {
             if(it == true) showProgressBar()
             else hideProgressBar()
         }
-        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable, requireContext().theme))
-        binding.awayTeamRecyclerView.addItemDecoration(dividerItemDecoration)
     }
     private fun showProgressBar(){
         binding.progressBar.visibility = View.VISIBLE

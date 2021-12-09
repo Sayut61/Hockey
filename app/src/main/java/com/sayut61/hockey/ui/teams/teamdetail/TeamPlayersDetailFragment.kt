@@ -44,9 +44,6 @@ class TeamPlayersDetailFragment(): Fragment(), TeamPlayersAdapterListener {
         viewModel.playersLiveData.observe(viewLifecycleOwner){
             showPlayers(it)
         }
-        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_drawable, requireContext().theme))
-        binding.listPlayersRecyclerView.addItemDecoration(dividerItemDecoration)
     }
     private fun showPlayers(players: List<TeamPlayersInfo>){
         val adapter = TeamPlayersAdapter(players, this)
