@@ -7,6 +7,18 @@
     tools:context=".ui.calendar.CalendarFragment"
     android:background="@color/my_colour_for_background">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/q"
+        android:alpha="0.6"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCalendar"
         android:layout_width="0dp"

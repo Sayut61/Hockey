@@ -41,14 +41,21 @@
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_favorite_gameminus.xml" value="0.25" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_favorite_gameplus.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_navigate_before_24.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_navigate_next_24.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_people_alt_24.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_error.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_progress.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/image_for_background_all_app_background.xml" value="0.25" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/my.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/progress.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/ripple_effect_for_click.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/star_in_favorite.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/drawable/star_not_favorite.xml" value="0.3536458333333333" />
@@ -59,7 +66,7 @@
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/favorite_game_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/favorite_player_stat_item.xml" value="0.33" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_away_team_players.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_calendar.xml" value="0.5" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_calendar.xml" value="0.33" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_calendar_detail.xml" value="0.33" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_favorite.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/fragment_game_favorite.xml" value="0.33" />
@@ -83,6 +90,8 @@
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/layout/team_players_item.xml" value="0.5" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/menu/top_menu.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/mipmap-anydpi-v26/image_for_background_all_app.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/Anton/Desktop/Hockey/app/src/main/res/mipmap-anydpi-v26/image_for_background_all_app_round.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/Anton/StudioProjects/Hockey/app/src/main/res/drawable/error.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/StudioProjects/Hockey/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Anton/StudioProjects/Hockey/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.3536458333333333" />
