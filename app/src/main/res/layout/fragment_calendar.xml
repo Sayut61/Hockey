@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.calendar.CalendarFragment"
-    android:background="@color/my_colour_for_background">
+    tools:context=".ui.calendar.CalendarFragment">
 
     <ImageView
         android:id="@+id/imageView2"
