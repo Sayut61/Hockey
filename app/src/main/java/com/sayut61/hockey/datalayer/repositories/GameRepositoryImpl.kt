@@ -54,6 +54,7 @@ class GameRepositoryImpl @Inject constructor(
                         isInFavoriteGame = isInDb
                     )
                 }
+
                 var equals = true
                 for (i in 0..result.lastIndex)
                     if (result[i] != cacheGame?.get(i)) {
