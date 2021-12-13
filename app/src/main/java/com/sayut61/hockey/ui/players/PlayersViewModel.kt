@@ -60,7 +60,6 @@ class PlayersViewModel @Inject constructor(
     }
 
     private fun filterPlayers(): List<PlayerGeneralInfo>? {
-//        val players = _listPlayersLiveData.value
         return _listPlayersLiveData.value?.filter {
             it.fullName.contains(
                 textForFilterLiveData.value ?: "", true
