@@ -8,46 +8,54 @@ import com.sayut61.hockey.domain.PlayerRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
+import com.sayut61.hockey.domain.flow.LoadingResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.random.Random
 
 class PlayerRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val playersInfoDao: PlayersInfoDao
 ) : PlayerRepository {
     var cachePlayers: List<PlayerGeneralInfo>? = null
-    override fun getPlayersFromApi(): Flow<List<PlayerGeneralInfo>> = flow {
-        cachePlayers?.let {
-            emit(it)
-        }
-        val teams = remoteDataSource.getTeamsSecondApi()
-        val result = remoteDataSource.getListPlayers().map { playerFromApi ->
-            val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
-            val isInDb =
-                playersInfoDao.getPlayers().find { it.playerId == playerFromApi.playerId } != null
-            PlayerGeneralInfo(
-                teamId = playerFromApi.teamId,
-                teamFullName = playerFromApi.teamFullName,
-                teamShortName = playerFromApi.teamShortName,
-                jerseyNumber = playerFromApi.jerseyNumber,
-                playerId = playerFromApi.playerId,
-                fullName = playerFromApi.fullName,
-                linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo,
-                logo = teamInfo?.wikipediaLogoUrl,
-                isInFavorite = isInDb,
-            )
-        }
-        var equals = true
-        for (i in 0..result.lastIndex)
-            if (result[i] != cachePlayers?.get(i)) {
-                equals = false
-                break
+    override fun getPlayersFromApi(): Flow<LoadingResult<List<PlayerGeneralInfo>>> = flow {
+        emit(LoadingResult.Loading(true))
+        try {
+            cachePlayers?.let {
+                emit(LoadingResult.SuccessResult(it))
+                emit(LoadingResult.Loading(false))
             }
-        if (!equals) {
-            cachePlayers = result
-            emit(result)
+            val teams = remoteDataSource.getTeamsSecondApi()
+            val result = remoteDataSource.getListPlayers().map { playerFromApi ->
+                val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
+                val isInDb = playersInfoDao.getPlayers()
+                        .find { it.playerId == playerFromApi.playerId } != null
+                PlayerGeneralInfo(
+                    teamId = playerFromApi.teamId,
+                    teamFullName = playerFromApi.teamFullName,
+                    teamShortName = playerFromApi.teamShortName,
+                    jerseyNumber = playerFromApi.jerseyNumber,
+                    playerId = playerFromApi.playerId,
+                    fullName = playerFromApi.fullName,
+                    linkOnPlayerDetailInfo = playerFromApi.linkOnPlayerDetailInfo,
+                    logo = teamInfo?.wikipediaLogoUrl,
+                    isInFavorite = isInDb,
+                )
+            }
+            var equals = true
+            for (i in 0..result.lastIndex)
+                if (result[i] != cachePlayers?.get(i)) {
+                    equals = false
+                    break
+                }
+            if (!equals) {
+                cachePlayers = result
+                emit(LoadingResult.SuccessResult(result))
+            }
+            emit(LoadingResult.Loading(false))
+        } catch (ex: Exception) {
+            emit(LoadingResult.ErrorResult(java.lang.Exception("Ошибка загрузки списка игроков")))
+            emit(LoadingResult.Loading(false))
         }
     }
 

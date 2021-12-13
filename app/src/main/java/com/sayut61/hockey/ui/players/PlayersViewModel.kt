@@ -2,11 +2,11 @@ package com.sayut61.hockey.ui.players
 
 import androidx.lifecycle.*
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
+import com.sayut61.hockey.domain.flow.LoadingResult
 import com.sayut61.hockey.domain.usecases.PlayersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,26 +36,25 @@ class PlayersViewModel @Inject constructor(
                 playersUseCases.removeFromFavoritePlayer(playerGeneralInfo.playerId)
             else
                 playersUseCases.addToFavoritePlayer(playerGeneralInfo)
-            refreshFragment(false)
+            refreshFragment()
         }
     }
 
-    fun refreshFragment(showProgressBar: Boolean = true) {
+    fun refreshFragment() {
         viewModelScope.launch {
-            if (showProgressBar)
-                _progressBarLiveData.value = true
-            try {
-                playersUseCases.getPlayersListApi().collect {
-                    _listPlayersLiveData.value = it
-                    if (showProgressBar)
-                        _progressBarLiveData.value = false
+            playersUseCases.getPlayersListApi().collect {
+                when (it) {
+                    is LoadingResult.SuccessResult -> {
+                        _listPlayersLiveData.value = it.data!!
+                    }
+                    is LoadingResult.ErrorResult -> {
+                        _errorLiveData.value = it.error
+                    }
+                    is LoadingResult.Loading -> {
+                        _progressBarLiveData.value = it.isLoading
+                    }
                 }
-            } catch (ex: Exception) {
-                _errorLiveData.value = ex
-                if (showProgressBar)
-                    _progressBarLiveData.value = false
             }
-
         }
     }
 

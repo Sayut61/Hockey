@@ -4,13 +4,14 @@ import com.sayut61.hockey.domain.PlayerRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
+import com.sayut61.hockey.domain.flow.LoadingResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PlayersUseCases @Inject constructor(
     private val playerRepository: PlayerRepository
 ){
-    fun getPlayersListApi(): Flow<List<PlayerGeneralInfo>> {
+    fun getPlayersListApi(): Flow<LoadingResult<List<PlayerGeneralInfo>>> {
         return playerRepository.getPlayersFromApi()
     }
     suspend fun getPlayersListDB(): List<PlayerStatisticsInfo>{
