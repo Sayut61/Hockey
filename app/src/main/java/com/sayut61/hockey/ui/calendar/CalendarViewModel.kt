@@ -22,10 +22,8 @@ class CalendarViewModel @Inject constructor(
     private val gamesUseCases: GamesUseCases,
     private val gamesFavUseCases: GamesFavUseCases
 ) : ViewModel() {
-    private val _gamesLiveData = MutableLiveData<List<GameGeneralInfo>>()
-    val gamesLiveData: LiveData<List<GameGeneralInfo>> = _gamesLiveData
-    private val _gameFullInfoLiveData = MutableLiveData<List<GameFullInfo>>()
-    val gameFullInfoLiveData: LiveData<List<GameFullInfo>> = _gameFullInfoLiveData
+    private val _gamesLiveData = MutableLiveData<List<GameFullInfo>>()
+    val gamesLiveData: LiveData<List<GameFullInfo>> = _gamesLiveData
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
     private val _progressBarLiveData = MutableLiveData<Boolean>()
@@ -48,26 +46,18 @@ class CalendarViewModel @Inject constructor(
             }
         }
     }
+
     private fun refreshViewModel(date: LocalDate, showProgressBar: Boolean = true) {
         viewModelScope.launch {
-
-            val gamesGeneralInfo = gamesUseCases.getGamesInfo(date)
-            val gameFullInfo = gamesGeneralInfo.map { gamesUseCases.getGameFullInfo(it) }
-
-            gamesGeneralInfo.collect {
-                when (it) {
-                    is LoadingResult.SuccessResult -> _gamesLiveData.value = it.data!!
-                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
-                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
+            _progressBarLiveData.value = true
+            try {
+                gamesUseCases.getGamesInfo(date).collect { gamesFullInfo ->
+                    _gamesLiveData.value = gamesFullInfo
                 }
+            } catch (e: Exception) {
+                _errorLiveData.value = e
             }
-            gameFullInfo.collect {
-                when(it){
-                    is LoadingResult.SuccessResult -> _gameFullInfoLiveData.value = it.data!!
-                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
-                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
-                }
-            }
+            _progressBarLiveData.value = false
         }
     }
 }

@@ -28,22 +28,15 @@ class CalendarDetailViewModel @Inject constructor(
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
 
-    fun refreshViewModel(gameGeneralInfo: GameGeneralInfo){
+    fun refreshViewModel(gameGeneralInfo: GameGeneralInfo) {
         viewModelScope.launch {
-                gamesUseCases.getGameFullInfo(gameGeneralInfo).collect {
-                    when(it){
-                        is LoadingResult.SuccessResult->{
-                            _getGameInfo.value = it.data!!
-                        }
-                        is LoadingResult.ErrorResult->{
-                            _errorLiveData.value = it.error
-                        }
-                        is LoadingResult.Loading->{
-                            _progressBarLiveData.value = it.isLoading
-                        }
-                    }
-                }
-
+            _progressBarLiveData.value = true
+            try {
+                _getGameInfo.value = gamesUseCases.getGameFullInfo(gameGeneralInfo)
+            } catch (ex: Exception) {
+                _errorLiveData.value = ex
+            }
+            _progressBarLiveData.value = false
         }
     }
 }

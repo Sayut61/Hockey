@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 interface GameRepository {
-    fun getGamesGeneralInfo(date: LocalDate): Flow<LoadingResult<List<GameGeneralInfo>>>
-    fun getGameFullInfo(gameGeneralInfo: GameGeneralInfo): Flow<LoadingResult<GameFullInfo>>
+    suspend fun getGamesFullInfo(date: LocalDate): Flow<List<GameFullInfo>>
+    suspend fun getGameFullInfo(gameGeneralInfo: GameGeneralInfo): GameFullInfo
 }

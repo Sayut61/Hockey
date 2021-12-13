@@ -45,7 +45,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         setSelectedDayTitle(myCalendar.getCalendarDay())
         binding.recyclerViewCalendar.adapter = adapter
         binding.recyclerViewCalendar.itemAnimator = null
-        viewModel.gameFullInfoLiveData.observe(viewLifecycleOwner) {
+        viewModel.gamesLiveData.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 adapter.submitList(it)
                 binding.recyclerViewCalendar.visibility = View.VISIBLE

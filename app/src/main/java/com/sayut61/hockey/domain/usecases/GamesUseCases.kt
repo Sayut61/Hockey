@@ -11,10 +11,10 @@ import javax.inject.Inject
 class GamesUseCases @Inject constructor(
     private val gameRepository: GameRepository
 ) {
-    fun getGamesInfo(date: LocalDate): Flow<LoadingResult<List<GameGeneralInfo>>>{
-        return gameRepository.getGamesGeneralInfo(date)
+   suspend fun getGamesInfo(date: LocalDate): Flow<List<GameFullInfo>>{
+        return gameRepository.getGamesFullInfo(date)
     }
-    fun getGameFullInfo(gameGeneralInfo: LoadingResult<List<GameGeneralInfo>>): Flow<LoadingResult<GameFullInfo>>{
+    suspend fun getGameFullInfo(gameGeneralInfo: GameGeneralInfo): GameFullInfo{
         return gameRepository.getGameFullInfo(gameGeneralInfo)
     }
 }
