@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
+import com.sayut61.hockey.domain.flow.LoadingResult
 import com.sayut61.hockey.domain.usecases.GamesFavUseCases
 import com.sayut61.hockey.domain.usecases.GamesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.time.LocalDate
@@ -30,15 +32,16 @@ class GamesFavoriteFragmentViewModel @Inject constructor(
         }
         refreshFavoriteFragment()
     }
+
     fun refreshFavoriteFragment() {
         viewModelScope.launch {
-            _progressBarLiveData.value = true
-            try {
-                _gamesFavoriteLiveData.value = gamesFavUseCases.getFavoriteGames()
-            } catch (ex: Exception) {
-                _errorLiveData.value = ex
+            gamesFavUseCases.getFavoriteGames().collect {
+                when (it) {
+                    is LoadingResult.SuccessResult -> _gamesFavoriteLiveData.value = it.data!!
+                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
+                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
+                }
             }
-            _progressBarLiveData.value = false
         }
     }
 }

@@ -14,7 +14,7 @@ class PlayersUseCases @Inject constructor(
     fun getPlayersListApi(): Flow<LoadingResult<List<PlayerGeneralInfo>>> {
         return playerRepository.getPlayersFromApi()
     }
-    suspend fun getPlayersListDB(): List<PlayerStatisticsInfo>{
+    fun getPlayersListDB(): Flow<LoadingResult<List<PlayerStatisticsInfo>>>{
         return playerRepository.getPlayersFromDB()
     }
     suspend fun getPlayerFullInfo(playerGeneralInfo: Int):PlayerFullInfo {

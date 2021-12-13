@@ -44,15 +44,9 @@ class PlayersViewModel @Inject constructor(
         viewModelScope.launch {
             playersUseCases.getPlayersListApi().collect {
                 when (it) {
-                    is LoadingResult.SuccessResult -> {
-                        _listPlayersLiveData.value = it.data!!
-                    }
-                    is LoadingResult.ErrorResult -> {
-                        _errorLiveData.value = it.error
-                    }
-                    is LoadingResult.Loading -> {
-                        _progressBarLiveData.value = it.isLoading
-                    }
+                    is LoadingResult.SuccessResult -> _listPlayersLiveData.value = it.data!!
+                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
+                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
                 }
             }
         }

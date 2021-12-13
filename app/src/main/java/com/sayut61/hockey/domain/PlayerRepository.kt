@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PlayerRepository {
     fun getPlayersFromApi(): Flow<LoadingResult<List<PlayerGeneralInfo>>>
-    suspend fun getPlayersFromDB(): List<PlayerStatisticsInfo>
+    fun getPlayersFromDB(): Flow<LoadingResult<List<PlayerStatisticsInfo>>>
     suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo
     suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo)
     suspend fun removeFromFavoritePlayer(playerId: Int)

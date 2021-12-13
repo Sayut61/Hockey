@@ -56,28 +56,16 @@ class CalendarViewModel @Inject constructor(
 
             gamesGeneralInfo.collect {
                 when (it) {
-                    is LoadingResult.SuccessResult -> {
-                        _gamesLiveData.value = it.data!!
-                    }
-                    is LoadingResult.ErrorResult -> {
-                        _errorLiveData.value = it.error
-                    }
-                    is LoadingResult.Loading -> {
-                        _progressBarLiveData.value = it.isLoading
-                    }
+                    is LoadingResult.SuccessResult -> _gamesLiveData.value = it.data!!
+                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
+                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
                 }
             }
             gameFullInfo.collect {
                 when(it){
-                    is LoadingResult.SuccessResult ->{
-                        _gameFullInfoLiveData.value = it.data!!
-                    }
-                    is LoadingResult.ErrorResult ->{
-                        _errorLiveData.value = it.error
-                    }
-                    is LoadingResult.Loading ->{
-                        _progressBarLiveData.value = it.isLoading
-                    }
+                    is LoadingResult.SuccessResult -> _gameFullInfoLiveData.value = it.data!!
+                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
+                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
                 }
             }
         }

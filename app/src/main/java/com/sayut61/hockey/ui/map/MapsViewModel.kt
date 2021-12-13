@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sayut61.hockey.domain.entities.Stadium
+import com.sayut61.hockey.domain.flow.LoadingResult
 import com.sayut61.hockey.domain.usecases.MapUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
+
 @HiltViewModel
 class MapsViewModel @Inject constructor(
     private val mapUseCases: MapUseCases
@@ -22,17 +25,15 @@ class MapsViewModel @Inject constructor(
     private val _isLoadingLiveData = MutableLiveData<Boolean>()
     val isLoadingLiveData: LiveData<Boolean> = _isLoadingLiveData
 
-    fun refreshListStadium(){
+    fun refreshListStadium() {
         viewModelScope.launch {
-
-            try {
-                _isLoadingLiveData.value = true
-                val result = mapUseCases.getStadiumInfo()
-                _mapLiveData.value = result
-            }catch (ex : Exception){
-                _exceptionLiveData.value = ex
+            mapUseCases.getStadiumInfo().collect {
+                when (it) {
+                    is LoadingResult.SuccessResult -> _mapLiveData.value = it.data!!
+                    is LoadingResult.ErrorResult -> _exceptionLiveData.value = it.error
+                    is LoadingResult.Loading -> _isLoadingLiveData.value = it.isLoading
+                }
             }
-            _isLoadingLiveData.value = false
         }
     }
 }
