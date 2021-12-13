@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
 import com.sayut61.hockey.domain.usecases.GamesUseCases
