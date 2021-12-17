@@ -9,8 +9,8 @@ import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import com.sayut61.hockey.domain.usecases.PlayersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
+
 @HiltViewModel
 class PlayerDetailInfoViewModel @Inject constructor(
     val playersUseCases: PlayersUseCases
@@ -27,14 +27,14 @@ class PlayerDetailInfoViewModel @Inject constructor(
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarLiveData: LiveData<Boolean> = _progressBarLiveData
 
-    fun refreshPlayerDetail(playerId: Int){
+    fun refreshPlayerDetail(playerId: Int) {
         viewModelScope.launch {
             _progressBarLiveData.value = true
             try {
-                val playerFullInfo =  playersUseCases.getPlayerFullInfo(playerId)
-                _playerLiveData.value =playerFullInfo
+                val playerFullInfo = playersUseCases.getPlayerFullInfo(playerId)
+                _playerLiveData.value = playerFullInfo
                 _playerStatisticLiveData.value = playersUseCases.getPlayerStatistic(playerFullInfo)
-            }catch (ex: Exception){
+            } catch (ex: Exception) {
                 _errorLiveData.value = ex
             }
             _progressBarLiveData.value = false

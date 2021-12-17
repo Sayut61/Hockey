@@ -54,26 +54,29 @@ class GamesFavoriteRepositoryImpl @Inject constructor(
             }
             var equals = true
             for (i in 0..result.lastIndex)
-                if(result[0] != cacheFavoriteGame?.get(i)){
+                if (result[0] != cacheFavoriteGame?.get(i)) {
                     equals = false
                     break
                 }
-            if(!equals){
+            if (!equals) {
                 cacheFavoriteGame = result
                 emit(LoadingResult.SuccessResult(result))
             }
             emit(LoadingResult.Loading(false))
-        }catch (ex: Exception){
+        } catch (ex: Exception) {
             emit(LoadingResult.ErrorResult(Exception("Ошибка загрузки избранных матчей")))
             emit(LoadingResult.Loading(false))
         }
     }
+
     override suspend fun removeFromFavoriteGame(gameGeneralInfo: GameGeneralInfo) {
         gamesInfoDao.delete(gameToFavoriteGame(gameGeneralInfo))
     }
+
     override suspend fun addToFavoriteGame(gameGeneralInfo: GameGeneralInfo) {
         gamesInfoDao.insert(gameToFavoriteGame(gameGeneralInfo))
     }
+
     fun gameToFavoriteGame(gameGeneralInfo: GameGeneralInfo): FavoriteGame {
         return FavoriteGame(
             gameGeneralInfo.gameDate,
@@ -87,6 +90,7 @@ class GamesFavoriteRepositoryImpl @Inject constructor(
             gameGeneralInfo.awayTeamLogo,
         )
     }
+
     fun favoriteGameToGameGeneralInfo(favoriteGame: FavoriteGame): GameGeneralInfo {
         return GameGeneralInfo(
             favoriteGame.gameDate,

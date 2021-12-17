@@ -11,7 +11,6 @@ import com.sayut61.hockey.domain.usecases.GamesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.time.LocalDate
 import javax.inject.Inject
 

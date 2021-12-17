@@ -15,4 +15,4 @@ data class GameGeneralInfo(
     val homeTeamLogo: String?,
     val awayTeamLogo: String?,
     val isInFavoriteGame: Boolean
-): Parcelable
+) : Parcelable

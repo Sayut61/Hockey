@@ -2,8 +2,9 @@ package com.sayut61.hockey.di
 
 import android.content.Context
 import androidx.room.Room
-import com.sayut61.hockey.datalayer.datasource.loacaldatasource.*
-
+import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
+import com.sayut61.hockey.datalayer.datasource.loacaldatasource.HockeyDB
+import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
 import com.sayut61.hockey.datalayer.repositories.*
 import com.sayut61.hockey.domain.*
@@ -17,45 +18,61 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object AppModule{
+object AppModule {
     @Singleton
     @Provides
     fun provideHockeyDB(@ApplicationContext context: Context): HockeyDB {
         return Room.databaseBuilder(context, HockeyDB::class.java, "db").build()
     }
+
     @Singleton
     @Provides
     fun provideGamesInfoDao(db: HockeyDB): GamesInfoDao {
         return db.gamesInfoDao()
     }
+
     @Singleton
     @Provides
     fun providePlayersInfoDao(db: HockeyDB): PlayersInfoDao {
         return db.playersInfoDao()
     }
+
     @Singleton
     @Provides
-    fun providesPlayersRepositories(remoteDataSource: RemoteDataSource, playersInfoDao: PlayersInfoDao): PlayersRepository{
+    fun providesPlayersRepositories(
+        remoteDataSource: RemoteDataSource,
+        playersInfoDao: PlayersInfoDao
+    ): PlayersRepository {
         return PlayersRepositoryImpl(remoteDataSource, playersInfoDao)
     }
+
     @Singleton
     @Provides
-    fun providesTeamRepositories(remoteDataSource: RemoteDataSource): TeamsRepository{
+    fun providesTeamRepositories(remoteDataSource: RemoteDataSource): TeamsRepository {
         return TeamsRepositoryImpl(remoteDataSource)
     }
+
     @Singleton
     @Provides
-    fun providesCalendarRepositories(remoteDataSource: RemoteDataSource, gamesInfoDao: GamesInfoDao): GamesRepository{
+    fun providesCalendarRepositories(
+        remoteDataSource: RemoteDataSource,
+        gamesInfoDao: GamesInfoDao
+    ): GamesRepository {
         return GamesRepositoryImpl(remoteDataSource, gamesInfoDao)
     }
+
     @Singleton
     @Provides
     fun providesMapRepositories(remoteDataSource: RemoteDataSource): MapRepository {
         return MapRepositoryImpl(remoteDataSource)
     }
+
     @Singleton
     @Provides
-    fun providesFavRepositories(gamesInfoDao: GamesInfoDao, remoteDataSource: RemoteDataSource): GamesFavoriteRepository {
+    fun providesFavRepositories(
+        gamesInfoDao: GamesInfoDao,
+        remoteDataSource: RemoteDataSource
+    ): GamesFavoriteRepository {
         return GamesFavoriteRepositoryImpl(gamesInfoDao, remoteDataSource)
     }
 }

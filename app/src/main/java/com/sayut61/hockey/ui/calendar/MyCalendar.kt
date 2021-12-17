@@ -69,7 +69,7 @@ class MyCalendar(val context: Context) {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getCalendarDay(): CalendarDay{
+    fun getCalendarDay(): CalendarDay {
         val localDate = LocalDate.of(year, month, day)
         var dayOfWeek = when (localDate.dayOfWeek.name) {
             "MONDAY" -> "пн"
@@ -83,6 +83,7 @@ class MyCalendar(val context: Context) {
         }
         return CalendarDay(day, dayOfWeek, month, year)
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun getDaysList(): List<CalendarDay> {
         val daysInMonth = LocalDate.of(year, month, 1).lengthOfMonth()

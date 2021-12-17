@@ -1,4 +1,5 @@
 package com.sayut61.hockey.ui.favorites
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +19,12 @@ class ViewPagerFavoriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf(
@@ -31,7 +34,8 @@ class ViewPagerFavoriteFragment : Fragment() {
         val adapter = ViewPagerAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
-            lifecycle)
+            lifecycle
+        )
         binding.viewPager2.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             when (position) {
@@ -40,6 +44,7 @@ class ViewPagerFavoriteFragment : Fragment() {
             }
         }.attach()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

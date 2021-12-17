@@ -15,16 +15,21 @@ interface GameFavoriteAdapterListener {
     fun onGameClick(gameGeneralInfo: GameGeneralInfo)
     fun onDeleteButtonClick(gameGeneralInfo: GameGeneralInfo)
 }
+
 class GameFavoriteAdapter(
     private val listener: GameFavoriteAdapterListener,
     private val activity: Activity?
 ) : ListAdapter<GameFullInfo, GameFavoriteViewHolder>(GamesFavoriteDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameFavoriteViewHolder {
-        return GameFavoriteViewHolder(GameFavItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false))
+        return GameFavoriteViewHolder(
+            GameFavItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
+
     override fun onBindViewHolder(holder: GameFavoriteViewHolder, position: Int) {
         val gameInfo = getItem(position)
         holder.itemView.setOnClickListener {
@@ -36,6 +41,7 @@ class GameFavoriteAdapter(
         holder.bind(gameInfo, activity)
     }
 }
+
 class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(gameFullInfo: GameFullInfo, activity: Activity?) {
@@ -53,10 +59,12 @@ class GameFavoriteViewHolder(val binding: GameFavItemBinding) :
         }
     }
 }
-class GamesFavoriteDiffUtil: DiffUtil.ItemCallback<GameFullInfo>(){
+
+class GamesFavoriteDiffUtil : DiffUtil.ItemCallback<GameFullInfo>() {
     override fun areItemsTheSame(oldItem: GameFullInfo, newItem: GameFullInfo): Boolean {
-       return oldItem.generalInfo.gameId == newItem.generalInfo.gameId
+        return oldItem.generalInfo.gameId == newItem.generalInfo.gameId
     }
+
     override fun areContentsTheSame(oldItem: GameFullInfo, newItem: GameFullInfo): Boolean {
         return oldItem == newItem
     }

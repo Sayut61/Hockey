@@ -3,7 +3,6 @@ package com.sayut61.hockey.ui.adapters
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +15,7 @@ interface PlayersAdapterListener {
     fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo)
     fun onFavoriteButtonClick(playerId: PlayerGeneralInfo)
 }
+
 class PlayersAdapter(
     private val listener: PlayersAdapterListener,
     val activity: Activity?
@@ -26,8 +26,11 @@ class PlayersAdapter(
             PlayersItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false))
+                false
+            )
+        )
     }
+
     override fun onBindViewHolder(holder: PlayersViewHolder, position: Int) {
         val player = getItem(position)
 
@@ -42,6 +45,7 @@ class PlayersAdapter(
         }
     }
 }
+
 class PlayersViewHolder(val binding: PlayersItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
         playerGeneralInfo: PlayerGeneralInfo,
@@ -54,6 +58,7 @@ class PlayersViewHolder(val binding: PlayersItemBinding) : RecyclerView.ViewHold
         }
         setIsInFavoriteButton(playerGeneralInfo.isInFavorite)
     }
+
     fun setIsInFavoriteButton(isInFavorite: Boolean) {
         binding.addToFavoriteImageButton.setImageResource(
             if (isInFavorite)
@@ -63,11 +68,16 @@ class PlayersViewHolder(val binding: PlayersItemBinding) : RecyclerView.ViewHold
         )
     }
 }
+
 class PlayerGeneralInfoDiffUtil : DiffUtil.ItemCallback<PlayerGeneralInfo>() {
     override fun areItemsTheSame(oldItem: PlayerGeneralInfo, newItem: PlayerGeneralInfo): Boolean {
         return oldItem.playerId == newItem.playerId
     }
-    override fun areContentsTheSame(oldItem: PlayerGeneralInfo, newItem: PlayerGeneralInfo): Boolean {
+
+    override fun areContentsTheSame(
+        oldItem: PlayerGeneralInfo,
+        newItem: PlayerGeneralInfo
+    ): Boolean {
         return oldItem == newItem
     }
 

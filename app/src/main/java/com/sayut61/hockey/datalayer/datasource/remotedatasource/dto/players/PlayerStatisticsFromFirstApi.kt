@@ -3,9 +3,11 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players
 data class PlayerStatisticsFromFirstApiResponse(
     val stats: List<Stats>
 )
+
 data class Stats(
     val splits: List<Splits>
 )
+
 data class Splits(
     val stat: Stat
 )

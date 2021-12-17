@@ -29,7 +29,7 @@ class PlayersRepositoryImpl @Inject constructor(
             val result = remoteDataSource.getAllPlayers().map { playerFromApi ->
                 val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
                 val isInDb = playersInfoDao.getPlayers()
-                        .find { it.playerId == playerFromApi.playerId } != null
+                    .find { it.playerId == playerFromApi.playerId } != null
                 PlayerGeneralInfo(
                     teamId = playerFromApi.teamId,
                     teamFullName = playerFromApi.teamFullName,
@@ -74,16 +74,16 @@ class PlayersRepositoryImpl @Inject constructor(
             }
             var equals = true
             for (i in 0..result.lastIndex)
-                if(result[0] != cacheFavoritePlayers?.get(i)){
+                if (result[0] != cacheFavoritePlayers?.get(i)) {
                     equals = false
                     break
                 }
-            if(!equals){
+            if (!equals) {
                 cacheFavoritePlayers = result
                 emit(LoadingResult.SuccessResult(result))
             }
             emit(LoadingResult.Loading(false))
-        }catch (ex: java.lang.Exception){
+        } catch (ex: java.lang.Exception) {
             emit(LoadingResult.ErrorResult(java.lang.Exception("Ошибка загрузки избранных игроков")))
             emit(LoadingResult.Loading(false))
         }

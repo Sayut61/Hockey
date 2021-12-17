@@ -27,4 +27,4 @@ data class TeamFullInfo(
     val placeOnPts: String,
     val placeGoalsPerGame: String,
     val placeGoalsAgainstPerGame: String
-): Parcelable
+) : Parcelable

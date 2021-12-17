@@ -5,7 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PlayerGeneralInfo(
-//    val playerStatisticsInfo: PlayerStatisticsInfo,
     val teamId: Int,
     val teamFullName: String,
     val teamShortName: String,
@@ -15,4 +14,4 @@ data class PlayerGeneralInfo(
     val linkOnPlayerDetailInfo: String,
     val logo: String?,
     val isInFavorite: Boolean
-): Parcelable
+) : Parcelable

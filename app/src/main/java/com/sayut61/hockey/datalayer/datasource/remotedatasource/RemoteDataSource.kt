@@ -38,16 +38,36 @@ class RemoteDataSource @Inject constructor() {
         suspend fun getAllPlayers(): PlayersGeneralInfoResponse
 
         @GET(value = "/api/v1/teams/{id}?expand=team.stats")
-        suspend fun getTeamFullInfo(@Path("id", encoded = true)teamId: Int): TeamFullInfoFromFirstApiResponse
+        suspend fun getTeamFullInfo(
+            @Path(
+                "id",
+                encoded = true
+            ) teamId: Int
+        ): TeamFullInfoFromFirstApiResponse
 
         @GET(value = "/api/v1/teams/{id}/roster")
-        suspend fun getPlayersByTeam(@Path("id", encoded = true)teamId: Int): TeamPlayersFromFirstApiResponse
+        suspend fun getPlayersByTeam(
+            @Path(
+                "id",
+                encoded = true
+            ) teamId: Int
+        ): TeamPlayersFromFirstApiResponse
 
         @GET(value = "/api/v1/people/{playerId}")
-        suspend fun getPlayerFullInfo(@Path("playerId", encoded = true)playerId: Int): PlayerFullInfoResponse
+        suspend fun getPlayerFullInfo(
+            @Path(
+                "playerId",
+                encoded = true
+            ) playerId: Int
+        ): PlayerFullInfoResponse
 
         @GET(value = "/api/v1/people/{id}/stats?stats=statsSingleSeason&season=20212022")
-        suspend fun getPlayerStatistic(@Path("id", encoded = true)playerId: Int): PlayerStatisticsFromFirstApiResponse
+        suspend fun getPlayerStatistic(
+            @Path(
+                "id",
+                encoded = true
+            ) playerId: Int
+        ): PlayerStatisticsFromFirstApiResponse
     }
 
     private interface RestNHLSecondAPI {
@@ -83,30 +103,30 @@ class RemoteDataSource @Inject constructor() {
     private var serviceForSecondApi = retrofitSecondApi.create(RestNHLSecondAPI::class.java)
 
     //Retrofit
-    suspend fun getPlayerStatistic(playerId: Int): PlayerStatisticsFromFirstApiResponse{
+    suspend fun getPlayerStatistic(playerId: Int): PlayerStatisticsFromFirstApiResponse {
         return serviceForFirstApi.getPlayerStatistic(playerId)
     }
 
-    suspend fun getPlayersPhoto(): List<PlayerPhoto>{
+    suspend fun getPlayersPhoto(): List<PlayerPhoto> {
         return serviceForSecondApi.getPlayersPhoto()
     }
 
-    suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfoFromApi{
+    suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfoFromApi {
         val player = serviceForFirstApi.getPlayerFullInfo(playerId)
         return playerInfoToPlayerFullInfo(player)
     }
 
-    suspend fun getPlayersByTeam(teamId: Int): List<TeamPlayersFromApi>{
+    suspend fun getPlayersByTeam(teamId: Int): List<TeamPlayersFromApi> {
         val teamPlayers = serviceForFirstApi.getPlayersByTeam(teamId)
         return teamPlayersInfoFromApiToTeamPlayers(teamPlayers)
     }
 
-    suspend fun getTeamFullInfo(teamId: Int): TeamFullInfoFromApi{
+    suspend fun getTeamFullInfo(teamId: Int): TeamFullInfoFromApi {
         val teamInfoResponse = serviceForFirstApi.getTeamFullInfo(teamId)
         return teamFullInfoFromFirstApiResponseToFullInfoByTeams(teamInfoResponse)
     }
 
-    suspend fun getAllPlayers(): List<PlayerGeneralInfoFromApi>{
+    suspend fun getAllPlayers(): List<PlayerGeneralInfoFromApi> {
         val playersResponse = serviceForFirstApi.getAllPlayers()
         return playersGenInfoToAllPlayersGeneralInfo(playersResponse)
     }
@@ -121,14 +141,17 @@ class RemoteDataSource @Inject constructor() {
         val gamesResponse = serviceForFirstApi.getGamesByDate(stringDate)
         return gamesResponseToGamesFromFirstApi(gamesResponse)
     }
+
     suspend fun getGameDetails(link: String): GameFullInfoFromApi {
         val gameResponse = serviceForFirstApi.getGameDetails(link)
         Log.d("myLog", gameResponse.toString())
         return gameFullInfoResponseToGameFullInfo(gameResponse)
     }
+
     suspend fun getAllTeamsFromSecondApi(): List<TeamGeneralInfoFromSecondApi> {
         return serviceForSecondApi.getTeamsGeneralInfo()
     }
+
     suspend fun getStadiums(): List<Stadium> {
         return serviceForSecondApi.getStadiums()
     }

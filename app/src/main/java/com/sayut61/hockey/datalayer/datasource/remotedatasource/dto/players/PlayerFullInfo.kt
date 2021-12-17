@@ -19,8 +19,8 @@ data class PlayerFullInfoFromApi(
     val position: String
 )
 
-fun playerInfoToPlayerFullInfo(playerFull: PlayerFullInfoResponse): PlayerFullInfoFromApi{
-    val playerInfo =  playerFull.people.map {
+fun playerInfoToPlayerFullInfo(playerFull: PlayerFullInfoResponse): PlayerFullInfoFromApi {
+    val playerInfo = playerFull.people.map {
         PlayerFullInfoFromApi(
             playerId = it.playerId,
             fullName = it.fullName,
@@ -37,16 +37,17 @@ fun playerInfoToPlayerFullInfo(playerFull: PlayerFullInfoResponse): PlayerFullIn
             position = it.primaryPosition.position
         )
     }
-       return if(playerInfo.isNotEmpty()){
-           playerInfo[0]
-       }else{
-           throw Exception("error get player info")
-       }
+    return if (playerInfo.isNotEmpty()) {
+        playerInfo[0]
+    } else {
+        throw Exception("error get player info")
+    }
 }
 
 data class PlayerFullInfoResponse(
     val people: List<PeopleInfo>
 )
+
 data class PeopleInfo(
     @SerializedName("id")
     val playerId: Int,
@@ -63,12 +64,14 @@ data class PeopleInfo(
     val currentTeam: TeamInfo,
     val primaryPosition: PlayerPosition
 )
+
 data class TeamInfo(
     @SerializedName("id")
     val teamId: Int,
     @SerializedName("name")
     val teamFullName: String
 )
+
 data class PlayerPosition(
     @SerializedName("name")
     val wing: String,

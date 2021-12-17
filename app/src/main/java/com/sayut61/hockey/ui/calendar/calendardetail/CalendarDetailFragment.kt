@@ -1,10 +1,11 @@
 package com.sayut61.hockey.ui.calendar.calendardetail
+
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
@@ -15,7 +16,6 @@ import com.sayut61.hockey.ui.calendar.calendardetail.calendar_detail_recycler_fr
 import com.sayut61.hockey.ui.calendar.calendardetail.calendar_detail_recycler_fragment.HomeTeamRecyclerFragment
 import com.sayut61.hockey.ui.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 
 @AndroidEntryPoint
 class CalendarDetailFragment : Fragment() {
@@ -31,6 +31,7 @@ class CalendarDetailFragment : Fragment() {
         _binding = FragmentCalendarDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf(
@@ -40,26 +41,27 @@ class CalendarDetailFragment : Fragment() {
         val adapter = CalendarDetailViewPagerAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
-            lifecycle)
+            lifecycle
+        )
         binding.calendarViewPager.adapter = adapter
         binding.calendarTabLayout.visibility = View.INVISIBLE
         binding.calendarViewPager.visibility = View.INVISIBLE
-            TabLayoutMediator(binding.calendarTabLayout, binding.calendarViewPager) { tab, position ->
-                when (position) {
-                    0 -> tab.text = "ХОЗЯЕВА"
-                    1 -> tab.text = "ГОСТИ"
-                }
-            }.attach()
+        TabLayoutMediator(binding.calendarTabLayout, binding.calendarViewPager) { tab, position ->
+            when (position) {
+                0 -> tab.text = "ХОЗЯЕВА"
+                1 -> tab.text = "ГОСТИ"
+            }
+        }.attach()
         //__________________________________________________________________________
         val gameGeneralInfo = args.game
         viewModel.refreshViewModel(gameGeneralInfo)
         viewModel.getGameInfo.observe(viewLifecycleOwner) {
             showFullInfo(it)
-            if((it.gameState == "окончен")|| (it.gameState ==("идет"))){
+            if ((it.gameState == "окончен") || (it.gameState == ("идет"))) {
                 binding.calendarTabLayout.visibility = View.VISIBLE
                 binding.calendarViewPager.visibility = View.VISIBLE
                 binding.emptyListTextView.visibility = View.GONE
-            }else{
+            } else {
                 binding.calendarTabLayout.visibility = View.INVISIBLE
                 binding.calendarViewPager.visibility = View.INVISIBLE
                 binding.emptyListTextView.visibility = View.VISIBLE
@@ -68,12 +70,13 @@ class CalendarDetailFragment : Fragment() {
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            if(it == true){
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it == true) {
                 showProgressBar()
-            }else hideProgressBar()
+            } else hideProgressBar()
         }
     }
+
     private fun showFullInfo(gameFullInfo: GameFullInfo) {
         binding.dateAndTimeGameTextView.text = gameFullInfo.generalInfo.gameDate
         binding.homeTeamScoreTextView.text = gameFullInfo.goalsHomeTeam.toString()
@@ -113,15 +116,18 @@ class CalendarDetailFragment : Fragment() {
         binding.gameStatusTextView.text = gameFullInfo.gameState
     }
 
-    private fun showProgressBar(){
+    private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
     }
-    private fun hideProgressBar(){
+
+    private fun hideProgressBar() {
         binding.progressBar.visibility = View.INVISIBLE
     }
+
     private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

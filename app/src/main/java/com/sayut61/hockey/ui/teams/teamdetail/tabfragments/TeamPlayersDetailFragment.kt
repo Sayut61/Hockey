@@ -17,8 +17,8 @@ import com.sayut61.hockey.ui.teams.teamdetail.TeamDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TeamPlayersDetailFragment(): Fragment(), TeamPlayersAdapterListener {
-    private  val viewModel: TeamPlayersDetailViewModel by viewModels()
+class TeamPlayersDetailFragment() : Fragment(), TeamPlayersAdapterListener {
+    private val viewModel: TeamPlayersDetailViewModel by viewModels()
     private var _binding: FragmentTeamPlayersBinding? = null
     private val binding get() = _binding!!
 
@@ -26,29 +26,35 @@ class TeamPlayersDetailFragment(): Fragment(), TeamPlayersAdapterListener {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentTeamPlayersBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val teamId = arguments?.getInt(TeamStatisticDetailFragment.TEAM_ID_ARG) ?: throw  java.lang.Exception("Create me with get instance")
+        val teamId = arguments?.getInt(TeamStatisticDetailFragment.TEAM_ID_ARG)
+            ?: throw  java.lang.Exception("Create me with get instance")
         Log.d("myLog", teamId.toString())
         viewModel.refreshPlayersFragment(teamId)
-        viewModel.errorLiveData.observe(viewLifecycleOwner){
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-        viewModel.playersLiveData.observe(viewLifecycleOwner){
+        viewModel.playersLiveData.observe(viewLifecycleOwner) {
             showPlayers(it)
         }
     }
-    private fun showPlayers(players: List<TeamPlayersInfo>){
+
+    private fun showPlayers(players: List<TeamPlayersInfo>) {
         val adapter = TeamPlayersAdapter(players, this)
         binding.listPlayersRecyclerView.adapter = adapter
     }
-    private fun showError(ex: Exception){
-        Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
+
+    private fun showError(ex: Exception) {
+        Toast.makeText(requireContext(), "Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
+
     override fun onPlayerClick(playersInfo: TeamPlayersInfo) {
         val action =
             TeamDetailFragmentDirections.actionTeamDetailFragmentToPlayerDetailInfoFragment(
@@ -56,10 +62,12 @@ class TeamPlayersDetailFragment(): Fragment(), TeamPlayersAdapterListener {
             )
         findNavController().navigate(action)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         private const val TEAM_ID_ARG = "team_id"
         fun getInstance(teamId: Int): TeamPlayersDetailFragment {

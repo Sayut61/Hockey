@@ -2,15 +2,11 @@ package com.sayut61.hockey.ui.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.databinding.FavoritePlayerStatItemBinding
-import com.sayut61.hockey.databinding.FragmentPlayerFavoriteBinding
-import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import com.sayut61.hockey.ui.utils.loadImage
 

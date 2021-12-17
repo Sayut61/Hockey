@@ -18,7 +18,7 @@ class GamesRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val gamesInfoDao: GamesInfoDao
 ) : GamesRepository {
-    var cacheGames:MutableMap<LocalDate, List<GameFullInfo>> = mutableMapOf()
+    var cacheGames: MutableMap<LocalDate, List<GameFullInfo>> = mutableMapOf()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getGamesFullInfo(date: LocalDate): Flow<List<GameFullInfo>> = flow {

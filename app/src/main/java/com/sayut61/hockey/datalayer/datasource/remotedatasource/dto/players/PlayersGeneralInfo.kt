@@ -15,7 +15,7 @@ data class PlayerGeneralInfoFromApi(
 
 fun playersGenInfoToAllPlayersGeneralInfo(playersGeneralInfoResponse: PlayersGeneralInfoResponse): List<PlayerGeneralInfoFromApi> {
     return playersGeneralInfoResponse.teams.flatMap { team ->
-        team.roster.roster.map{player->
+        team.roster.roster.map { player ->
             PlayerGeneralInfoFromApi(
                 teamId = team.teamId,
                 teamFullName = team.teamNameFull,

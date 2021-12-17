@@ -13,15 +13,16 @@ import com.sayut61.hockey.domain.entities.TeamFullInfo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TeamStatisticDetailFragment(): Fragment() {
-    private  val viewModel: TeamStatisticDetailViewModel by viewModels()
+class TeamStatisticDetailFragment() : Fragment() {
+    private val viewModel: TeamStatisticDetailViewModel by viewModels()
     private var _binding: FragmentTeamStatisticsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentTeamStatisticsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -29,19 +30,20 @@ class TeamStatisticDetailFragment(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val teamId = arguments?.getInt(TEAM_ID_ARG) ?: throw  java.lang.Exception("Create me with get instance")
+        val teamId = arguments?.getInt(TEAM_ID_ARG)
+            ?: throw  java.lang.Exception("Create me with get instance")
         Log.d("myLog", teamId.toString())
         viewModel.refreshStatFragment(teamId)
 
-        viewModel.errorLiveData.observe(viewLifecycleOwner){
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-        viewModel.teamStatisticLiveData.observe(viewLifecycleOwner){
+        viewModel.teamStatisticLiveData.observe(viewLifecycleOwner) {
             showStatInfo(it)
         }
     }
 
-    private fun showStatInfo(fullInfo: TeamFullInfo){
+    private fun showStatInfo(fullInfo: TeamFullInfo) {
         binding.gamesPlayedTextView.text = fullInfo.gamesPlayed.toString()
         binding.goalsAgainstPerGameTextView.text = fullInfo.goalsAgainstPerGame.toString()
         binding.goalsPerGameTextView.text = fullInfo.goalsPerGame.toString()
@@ -60,9 +62,11 @@ class TeamStatisticDetailFragment(): Fragment() {
         binding.placeOnPtsTextView.text = fullInfo.placeOnPts
         binding.placeOnWinsTextView.text = fullInfo.placeOnWins
     }
-    private fun showError(ex: Exception){
-        Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
+
+    private fun showError(ex: Exception) {
+        Toast.makeText(requireContext(), "Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

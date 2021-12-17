@@ -9,11 +9,12 @@ class TeamDetailViewPagerAdapter(
     val list: ArrayList<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
-): FragmentStateAdapter(fragmentManager, lifecycle){
+) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int {
         return list.size
     }
+
     override fun createFragment(position: Int): Fragment {
         return list[position]
     }

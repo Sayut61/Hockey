@@ -8,12 +8,11 @@ import com.sayut61.hockey.domain.entities.TeamGeneralInfo
 import com.sayut61.hockey.domain.usecases.TeamsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-open class  TeamsViewModel @Inject constructor(
-private val teamsUseCases: TeamsUseCases
+open class TeamsViewModel @Inject constructor(
+    private val teamsUseCases: TeamsUseCases
 ) : ViewModel() {
     private val _teamInfoLiveData = MutableLiveData<List<TeamGeneralInfo>>()
     val teamGeneralInfoInfoLiveData: LiveData<List<TeamGeneralInfo>> = _teamInfoLiveData
@@ -24,12 +23,12 @@ private val teamsUseCases: TeamsUseCases
     private val _progressBarLiveData = MutableLiveData<Boolean>()
     val progressBarrLiveData: LiveData<Boolean> = _progressBarLiveData
 
-    fun refreshTeamsFragment(){
-        viewModelScope.launch{
+    fun refreshTeamsFragment() {
+        viewModelScope.launch {
             _progressBarLiveData.value = true
             try {
                 _teamInfoLiveData.value = teamsUseCases.getTeamsInfo()
-            }catch (ex: Exception){
+            } catch (ex: Exception) {
                 _errorLiveData.value = ex
             }
             _progressBarLiveData.value = false

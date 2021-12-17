@@ -48,7 +48,7 @@ public class SvgParser {
                 .listener(new SvgSoftwareLayerSetter<>());
     }
 
-    public void setPlaceHolder(int placeHolderLoding, int placeHolderError){
+    public void setPlaceHolder(int placeHolderLoding, int placeHolderError) {
         requestBuilder.placeholder(placeHolderLoding)
                 .error(placeHolderError);
     }

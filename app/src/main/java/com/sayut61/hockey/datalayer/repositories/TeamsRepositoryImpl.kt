@@ -18,11 +18,13 @@ class TeamsRepositoryImpl @Inject constructor(
         teamsCache?.let {
             return it
         }
-        val teamsInfoFromFirstApi: List<TeamInfoFromFirstApi> = remoteDataSource.getAllTeamsFromFirstApi()
+        val teamsInfoFromFirstApi: List<TeamInfoFromFirstApi> =
+            remoteDataSource.getAllTeamsFromFirstApi()
         val teamsGeneralInfoFromSecondApi: List<TeamGeneralInfoFromSecondApi> =
             remoteDataSource.getAllTeamsFromSecondApi()
         val result = teamsInfoFromFirstApi.map { team ->
-            val teamInfoFromSecondApi = teamsGeneralInfoFromSecondApi.find { it.shortName == team.shortTeamName }
+            val teamInfoFromSecondApi =
+                teamsGeneralInfoFromSecondApi.find { it.shortName == team.shortTeamName }
             TeamGeneralInfo(
                 fullTeamName = team.fullTeamName,
                 id = team.id,
@@ -42,10 +44,10 @@ class TeamsRepositoryImpl @Inject constructor(
         val infoFromSecondApi = remoteDataSource.getAllTeamsFromSecondApi()
             .find { it.shortName == infoFromFirstApi?.shortTeamName }
         val fullInfoByTeam = remoteDataSource.getTeamFullInfo(teamId)
-        return if(infoFromFirstApi != null && infoFromSecondApi != null) {
+        return if (infoFromFirstApi != null && infoFromSecondApi != null) {
             val generalInfo = generalInfoToTeamGeneralInfo(infoFromFirstApi, infoFromSecondApi)
             TeamFullInfo(
-                teamGeneralInfo =generalInfo,
+                teamGeneralInfo = generalInfo,
                 id = fullInfoByTeam.id,
                 teamFullName = fullInfoByTeam.teamFullName,
                 teamShortName = fullInfoByTeam.teamShortName,
@@ -86,17 +88,17 @@ class TeamsRepositoryImpl @Inject constructor(
 
 
     fun generalInfoToTeamGeneralInfo(
-    teamFirstApi: TeamInfoFromFirstApi,
-    teamSecondApi: TeamGeneralInfoFromSecondApi
-): TeamGeneralInfo {
-    return TeamGeneralInfo(
-        id = teamFirstApi.id,
-        fullTeamName = teamFirstApi.fullTeamName,
-        shortTeamName = teamFirstApi.shortTeamName,
-        officialSiteUrl = teamFirstApi.officialSiteUrl,
-        cityName = teamSecondApi.cityName,
-        urlLogoTeam = teamSecondApi.wikipediaLogoUrl,
-        stadiumID = teamSecondApi.stadiumID
-    )
-}
+        teamFirstApi: TeamInfoFromFirstApi,
+        teamSecondApi: TeamGeneralInfoFromSecondApi
+    ): TeamGeneralInfo {
+        return TeamGeneralInfo(
+            id = teamFirstApi.id,
+            fullTeamName = teamFirstApi.fullTeamName,
+            shortTeamName = teamFirstApi.shortTeamName,
+            officialSiteUrl = teamFirstApi.officialSiteUrl,
+            cityName = teamSecondApi.cityName,
+            urlLogoTeam = teamSecondApi.wikipediaLogoUrl,
+            stadiumID = teamSecondApi.stadiumID
+        )
+    }
 }

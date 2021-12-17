@@ -17,28 +17,28 @@ public class SvgLoader {
         return instances;
     }
 
-    public SvgLoader with(Activity activity){
+    public SvgLoader with(Activity activity) {
         this.activity = activity;
         svgParser = new SvgParser(activity);
         return instances;
     }
 
-    public void close(){
+    public void close() {
         svgParser.clearCache();
     }
 
-    public SvgLoader setPlaceHolder(int placeHolderLoading, int placeHolderError){
+    public SvgLoader setPlaceHolder(int placeHolderLoading, int placeHolderError) {
         svgParser.setPlaceHolder(placeHolderLoading, placeHolderError);
         return instances;
     }
 
-    public SvgLoader load(String url, ImageView imageView){
+    public SvgLoader load(String url, ImageView imageView) {
         Uri uri = Uri.parse(url);
         svgParser.loadImage(uri, imageView);
         return instances;
     }
 
-    public SvgLoader load(Uri uri, ImageView imageView){
+    public SvgLoader load(Uri uri, ImageView imageView) {
         svgParser.loadImage(uri, imageView);
         return instances;
     }

@@ -4,21 +4,17 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
-import android.widget.HorizontalScrollView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentPlayersBinding
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.ui.adapters.PlayersAdapter
 import com.sayut61.hockey.ui.adapters.PlayersAdapterListener
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 
 @AndroidEntryPoint
 class PlayersFragment : Fragment(), PlayersAdapterListener {
@@ -34,6 +30,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         setHasOptionsMenu(true)
         return binding.root
     }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +41,7 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
         adapter = PlayersAdapter(this, activity as Activity)
         binding.playersRecyclerView.adapter = adapter
         binding.playersRecyclerView.itemAnimator = null
-        viewModel.listPlayersLiveData.observe(viewLifecycleOwner) {playersGeneralInfo->
+        viewModel.listPlayersLiveData.observe(viewLifecycleOwner) { playersGeneralInfo ->
             adapter.submitList(playersGeneralInfo)
         }
         viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
@@ -52,22 +49,29 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
             else hideProgressBar()
         }
     }
+
     override fun onPlayerClick(playerGeneralInfo: PlayerGeneralInfo) {
-        val action = PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
+        val action =
+            PlayersFragmentDirections.actionPlayersFragmentToPlayerInfoFragment(playerGeneralInfo.playerId)
         findNavController().navigate(action)
     }
+
     override fun onFavoriteButtonClick(playerGeneralInfo: PlayerGeneralInfo) {
         viewModel.onFavoriteClick(playerGeneralInfo)
     }
+
     private fun showError(exception: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${exception.message}", Toast.LENGTH_LONG).show()
     }
+
     private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
     }
+
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.INVISIBLE
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.top_menu, menu)
@@ -77,12 +81,14 @@ class PlayersFragment : Fragment(), PlayersAdapterListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true
             }
+
             override fun onQueryTextChange(text: String?): Boolean {
                 viewModel.changeFilter(text ?: "")
                 return true
             }
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

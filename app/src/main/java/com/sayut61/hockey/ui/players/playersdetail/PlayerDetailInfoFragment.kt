@@ -23,34 +23,36 @@ class PlayerDetailInfoFragment : Fragment() {
     private val args: PlayerDetailInfoFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentPlayerDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.refreshPlayerDetail(args.playerId)
 
-        viewModel.playerLiveData.observe(viewLifecycleOwner){
+        viewModel.playerLiveData.observe(viewLifecycleOwner) {
             showPlayerFullInfo(it)
         }
 
-        viewModel.playerStatisticLiveData.observe(viewLifecycleOwner){
+        viewModel.playerStatisticLiveData.observe(viewLifecycleOwner) {
             showPlayerStatistics(it)
         }
-        viewModel.errorLiveData.observe(viewLifecycleOwner){
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
             showError(it)
         }
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            if(it == true)showProgressBar()
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it == true) showProgressBar()
             else hideProgressBar()
         }
 
 
     }
 
-    private fun showPlayerStatistics(playerStatisticsInfo: PlayerStatisticsInfo){
+    private fun showPlayerStatistics(playerStatisticsInfo: PlayerStatisticsInfo) {
         binding.gamesTextView.text = (playerStatisticsInfo.games ?: 0).toString()
         binding.assistsTextView.text = (playerStatisticsInfo.assists ?: 0).toString()
         binding.pointsTextView.text = (playerStatisticsInfo.points ?: 0).toString()
@@ -78,7 +80,7 @@ class PlayerDetailInfoFragment : Fragment() {
             }
 
             binding.playerPhotoImageView.setOnClickListener {
-                PlayerPhotoFragment().apply{
+                PlayerPhotoFragment().apply {
                     arguments = Bundle().apply {
                         putString("photoUrl", logoUrl)
                     }
@@ -88,15 +90,19 @@ class PlayerDetailInfoFragment : Fragment() {
 
 
     }
-    private fun showError(ex: Exception){
-        Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG ).show()
+
+    private fun showError(ex: Exception) {
+        Toast.makeText(requireContext(), "Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
-    private fun showProgressBar(){
+
+    private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
     }
-    private fun hideProgressBar(){
+
+    private fun hideProgressBar() {
         binding.progressBar.visibility = View.INVISIBLE
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

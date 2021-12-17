@@ -25,12 +25,15 @@ fun gamesResponseToGamesFromFirstApi(gamesResponse: GamesResponse): List<GameFro
         )
     }
 }
+
 data class GamesResponse(
     val dates: List<DateByGames>
 )
+
 data class DateByGames(
     val games: List<Games>
 )
+
 data class Games(
     @SerializedName("gamePk")
     val gameId: Int,
@@ -38,23 +41,28 @@ data class Games(
     @SerializedName("link")
     val linkOnDetailInfoByGame: String,
     val teams: HomeOrAway
-    )
+)
+
 data class HomeOrAway(
     val away: AwayTeam,
     val home: HomeTeam
 )
+
 data class AwayTeam(
     val team: AwayTeamName
 )
+
 data class HomeTeam(
     val team: HomeTeamName
 )
+
 data class AwayTeamName(
     @SerializedName("name")
     val awayTeamNameFull: String,
     @SerializedName("id")
     val awayTeamId: Int
 )
+
 data class HomeTeamName(
     @SerializedName("name")
     val homeTeamNameFull: String,

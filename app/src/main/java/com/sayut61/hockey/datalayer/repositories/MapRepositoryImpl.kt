@@ -35,11 +35,11 @@ class MapRepositoryImpl @Inject constructor(
             }
             var equals = true
             for (i in 0..result.lastIndex)
-                if(result[0] != cacheMap?.get(i)){
+                if (result[0] != cacheMap?.get(i)) {
                     equals = false
                     break
                 }
-            if(!equals){
+            if (!equals) {
                 cacheMap = result
                 emit(LoadingResult.SuccessResult(result))
             }

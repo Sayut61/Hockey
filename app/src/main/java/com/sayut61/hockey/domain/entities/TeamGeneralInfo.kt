@@ -1,7 +1,6 @@
 package com.sayut61.hockey.domain.entities
 
 import android.os.Parcelable
-import com.google.android.gms.common.internal.StringResourceValueReader
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

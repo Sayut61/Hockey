@@ -11,8 +11,8 @@ data class TeamPlayersFromApi(
     val type: String
 )
 
-fun teamPlayersInfoFromApiToTeamPlayers(playersFromFirstApiResponse: TeamPlayersFromFirstApiResponse): List<TeamPlayersFromApi>{
-    return playersFromFirstApiResponse.roster.map{
+fun teamPlayersInfoFromApiToTeamPlayers(playersFromFirstApiResponse: TeamPlayersFromFirstApiResponse): List<TeamPlayersFromApi> {
+    return playersFromFirstApiResponse.roster.map {
         TeamPlayersFromApi(
             jerseyNumber = it.jerseyNumber,
             playerId = it.person.playerId,
@@ -26,11 +26,13 @@ fun teamPlayersInfoFromApiToTeamPlayers(playersFromFirstApiResponse: TeamPlayers
 data class TeamPlayersFromFirstApiResponse(
     val roster: List<PersonInfoFromApi>
 )
+
 data class PersonInfoFromApi(
     val jerseyNumber: Int,
     val person: PersonInf,
     val position: PersonPos
 )
+
 data class PersonInf(
     @SerializedName("id")
     val playerId: Int,
@@ -38,6 +40,7 @@ data class PersonInf(
     @SerializedName("link")
     val linkOnFullInfoByPlayer: String
 )
+
 data class PersonPos(
     val type: String
 )

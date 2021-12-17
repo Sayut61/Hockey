@@ -1,22 +1,16 @@
 package com.sayut61.hockey.ui.calendar
 
-import android.graphics.drawable.ClipDrawable.HORIZONTAL
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentCalendarBinding
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.ui.adapters.*
@@ -37,6 +31,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         setHasOptionsMenu(true)
         return binding.root
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,7 +45,7 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
                 adapter.submitList(it)
                 binding.recyclerViewCalendar.visibility = View.VISIBLE
                 binding.emptyListTextView.visibility = View.GONE
-            }else {
+            } else {
                 binding.emptyListTextView.visibility = View.VISIBLE
                 binding.recyclerViewCalendar.visibility = View.INVISIBLE
             }
@@ -61,7 +56,8 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         binding.daysOfMonthRecyclerView.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.HORIZONTAL,
-            false)
+            false
+        )
         viewModel.changeDate(myCalendar.getCurrentDay())
         updateCalendarView()
         binding.nextImageButton.setOnClickListener {
@@ -72,9 +68,10 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
             myCalendar.reduceMonth()
             updateCalendarView()
         }
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            if (it == true){ showProgressBar() }
-            else hideProgressBar()
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            if (it == true) {
+                showProgressBar()
+            } else hideProgressBar()
         }
     }
 
@@ -84,18 +81,22 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
         val listDays = myCalendar.getDaysList()
         val adapter = CalendarDateAdapter(listDays, myCalendar.day, this)
         binding.daysOfMonthRecyclerView.adapter = adapter
-        binding.daysOfMonthRecyclerView.scrollToPosition(myCalendar.day-1)
+        binding.daysOfMonthRecyclerView.scrollToPosition(myCalendar.day - 1)
         binding.monthTextView.text = myCalendar.getCurrentMonthName()
         binding.yearTextView.text = myCalendar.year.toString()
     }
+
     override fun onCalendarClick(gameFullInfo: GameFullInfo) {
-        val action = CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameFullInfo.generalInfo)
+        val action =
+            CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailFragment(gameFullInfo.generalInfo)
         findNavController().navigate(action)
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFavButtonClick(gameFullInfo: GameFullInfo) {
         viewModel.onFavoriteClick(gameFullInfo.generalInfo)
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onDayClick(day: CalendarDay) {
         viewModel.changeDate(LocalDate.of(day.year, day.month, day.number))
@@ -109,14 +110,17 @@ class CalendarFragment : Fragment(), CalendarAdapterListener, CalendarDateAdapte
 
     //----------------------------------------------------------------------------
     private fun showError(ex: Exception) {
-        Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
-    private fun showProgressBar(){
+
+    private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
     }
-    private fun hideProgressBar(){
+
+    private fun hideProgressBar() {
         binding.progressBar.visibility = View.INVISIBLE
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

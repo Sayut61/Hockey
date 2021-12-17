@@ -28,39 +28,48 @@ data class TeamFullInfoFromApi(
     val placeGoalsAgainstPerGame: String
 )
 
-//fun roundOffDecimal(number: Double?): Double? {
-//    if(number == null)
-//        return null
-//
-//}
-
 fun teamFullInfoFromFirstApiResponseToFullInfoByTeams(teams: TeamFullInfoFromFirstApiResponse): TeamFullInfoFromApi {
     val stats = teams.teams[0].teamStats[0].splits
     val statByNumbers = stats[0].stat
     val statByPlaces = stats[1].stat
 
-   return TeamFullInfoFromApi(
+    return TeamFullInfoFromApi(
         id = teams.teams[0].id,
         teamFullName = teams.teams[0].teamFullName,
         teamShortName = teams.teams[0].teamShortName,
         firstYearOfPlay = teams.teams[0].firstYearOfPlay,
         gamesPlayed = statByNumbers.gamesPlayed ?: throw Exception("error get teams info"),
-        wins = (statByNumbers.wins as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
-        losses = (statByNumbers.losses as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
-        pts = (statByNumbers.pts as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
-        goalsPerGame = (statByNumbers.goalsPerGame as? Double) ?: throw Exception("error get teams info"),
-        goalsAgainstPerGame = (statByNumbers.goalsAgainstPerGame as? Double)?: throw Exception("error get teams info"),
-        powerPlayPercentage = (statByNumbers.powerPlayPercentage as? String)?: throw Exception("error get teams info"),
-        powerPlayGoals = (statByNumbers.powerPlayGoals as? Double)?: throw Exception("error get teams info"),
-        powerPlayGoalsAgainst = (statByNumbers.powerPlayGoalsAgainst as? Double)?: throw Exception("error get teams info"),
-        powerPlayOpportunities = (statByNumbers.powerPlayOpportunities as? Double)?: throw Exception("error get teams info"),
-        shotsPerGame = (statByNumbers.shotsPerGame as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
-        shotsAllowed = (statByNumbers.shotsAllowed as? Double)?.roundToInt() ?: throw Exception("error get teams info"),
-        placeOnWins = (statByPlaces.wins as? String)?: throw Exception("error get teams info"),
-        placeOnLosses = (statByPlaces.losses as? String)?: throw Exception("error get teams info"),
-        placeOnPts = (statByPlaces.pts as? String)?: throw Exception("error get teams info"),
-        placeGoalsPerGame = (statByPlaces.goalsAgainstPerGame as? String)?: throw Exception("error get teams info"),
-        placeGoalsAgainstPerGame = (statByPlaces.goalsAgainstPerGame as? String)?: throw Exception("error get teams info")
+        wins = (statByNumbers.wins as? Double)?.roundToInt()
+            ?: throw Exception("error get teams info"),
+        losses = (statByNumbers.losses as? Double)?.roundToInt()
+            ?: throw Exception("error get teams info"),
+        pts = (statByNumbers.pts as? Double)?.roundToInt()
+            ?: throw Exception("error get teams info"),
+        goalsPerGame = (statByNumbers.goalsPerGame as? Double)
+            ?: throw Exception("error get teams info"),
+        goalsAgainstPerGame = (statByNumbers.goalsAgainstPerGame as? Double)
+            ?: throw Exception("error get teams info"),
+        powerPlayPercentage = (statByNumbers.powerPlayPercentage as? String)
+            ?: throw Exception("error get teams info"),
+        powerPlayGoals = (statByNumbers.powerPlayGoals as? Double)
+            ?: throw Exception("error get teams info"),
+        powerPlayGoalsAgainst = (statByNumbers.powerPlayGoalsAgainst as? Double) ?: throw Exception(
+            "error get teams info"
+        ),
+        powerPlayOpportunities = (statByNumbers.powerPlayOpportunities as? Double)
+            ?: throw Exception("error get teams info"),
+        shotsPerGame = (statByNumbers.shotsPerGame as? Double)?.roundToInt()
+            ?: throw Exception("error get teams info"),
+        shotsAllowed = (statByNumbers.shotsAllowed as? Double)?.roundToInt()
+            ?: throw Exception("error get teams info"),
+        placeOnWins = (statByPlaces.wins as? String) ?: throw Exception("error get teams info"),
+        placeOnLosses = (statByPlaces.losses as? String) ?: throw Exception("error get teams info"),
+        placeOnPts = (statByPlaces.pts as? String) ?: throw Exception("error get teams info"),
+        placeGoalsPerGame = (statByPlaces.goalsAgainstPerGame as? String)
+            ?: throw Exception("error get teams info"),
+        placeGoalsAgainstPerGame = (statByPlaces.goalsAgainstPerGame as? String) ?: throw Exception(
+            "error get teams info"
+        )
     )
 }
 

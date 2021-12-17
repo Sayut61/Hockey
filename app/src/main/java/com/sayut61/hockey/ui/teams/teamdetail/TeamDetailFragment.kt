@@ -1,11 +1,11 @@
 package com.sayut61.hockey.ui.teams.teamdetail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,7 +16,6 @@ import com.sayut61.hockey.ui.teams.teamdetail.tabfragments.TeamPlayersDetailFrag
 import com.sayut61.hockey.ui.teams.teamdetail.tabfragments.TeamStatisticDetailFragment
 import com.sayut61.hockey.ui.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 
 @AndroidEntryPoint
 class TeamDetailFragment : Fragment() {
@@ -78,11 +77,19 @@ class TeamDetailFragment : Fragment() {
             }
         }
     }
-    private fun showProgressBar() { binding.progressBar.visibility = View.VISIBLE }
-    private fun hideProgressBar() { binding.progressBar.visibility = View.INVISIBLE }
+
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.INVISIBLE
+    }
+
     private fun showError(ex: Exception) {
         Toast.makeText(requireContext(), "Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
