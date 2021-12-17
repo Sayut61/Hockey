@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.players.playerinfo
+package com.sayut61.hockey.ui.players.playersdetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

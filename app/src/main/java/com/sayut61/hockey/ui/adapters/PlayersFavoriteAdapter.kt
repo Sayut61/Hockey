@@ -14,20 +14,24 @@ import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import com.sayut61.hockey.ui.utils.loadImage
 
-interface FavoriteAdapterListener{
+interface FavoriteAdapterListener {
     fun deleteButtonClick(playerId: Int)
 }
+
 class PlayersFavoriteAdapter(
     val listener: FavoriteAdapterListener,
     val activity: Activity
-): ListAdapter<PlayerStatisticsInfo, PlayersFavoriteViewHolder>(PlayersFavoriteDiffUtil()) {
+) : ListAdapter<PlayerStatisticsInfo, PlayersFavoriteViewHolder>(PlayersFavoriteDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersFavoriteViewHolder {
         return PlayersFavoriteViewHolder(
             FavoritePlayerStatItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false))
+                false
+            )
+        )
     }
+
     override fun onBindViewHolder(holder: PlayersFavoriteViewHolder, position: Int) {
         val player = getItem(position)
         holder.binding.deleteImageButton.setOnClickListener {
@@ -36,8 +40,10 @@ class PlayersFavoriteAdapter(
         holder.bind(player, activity)
     }
 }
-class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): RecyclerView.ViewHolder(binding.root){
-    fun bind(player: PlayerStatisticsInfo, activity: Activity){
+
+class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(player: PlayerStatisticsInfo, activity: Activity) {
         binding.nameFavPlayerTextView.text = player.name
 
         player.photo.let { logoUrl ->
@@ -45,8 +51,8 @@ class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): Rec
                 loadImage(logoUrl, activity, binding.photoFavPlayerImageView)
             }
         }
-        player.teamLogo.let{logo->
-            if(logo != null){
+        player.teamLogo.let { logo ->
+            if (logo != null) {
                 loadImage(logo, activity, binding.teamLogoImageView)
             }
         }
@@ -66,7 +72,8 @@ class PlayersFavoriteViewHolder(val binding: FavoritePlayerStatItemBinding): Rec
 
     }
 }
-class PlayersFavoriteDiffUtil: DiffUtil.ItemCallback<PlayerStatisticsInfo>(){
+
+class PlayersFavoriteDiffUtil : DiffUtil.ItemCallback<PlayerStatisticsInfo>() {
     override fun areItemsTheSame(
         oldItem: PlayerStatisticsInfo,
         newItem: PlayerStatisticsInfo

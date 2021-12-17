@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.teams.teamdetail
+package com.sayut61.hockey.ui.teams.teamdetail.tabfragments
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

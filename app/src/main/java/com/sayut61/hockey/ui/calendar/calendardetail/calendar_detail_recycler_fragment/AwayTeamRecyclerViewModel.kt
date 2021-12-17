@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment
+package com.sayut61.hockey.ui.calendar.calendardetail.calendar_detail_recycler_fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,11 +13,11 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeTeamRecyclerViewModel @Inject constructor(
+class AwayTeamRecyclerViewModel @Inject constructor(
     val gamesUseCases: GamesUseCases
 ): ViewModel() {
-    private val _homePlayersLiveData = MutableLiveData<List<PlayerNameAndNumber>>()
-    val  homePlayersLiveData: LiveData<List<PlayerNameAndNumber>> = _homePlayersLiveData
+    private val _awayPlayersLiveData = MutableLiveData<List<PlayerNameAndNumber>>()
+    val  awayPlayersLiveData: LiveData<List<PlayerNameAndNumber>> = _awayPlayersLiveData
     private val _errorLiveData = MutableLiveData<Exception>()
     val errorLiveData: LiveData<Exception> = _errorLiveData
     private val _progressBarLiveData = MutableLiveData<Boolean>()
@@ -26,7 +26,7 @@ class HomeTeamRecyclerViewModel @Inject constructor(
         viewModelScope.launch {
             _progressBarLiveData.value = true
             try {
-                _homePlayersLiveData.value = gamesUseCases.getGameFullInfo(gameGeneralInfo).playersHomeTeam!!
+                _awayPlayersLiveData.value = gamesUseCases.getGameFullInfo(gameGeneralInfo).playersAwayTeam!!
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }

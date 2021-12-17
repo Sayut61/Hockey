@@ -10,8 +10,9 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sayut61.hockey.databinding.FragmentCalendarDetailBinding
 import com.sayut61.hockey.domain.entities.GameFullInfo
-import com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment.AwayTeamRecyclerFragment
-import com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment.HomeTeamRecyclerFragment
+import com.sayut61.hockey.ui.calendar.calendardetail.adapter.CalendarDetailViewPagerAdapter
+import com.sayut61.hockey.ui.calendar.calendardetail.calendar_detail_recycler_fragment.AwayTeamRecyclerFragment
+import com.sayut61.hockey.ui.calendar.calendardetail.calendar_detail_recycler_fragment.HomeTeamRecyclerFragment
 import com.sayut61.hockey.ui.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception

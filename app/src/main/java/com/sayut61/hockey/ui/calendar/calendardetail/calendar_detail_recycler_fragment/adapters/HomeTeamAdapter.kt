@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.calendar.calendardetail.adapters_and_recyclerFragment
+package com.sayut61.hockey.ui.calendar.calendardetail.calendar_detail_recycler_fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

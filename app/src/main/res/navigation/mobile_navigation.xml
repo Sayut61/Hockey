@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/playerDetailInfoFragment"
-        android:name="com.sayut61.hockey.ui.players.playerinfo.PlayerDetailInfoFragment"
+        android:name="com.sayut61.hockey.ui.players.playersdetail.PlayerDetailInfoFragment"
         android:label="Информация по игроку"
         tools:layout="@layout/fragment_player_detail">
         <argument

@@ -1,11 +1,11 @@
-package com.sayut61.hockey.ui.teams.teamdetail
+package com.sayut61.hockey.ui.teams.teamdetail.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdapter(
+class TeamDetailViewPagerAdapter(
     val list: ArrayList<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle

@@ -12,6 +12,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.sayut61.hockey.databinding.FragmentTeamDetailBinding
 import com.sayut61.hockey.domain.entities.TeamFullInfo
 import com.sayut61.hockey.ui.favorites.adapter.ViewPagerAdapter
+import com.sayut61.hockey.ui.teams.teamdetail.tabfragments.TeamPlayersDetailFragment
+import com.sayut61.hockey.ui.teams.teamdetail.tabfragments.TeamStatisticDetailFragment
 import com.sayut61.hockey.ui.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception

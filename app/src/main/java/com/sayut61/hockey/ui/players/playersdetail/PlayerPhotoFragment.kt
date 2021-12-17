@@ -1,11 +1,10 @@
-package com.sayut61.hockey.ui.players.playerinfo
+package com.sayut61.hockey.ui.players.playersdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.sayut61.hockey.databinding.FragmentAwayTeamPlayersBinding
 import com.sayut61.hockey.databinding.FragmentPlayerPhotoBinding
 import com.sayut61.hockey.ui.utils.loadImage
 

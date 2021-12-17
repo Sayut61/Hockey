@@ -1,4 +1,4 @@
-package com.sayut61.hockey.ui.teams.teamdetail
+package com.sayut61.hockey.ui.teams.teamdetail.tabfragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.sayut61.hockey.R
 import com.sayut61.hockey.databinding.FragmentTeamPlayersBinding
 import com.sayut61.hockey.domain.entities.TeamPlayersInfo
 import com.sayut61.hockey.ui.adapters.TeamPlayersAdapter
 import com.sayut61.hockey.ui.adapters.TeamPlayersAdapterListener
+import com.sayut61.hockey.ui.teams.teamdetail.TeamDetailFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,7 +50,10 @@ class TeamPlayersDetailFragment(): Fragment(), TeamPlayersAdapterListener {
         Toast.makeText(requireContext(),"Ошибка - ${ex.message}", Toast.LENGTH_LONG).show()
     }
     override fun onPlayerClick(playersInfo: TeamPlayersInfo) {
-        val action = TeamDetailFragmentDirections.actionTeamDetailFragmentToPlayerDetailInfoFragment(playersInfo.playerId)
+        val action =
+            TeamDetailFragmentDirections.actionTeamDetailFragmentToPlayerDetailInfoFragment(
+                playersInfo.playerId
+            )
         findNavController().navigate(action)
     }
     override fun onDestroyView() {
