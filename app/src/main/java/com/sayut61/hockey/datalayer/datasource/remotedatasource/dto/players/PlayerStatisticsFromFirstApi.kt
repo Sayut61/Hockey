@@ -1,6 +1,6 @@
 package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players
 
-data class PlayerStatisticsFromFirstApi(
+data class PlayerStatisticsFromFirstApiResponse(
     val stats: List<Stats>
 )
 data class Stats(

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import com.sayut61.hockey.domain.entities.PlayerNameAndNumber
 import kotlinx.parcelize.Parcelize
 
-data class FullInfoByGame(
+data class GameFullInfoFromApi(
     val playersAwayTeam: List<PlayerNameAndNumber>?,
     val playersHomeTeam: List<PlayerNameAndNumber>?,
     val currentPeriod: Int,
@@ -26,12 +26,12 @@ data class FullInfoByGame(
     val hitsHomeTeam: Int,
     val codedGameState: Int,
 )
-fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): FullInfoByGame {
+fun gameFullInfoResponseToGameFullInfo(gameDetailResponse: GameFullInfoResponse): GameFullInfoFromApi {
     val playersMap: Map<String, Player>? = gameDetailResponse.gameData.players
     val listPlayers: List<Player>? = playersMap?.values?.toList()
     val awayTeamPlayers = listPlayers?.filter { it.currentTeam?.id == gameDetailResponse.liveData.boxScore.teams.away.team.id }
     val homeTeamPlayers = listPlayers?.filter { it.currentTeam?.id == gameDetailResponse.liveData.boxScore.teams.home.team.id }
-    return FullInfoByGame(
+    return GameFullInfoFromApi(
         playersAwayTeam = awayTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId, it.primaryPosition.name, it.primaryPosition.type)},
         playersHomeTeam = homeTeamPlayers?.map{PlayerNameAndNumber(it.fullName, it.primaryNumber, it.playerId, it.primaryPosition.name, it.primaryPosition.type)},
         currentPeriod = gameDetailResponse.liveData.lineScore.currentPeriod,
@@ -54,7 +54,7 @@ fun gameDetailResponseToFullInfoByGame(gameDetailResponse: GameDetailResponse): 
     )
 }
 
-data class GameDetailResponse(
+data class GameFullInfoResponse(
     val gameData: GameData,
     val liveData: GameLiveData
     )

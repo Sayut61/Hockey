@@ -3,7 +3,7 @@ package com.sayut61.hockey.datalayer.repositories
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoriteGame
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
-import com.sayut61.hockey.domain.GameFavoriteRepository
+import com.sayut61.hockey.domain.GamesFavoriteRepository
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
 import com.sayut61.hockey.domain.flow.LoadingResult
@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.flow
 import java.lang.Exception
 import javax.inject.Inject
 
-class GameFavoriteRepositoryImpl @Inject constructor(
+class GamesFavoriteRepositoryImpl @Inject constructor(
     val gamesInfoDao: GamesInfoDao,
     val remoteDataSource: RemoteDataSource
-) : GameFavoriteRepository {
+) : GamesFavoriteRepository {
 
     var cacheFavoriteGame: List<GameFullInfo>? = null
     override fun getFavoriteGames(): Flow<LoadingResult<List<GameFullInfo>>> = flow {

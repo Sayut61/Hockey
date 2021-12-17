@@ -3,8 +3,8 @@ package com.sayut61.hockey.datalayer.repositories
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoritePlayer
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerInfoFromSecondApi
-import com.sayut61.hockey.domain.PlayerRepository
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerPhoto
+import com.sayut61.hockey.domain.PlayersRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class PlayerRepositoryImpl @Inject constructor(
+class PlayersRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val playersInfoDao: PlayersInfoDao
-) : PlayerRepository {
+) : PlayersRepository {
     var cachePlayers: List<PlayerGeneralInfo>? = null
     override fun getPlayersFromApi(): Flow<LoadingResult<List<PlayerGeneralInfo>>> = flow {
         emit(LoadingResult.Loading(true))
@@ -25,8 +25,8 @@ class PlayerRepositoryImpl @Inject constructor(
                 emit(LoadingResult.SuccessResult(it))
                 emit(LoadingResult.Loading(false))
             }
-            val teams = remoteDataSource.getTeamsSecondApi()
-            val result = remoteDataSource.getListPlayers().map { playerFromApi ->
+            val teams = remoteDataSource.getAllTeamsFromSecondApi()
+            val result = remoteDataSource.getAllPlayers().map { playerFromApi ->
                 val teamInfo = teams.find { it.shortName == playerFromApi.teamShortName }
                 val isInDb = playersInfoDao.getPlayers()
                         .find { it.playerId == playerFromApi.playerId } != null
@@ -68,7 +68,7 @@ class PlayerRepositoryImpl @Inject constructor(
                 emit(LoadingResult.Loading(false))
             }
             val playersFromDB = playersInfoDao.getPlayers()
-            val photos = remoteDataSource.getPlayersPhotos()
+            val photos = remoteDataSource.getPlayersPhoto()
             val result = playersFromDB.map { favoritePlayer ->
                 getPlayerStatById(favoritePlayer, photos)
             }
@@ -90,7 +90,7 @@ class PlayerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPlayerStat(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo {
-        val photos = remoteDataSource.getPlayersPhotos()
+        val photos = remoteDataSource.getPlayersPhoto()
         return getPlayerStatById(
             FavoritePlayer(playerFullInfo.playerId, playerFullInfo.fullName),
             photos
@@ -99,11 +99,11 @@ class PlayerRepositoryImpl @Inject constructor(
 
     private suspend fun getPlayerStatById(
         favoritePlayer: FavoritePlayer,
-        photos: List<PlayerInfoFromSecondApi>
+        photos: List<PlayerPhoto>
     ): PlayerStatisticsInfo {
         val photo = photos
             .find { (favoritePlayer.fullName == it.draftKingsName) || (favoritePlayer.fullName == it.fanDuelName) || (favoritePlayer.fullName == it.yahooName) }
-        val playerStatFromApi = remoteDataSource.getPlayerStatistics(favoritePlayer.playerId)
+        val playerStatFromApi = remoteDataSource.getPlayerStatistic(favoritePlayer.playerId)
         return if (playerStatFromApi.stats.isEmpty() || playerStatFromApi.stats[0].splits.isEmpty())
             PlayerStatisticsInfo(
                 id = favoritePlayer.playerId,
@@ -137,9 +137,9 @@ class PlayerRepositoryImpl @Inject constructor(
 
     override suspend fun getPlayerFullInfo(playerId: Int): PlayerFullInfo {
         val playerInfo = remoteDataSource.getPlayerFullInfo(playerId)
-        val logo = remoteDataSource.getTeamsSecondApi()
+        val logo = remoteDataSource.getAllTeamsFromSecondApi()
             .find { team -> playerInfo.teamFullName.endsWith(team.shortName) }
-        val photo = remoteDataSource.getPlayersPhotos()
+        val photo = remoteDataSource.getPlayersPhoto()
             .find { (playerInfo.fullName == it.draftKingsName) || (playerInfo.fullName == it.fanDuelName) || (playerInfo.fullName == it.yahooName) }
         return PlayerFullInfo(
             playerId = playerInfo.playerId,

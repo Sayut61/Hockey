@@ -3,7 +3,7 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams
 import com.google.gson.annotations.SerializedName
 
 
-data class TeamPlayers(
+data class TeamPlayersFromApi(
     val jerseyNumber: Int,
     val playerId: Int,
     val fullName: String,
@@ -11,9 +11,9 @@ data class TeamPlayers(
     val type: String
 )
 
-fun teamPlayersInfoFromApiToTeamPlayers(playersFromApi: TeamPlayersInfoFromApi): List<TeamPlayers>{
-    return playersFromApi.roster.map{
-        TeamPlayers(
+fun teamPlayersInfoFromApiToTeamPlayers(playersFromFirstApiResponse: TeamPlayersFromFirstApiResponse): List<TeamPlayersFromApi>{
+    return playersFromFirstApiResponse.roster.map{
+        TeamPlayersFromApi(
             jerseyNumber = it.jerseyNumber,
             playerId = it.person.playerId,
             fullName = it.person.fullName,
@@ -23,7 +23,7 @@ fun teamPlayersInfoFromApiToTeamPlayers(playersFromApi: TeamPlayersInfoFromApi):
     }
 }
 
-data class TeamPlayersInfoFromApi(
+data class TeamPlayersFromFirstApiResponse(
     val roster: List<PersonInfoFromApi>
 )
 data class PersonInfoFromApi(

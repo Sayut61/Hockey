@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hockey</string>
+    <string name="app_name" translatable="false">NHLST</string>
     <string name="title_teams_fragment">Teams</string>
     <string name="title_team_details_fragment">Full info</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -67,5 +67,5 @@
     <string name="fragmentPlayerDetail_plusMinus">"plus minus: "</string>
     <string name="fragmentCalendar_dateClick">"Selected date: "</string>
     <string name="fragmentCalendar_point" translatable="false">.</string>
-    <string name="fragmentTeamDetail_yearYEAR" translatable="false">году</string>
+    <string name="fragmentTeamDetail_yearYEAR">year</string>
 </resources>

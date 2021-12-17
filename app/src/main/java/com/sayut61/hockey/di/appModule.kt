@@ -35,18 +35,18 @@ object AppModule{
     }
     @Singleton
     @Provides
-    fun providesPlayersRepositories(remoteDataSource: RemoteDataSource, playersInfoDao: PlayersInfoDao): PlayerRepository{
-        return PlayerRepositoryImpl(remoteDataSource, playersInfoDao)
+    fun providesPlayersRepositories(remoteDataSource: RemoteDataSource, playersInfoDao: PlayersInfoDao): PlayersRepository{
+        return PlayersRepositoryImpl(remoteDataSource, playersInfoDao)
     }
     @Singleton
     @Provides
-    fun providesTeamRepositories(remoteDataSource: RemoteDataSource): TeamRepository{
-        return TeamRepositoryImpl(remoteDataSource)
+    fun providesTeamRepositories(remoteDataSource: RemoteDataSource): TeamsRepository{
+        return TeamsRepositoryImpl(remoteDataSource)
     }
     @Singleton
     @Provides
-    fun providesCalendarRepositories(remoteDataSource: RemoteDataSource, gamesInfoDao: GamesInfoDao): GameRepository{
-        return GameRepositoryImpl(remoteDataSource, gamesInfoDao)
+    fun providesCalendarRepositories(remoteDataSource: RemoteDataSource, gamesInfoDao: GamesInfoDao): GamesRepository{
+        return GamesRepositoryImpl(remoteDataSource, gamesInfoDao)
     }
     @Singleton
     @Provides
@@ -55,8 +55,8 @@ object AppModule{
     }
     @Singleton
     @Provides
-    fun providesFavRepositories(gamesInfoDao: GamesInfoDao, remoteDataSource: RemoteDataSource): GameFavoriteRepository {
-        return GameFavoriteRepositoryImpl(gamesInfoDao, remoteDataSource)
+    fun providesFavRepositories(gamesInfoDao: GamesInfoDao, remoteDataSource: RemoteDataSource): GamesFavoriteRepository {
+        return GamesFavoriteRepositoryImpl(gamesInfoDao, remoteDataSource)
     }
 }
 

@@ -6,12 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
-import com.sayut61.hockey.domain.flow.LoadingResult
-import com.sayut61.hockey.domain.usecases.GamesFavUseCases
+import com.sayut61.hockey.domain.usecases.GamesFavoriteUseCases
 import com.sayut61.hockey.domain.usecases.GamesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.time.LocalDate
@@ -20,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
     private val gamesUseCases: GamesUseCases,
-    private val gamesFavUseCases: GamesFavUseCases
+    private val gamesFavoriteUseCases: GamesFavoriteUseCases
 ) : ViewModel() {
     private val _gamesLiveData = MutableLiveData<List<GameFullInfo>>()
     val gamesLiveData: LiveData<List<GameFullInfo>> = _gamesLiveData
@@ -38,10 +36,10 @@ class CalendarViewModel @Inject constructor(
     fun onFavoriteClick(gameGeneralInfo: GameGeneralInfo) {
         viewModelScope.launch {
             if (gameGeneralInfo.isInFavoriteGame) {
-                gamesFavUseCases.removeFromFavoriteGame(gameGeneralInfo)
+                gamesFavoriteUseCases.removeFromFavoriteGame(gameGeneralInfo)
                 date?.let { refreshViewModel(it, false) }
             } else {
-                gamesFavUseCases.addToFavoriteGame(gameGeneralInfo)
+                gamesFavoriteUseCases.addToFavoriteGame(gameGeneralInfo)
                 date?.let { refreshViewModel(it, false) }
             }
         }

@@ -1,6 +1,6 @@
 package com.sayut61.hockey.domain.usecases
 
-import com.sayut61.hockey.domain.PlayerRepository
+import com.sayut61.hockey.domain.PlayersRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerGeneralInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
@@ -9,25 +9,25 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PlayersUseCases @Inject constructor(
-    private val playerRepository: PlayerRepository
+    private val playersRepository: PlayersRepository
 ){
     fun getPlayersListApi(): Flow<LoadingResult<List<PlayerGeneralInfo>>> {
-        return playerRepository.getPlayersFromApi()
+        return playersRepository.getPlayersFromApi()
     }
     fun getPlayersListDB(): Flow<LoadingResult<List<PlayerStatisticsInfo>>>{
-        return playerRepository.getPlayersFromDB()
+        return playersRepository.getPlayersFromDB()
     }
     suspend fun getPlayerFullInfo(playerGeneralInfo: Int):PlayerFullInfo {
-        return playerRepository.getPlayerFullInfo(playerGeneralInfo)
+        return playersRepository.getPlayerFullInfo(playerGeneralInfo)
     }
     suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo){
-        playerRepository.addToFavoritePlayer(playerGeneralInfo)
+        playersRepository.addToFavoritePlayer(playerGeneralInfo)
     }
     suspend fun removeFromFavoritePlayer(playerId: Int){
-        playerRepository.removeFromFavoritePlayer(playerId)
+        playersRepository.removeFromFavoritePlayer(playerId)
     }
 
     suspend fun getPlayerStatistic(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo{
-        return playerRepository.getPlayerStat(playerFullInfo)
+        return playersRepository.getPlayerStat(playerFullInfo)
     }
 }

@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.contains
-import androidx.core.view.isNotEmpty
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.map
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sayut61.hockey.databinding.FragmentCalendarDetailBinding
@@ -39,7 +36,7 @@ class CalendarDetailFragment : Fragment() {
             HomeTeamRecyclerFragment.getInstance(args.game),
             AwayTeamRecyclerFragment.getInstance(args.game)
         )
-        val adapter = ViewPagerAdapterGame(
+        val adapter = CalendarDetailViewPagerAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
             lifecycle)

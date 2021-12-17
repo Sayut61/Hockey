@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.*
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.*
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.StadiumGeneralInfo
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.stadium.Stadium
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -24,41 +24,41 @@ class RemoteDataSource @Inject constructor() {
 
     //Retrofit
 
-    private interface RestNHLInfoFirstAPI {
+    private interface RestNHLFirstAPI {
         @GET(value = "/api/v1/teams")
-        suspend fun getAllTeams(): TeamsInfoFromFirstApiResponse
+        suspend fun getAllTeams(): TeamsFromFirstApi
 
         @GET(value = "/api/v1/schedule")
-        suspend fun getInfoByGameDay(@Query("date") date: String): GamesResponse
+        suspend fun getGamesByDate(@Query("date") date: String): GamesResponse
 
         @GET(value = "{link}")
-        suspend fun getDetailInfoByGame(@Path("link", encoded = true) link: String): GameDetailResponse
+        suspend fun getGameDetails(@Path("link", encoded = true) link: String): GameFullInfoResponse
 
         @GET(value = "/api/v1/teams?expand=team.roster")
-        suspend fun getListAllPlayers(): PlayersGeneralInfo
+        suspend fun getAllPlayers(): PlayersGeneralInfoResponse
 
         @GET(value = "/api/v1/teams/{id}?expand=team.stats")
-        suspend fun getDetailInfoByTeam(@Path("id", encoded = true)id: Int): TeamFullInfoFromFirstApiResponse
+        suspend fun getTeamFullInfo(@Path("id", encoded = true)teamId: Int): TeamFullInfoFromFirstApiResponse
 
         @GET(value = "/api/v1/teams/{id}/roster")
-        suspend fun getPlayersInfoByTeam(@Path("id", encoded = true)id: Int): TeamPlayersInfoFromApi
+        suspend fun getPlayersByTeam(@Path("id", encoded = true)teamId: Int): TeamPlayersFromFirstApiResponse
 
         @GET(value = "/api/v1/people/{playerId}")
-        suspend fun getPlayerFullInfo(@Path("playerId", encoded = true)playerId: Int): PlayerInfo
+        suspend fun getPlayerFullInfo(@Path("playerId", encoded = true)playerId: Int): PlayerFullInfoResponse
 
         @GET(value = "/api/v1/people/{id}/stats?stats=statsSingleSeason&season=20212022")
-        suspend fun getPlayerStatistic(@Path("id", encoded = true)playerId: Int): PlayerStatisticsFromFirstApi
+        suspend fun getPlayerStatistic(@Path("id", encoded = true)playerId: Int): PlayerStatisticsFromFirstApiResponse
     }
 
-    private interface RestNHLInfoSecondAPI {
+    private interface RestNHLSecondAPI {
         @GET(value = "teams?key=1dd2b753fe264d2b9d7d08d0988b34e2")
-        suspend fun getTeamsInfoBySecondApi(): List<TeamGeneralInfoFromSecondApi>
+        suspend fun getTeamsGeneralInfo(): List<TeamGeneralInfoFromSecondApi>
 
         @GET(value = "Stadiums?key=1dd2b753fe264d2b9d7d08d0988b34e2")
-        suspend fun getStadiumInfoBySecondApi(): List<StadiumGeneralInfo>
+        suspend fun getStadiums(): List<Stadium>
 
         @GET(value = "Players?key=1dd2b753fe264d2b9d7d08d0988b34e2")
-        suspend fun getPlayersPhoto(): List<PlayerInfoFromSecondApi>
+        suspend fun getPlayersPhoto(): List<PlayerPhoto>
     }
 
     //Retrofit
@@ -67,27 +67,27 @@ class RemoteDataSource @Inject constructor() {
         .newBuilder()
         .addInterceptor(ErrorInterceptor())
         .build()
-    private var retrofitFirstApiInfo = Retrofit.Builder()
+    private var retrofitFirstApi = Retrofit.Builder()
         .baseUrl("https://statsapi.web.nhl.com")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private var retrofitSecondApiInfo = Retrofit.Builder()
+    private var retrofitSecondApi = Retrofit.Builder()
         .baseUrl("https://api.sportsdata.io/v3/nhl/scores/json/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     //Retrofit
 
-    private var serviceForFirstApi = retrofitFirstApiInfo.create(RestNHLInfoFirstAPI::class.java)
-    private var serviceForSecondApi = retrofitSecondApiInfo.create(RestNHLInfoSecondAPI::class.java)
+    private var serviceForFirstApi = retrofitFirstApi.create(RestNHLFirstAPI::class.java)
+    private var serviceForSecondApi = retrofitSecondApi.create(RestNHLSecondAPI::class.java)
 
     //Retrofit
-    suspend fun getPlayerStatistics(playerId: Int): PlayerStatisticsFromFirstApi{
+    suspend fun getPlayerStatistic(playerId: Int): PlayerStatisticsFromFirstApiResponse{
         return serviceForFirstApi.getPlayerStatistic(playerId)
     }
 
-    suspend fun getPlayersPhotos(): List<PlayerInfoFromSecondApi>{
+    suspend fun getPlayersPhoto(): List<PlayerPhoto>{
         return serviceForSecondApi.getPlayersPhoto()
     }
 
@@ -96,42 +96,41 @@ class RemoteDataSource @Inject constructor() {
         return playerInfoToPlayerFullInfo(player)
     }
 
-    suspend fun getPlayersInfoByTeam(teamId: Int): List<TeamPlayers>{
-        val teamPlayers = serviceForFirstApi.getPlayersInfoByTeam(teamId)
+    suspend fun getPlayersByTeam(teamId: Int): List<TeamPlayersFromApi>{
+        val teamPlayers = serviceForFirstApi.getPlayersByTeam(teamId)
         return teamPlayersInfoFromApiToTeamPlayers(teamPlayers)
     }
 
-    suspend fun getTeamFullInfo(teamId: Int): FullInfoByTeam{
-        val teamInfoResponse = serviceForFirstApi.getDetailInfoByTeam(teamId)
-        val result =  teamFullInfoFromFirstApiResponseToFullInfoByTeams(teamInfoResponse)
-        return result
+    suspend fun getTeamFullInfo(teamId: Int): TeamFullInfoFromApi{
+        val teamInfoResponse = serviceForFirstApi.getTeamFullInfo(teamId)
+        return teamFullInfoFromFirstApiResponseToFullInfoByTeams(teamInfoResponse)
     }
 
-    suspend fun getListPlayers(): List<PlayerGeneralInfoFromApi>{
-        val playersResponse = serviceForFirstApi.getListAllPlayers()
+    suspend fun getAllPlayers(): List<PlayerGeneralInfoFromApi>{
+        val playersResponse = serviceForFirstApi.getAllPlayers()
         return playersGenInfoToAllPlayersGeneralInfo(playersResponse)
     }
 
-    suspend fun getTeamsFirstApi(): List<TeamInfoFromFirstApi> {
+    suspend fun getAllTeamsFromFirstApi(): List<TeamInfoFromFirstApi> {
         return serviceForFirstApi.getAllTeams().teams
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getGamesByDate(date: LocalDate): List<GameFromFirstApi> {
         val stringDate = "${date.year}-${date.monthValue}-${date.dayOfMonth}"
-        val gamesResponse = serviceForFirstApi.getInfoByGameDay(stringDate)
+        val gamesResponse = serviceForFirstApi.getGamesByDate(stringDate)
         return gamesResponseToGamesFromFirstApi(gamesResponse)
     }
-    suspend fun getGameDetails(link: String): FullInfoByGame {
-        val gameResponse = serviceForFirstApi.getDetailInfoByGame(link)
+    suspend fun getGameDetails(link: String): GameFullInfoFromApi {
+        val gameResponse = serviceForFirstApi.getGameDetails(link)
         Log.d("myLog", gameResponse.toString())
-        return gameDetailResponseToFullInfoByGame(gameResponse)
+        return gameFullInfoResponseToGameFullInfo(gameResponse)
     }
-    suspend fun getTeamsSecondApi(): List<TeamGeneralInfoFromSecondApi> {
-        return serviceForSecondApi.getTeamsInfoBySecondApi()
+    suspend fun getAllTeamsFromSecondApi(): List<TeamGeneralInfoFromSecondApi> {
+        return serviceForSecondApi.getTeamsGeneralInfo()
     }
-    suspend fun getStadiumInfo(): List<StadiumGeneralInfo> {
-        return serviceForSecondApi.getStadiumInfoBySecondApi()
+    suspend fun getStadiums(): List<Stadium> {
+        return serviceForSecondApi.getStadiums()
     }
 }
 

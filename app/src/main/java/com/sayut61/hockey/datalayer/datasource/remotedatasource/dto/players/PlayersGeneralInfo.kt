@@ -13,8 +13,8 @@ data class PlayerGeneralInfoFromApi(
     val linkOnPlayerDetailInfo: String
 )
 
-fun playersGenInfoToAllPlayersGeneralInfo(playersGeneralInfo: PlayersGeneralInfo): List<PlayerGeneralInfoFromApi> {
-    return playersGeneralInfo.teams.flatMap { team ->
+fun playersGenInfoToAllPlayersGeneralInfo(playersGeneralInfoResponse: PlayersGeneralInfoResponse): List<PlayerGeneralInfoFromApi> {
+    return playersGeneralInfoResponse.teams.flatMap { team ->
         team.roster.roster.map{player->
             PlayerGeneralInfoFromApi(
                 teamId = team.teamId,
@@ -29,7 +29,7 @@ fun playersGenInfoToAllPlayersGeneralInfo(playersGeneralInfo: PlayersGeneralInfo
     }
 }
 
-data class PlayersGeneralInfo(
+data class PlayersGeneralInfoResponse(
     val teams: List<TeamFromApi>
 )
 

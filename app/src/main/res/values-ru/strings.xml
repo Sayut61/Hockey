@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Хоккей</string>
     <string name="title_teams_fragment">Команды</string>
     <string name="title_team_details_fragment">Полная информация</string>
     <string name="player_number">номер:</string>

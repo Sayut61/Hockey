@@ -4,23 +4,23 @@ import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamGeneralInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamInfoFromFirstApi
 import com.sayut61.hockey.domain.entities.TeamGeneralInfo
-import com.sayut61.hockey.domain.TeamRepository
+import com.sayut61.hockey.domain.TeamsRepository
 import com.sayut61.hockey.domain.entities.TeamFullInfo
 import com.sayut61.hockey.domain.entities.TeamPlayersInfo
 import java.lang.Exception
 import javax.inject.Inject
 
-class TeamRepositoryImpl @Inject constructor(
+class TeamsRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
-) : TeamRepository {
+) : TeamsRepository {
     var teamsCache: List<TeamGeneralInfo>? = null
     override suspend fun getTeamsInfo(): List<TeamGeneralInfo> {
         teamsCache?.let {
             return it
         }
-        val teamsInfoFromFirstApi: List<TeamInfoFromFirstApi> = remoteDataSource.getTeamsFirstApi()
+        val teamsInfoFromFirstApi: List<TeamInfoFromFirstApi> = remoteDataSource.getAllTeamsFromFirstApi()
         val teamsGeneralInfoFromSecondApi: List<TeamGeneralInfoFromSecondApi> =
-            remoteDataSource.getTeamsSecondApi()
+            remoteDataSource.getAllTeamsFromSecondApi()
         val result = teamsInfoFromFirstApi.map { team ->
             val teamInfoFromSecondApi = teamsGeneralInfoFromSecondApi.find { it.shortName == team.shortTeamName }
             TeamGeneralInfo(
@@ -38,8 +38,8 @@ class TeamRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getTeamFullInfo(teamId: Int): TeamFullInfo {
-        val infoFromFirstApi = remoteDataSource.getTeamsFirstApi().find { it.id == teamId }
-        val infoFromSecondApi = remoteDataSource.getTeamsSecondApi()
+        val infoFromFirstApi = remoteDataSource.getAllTeamsFromFirstApi().find { it.id == teamId }
+        val infoFromSecondApi = remoteDataSource.getAllTeamsFromSecondApi()
             .find { it.shortName == infoFromFirstApi?.shortTeamName }
         val fullInfoByTeam = remoteDataSource.getTeamFullInfo(teamId)
         return if(infoFromFirstApi != null && infoFromSecondApi != null) {
@@ -73,7 +73,7 @@ class TeamRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPlayersInfo(teamId: Int): List<TeamPlayersInfo> {
-        return remoteDataSource.getPlayersInfoByTeam(teamId).map {
+        return remoteDataSource.getPlayersByTeam(teamId).map {
             TeamPlayersInfo(
                 jerseyNumber = it.jerseyNumber,
                 playerId = it.playerId,

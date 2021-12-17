@@ -2,7 +2,7 @@ package com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams
 
 import com.google.gson.annotations.SerializedName
 
-data class TeamsInfoFromFirstApiResponse (
+data class TeamsFromFirstApi (
     val teams: List<TeamInfoFromFirstApi>
 )
 data class TeamInfoFromFirstApi(

@@ -1,21 +1,21 @@
 package com.sayut61.hockey.domain.usecases
 
-import com.sayut61.hockey.domain.TeamRepository
+import com.sayut61.hockey.domain.TeamsRepository
 import com.sayut61.hockey.domain.entities.TeamFullInfo
 import com.sayut61.hockey.domain.entities.TeamGeneralInfo
 import com.sayut61.hockey.domain.entities.TeamPlayersInfo
 import javax.inject.Inject
 
-class TeamUseCases @Inject constructor(
-    private val teamRepository: TeamRepository
+class TeamsUseCases @Inject constructor(
+    private val teamsRepository: TeamsRepository
 ) {
     suspend fun getTeamsInfo(): List<TeamGeneralInfo>{
-        return teamRepository.getTeamsInfo()
+        return teamsRepository.getTeamsInfo()
     }
     suspend fun getTeamFullInfo(teamId: Int): TeamFullInfo {
-        return teamRepository.getTeamFullInfo(teamId)
+        return teamsRepository.getTeamFullInfo(teamId)
     }
     suspend fun getPlayersInfo(teamId: Int): List<TeamPlayersInfo>{
-        return teamRepository.getPlayersInfo(teamId)
+        return teamsRepository.getPlayersInfo(teamId)
     }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sayut61.hockey.domain.entities.TeamFullInfo
-import com.sayut61.hockey.domain.usecases.TeamUseCases
+import com.sayut61.hockey.domain.usecases.TeamsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TeamDetailViewModel @Inject constructor(
-    private val teamUseCases: TeamUseCases
+    private val teamsUseCases: TeamsUseCases
 ): ViewModel() {
     private val _teamDetailLiveData = MutableLiveData<TeamFullInfo>()
     val teamDetailLiveData: MutableLiveData<TeamFullInfo> = _teamDetailLiveData
@@ -28,7 +28,7 @@ class TeamDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _progressBarLiveData.value = true
             try{
-                _teamDetailLiveData.value = teamUseCases.getTeamFullInfo(teamId)
+                _teamDetailLiveData.value = teamsUseCases.getTeamFullInfo(teamId)
             }catch (ex: Exception){
                 _errorLiveData.value = ex
             }

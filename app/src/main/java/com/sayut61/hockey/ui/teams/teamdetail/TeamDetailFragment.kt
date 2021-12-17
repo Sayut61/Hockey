@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sayut61.hockey.databinding.FragmentTeamDetailBinding
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.FullInfoByTeam
 import com.sayut61.hockey.domain.entities.TeamFullInfo
 import com.sayut61.hockey.ui.favorites.adapter.ViewPagerAdapter
 import com.sayut61.hockey.ui.utils.loadImage

@@ -19,8 +19,8 @@ data class PlayerFullInfoFromApi(
     val position: String
 )
 
-fun playerInfoToPlayerFullInfo(player: PlayerInfo): PlayerFullInfoFromApi{
-    val playerInfo =  player.people.map {
+fun playerInfoToPlayerFullInfo(playerFull: PlayerFullInfoResponse): PlayerFullInfoFromApi{
+    val playerInfo =  playerFull.people.map {
         PlayerFullInfoFromApi(
             playerId = it.playerId,
             fullName = it.fullName,
@@ -44,7 +44,7 @@ fun playerInfoToPlayerFullInfo(player: PlayerInfo): PlayerFullInfoFromApi{
        }
 }
 
-data class PlayerInfo(
+data class PlayerFullInfoResponse(
     val people: List<PeopleInfo>
 )
 data class PeopleInfo(

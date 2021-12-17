@@ -21,9 +21,9 @@ class MapRepositoryImpl @Inject constructor(
                 emit(LoadingResult.SuccessResult(it))
                 emit(LoadingResult.Loading(false))
             }
-            val listStadiumInfo = remoteDataSource.getStadiumInfo()
+            val listStadiumInfo = remoteDataSource.getStadiums()
             val result = listStadiumInfo.map { stadiumInfo ->
-                val teamName = remoteDataSource.getTeamsFirstApi()
+                val teamName = remoteDataSource.getAllTeamsFromFirstApi()
                     .find { it.venue.nameStadium.contains(stadiumInfo.stadiumName, true) }
                 Stadium(
                     nameStadium = stadiumInfo.stadiumName,

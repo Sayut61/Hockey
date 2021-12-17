@@ -6,20 +6,18 @@ import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamGeneralInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.GameFromFirstApi
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.FullInfoByTeam
-import com.sayut61.hockey.domain.GameRepository
+import com.sayut61.hockey.domain.GamesRepository
 import com.sayut61.hockey.domain.entities.GameFullInfo
 import com.sayut61.hockey.domain.entities.GameGeneralInfo
-import com.sayut61.hockey.domain.flow.LoadingResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.time.LocalDate
 import javax.inject.Inject
 
-class GameRepositoryImpl @Inject constructor(
+class GamesRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val gamesInfoDao: GamesInfoDao
-) : GameRepository {
+) : GamesRepository {
     var cacheGames:MutableMap<LocalDate, List<GameFullInfo>> = mutableMapOf()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -30,7 +28,7 @@ class GameRepositoryImpl @Inject constructor(
         }
         val games: List<GameFromFirstApi> = remoteDataSource.getGamesByDate(date)
         val logosFromSecondApiGeneral: List<TeamGeneralInfoFromSecondApi> =
-            remoteDataSource.getTeamsSecondApi()
+            remoteDataSource.getAllTeamsFromSecondApi()
         val result = games.map { game ->
             val isInDb = gamesInfoDao.getAllInfo().find { it.gameId == game.gameId } != null
             val homeTeamLogo = logosFromSecondApiGeneral.find { logoFromApi ->
