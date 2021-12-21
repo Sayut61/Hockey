@@ -2,7 +2,7 @@ package com.sayut61.hockey.datalayer.repositories
 
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.dto.FavoritePlayer
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSourceImpl
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.players.PlayerPhoto
 import com.sayut61.hockey.domain.PlayersRepository
 import com.sayut61.hockey.domain.entities.PlayerFullInfo
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class PlayersRepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource,
+    private val remoteDataSource: RemoteDataSourceImpl,
     private val playersInfoDao: PlayersInfoDao
 ) : PlayersRepository {
     var cachePlayers: List<PlayerGeneralInfo>? = null

@@ -1,6 +1,6 @@
 package com.sayut61.hockey.datalayer.repositories
 
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSourceImpl
 import com.sayut61.hockey.domain.MapRepository
 import com.sayut61.hockey.domain.entities.Stadium
 import com.sayut61.hockey.domain.flow.LoadingResult
@@ -10,7 +10,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class MapRepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSourceImpl
 ) : MapRepository {
     var counter = 0
     var cacheMap: List<Stadium>? = null

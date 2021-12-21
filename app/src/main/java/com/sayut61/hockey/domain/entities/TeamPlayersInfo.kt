@@ -1,6 +1,6 @@
 package com.sayut61.hockey.domain.entities
 
-class TeamPlayersInfo(
+data class TeamPlayersInfo(
     val jerseyNumber: Int,
     val playerId: Int,
     val fullName: String,

@@ -3,7 +3,7 @@ package com.sayut61.hockey.datalayer.repositories
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSourceImpl
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.teams.TeamGeneralInfoFromSecondApi
 import com.sayut61.hockey.datalayer.datasource.remotedatasource.dto.games.GameFromFirstApi
 import com.sayut61.hockey.domain.GamesRepository
@@ -15,7 +15,7 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class GamesRepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource,
+    private val remoteDataSource: RemoteDataSourceImpl,
     private val gamesInfoDao: GamesInfoDao
 ) : GamesRepository {
     var cacheGames: MutableMap<LocalDate, List<GameFullInfo>> = mutableMapOf()

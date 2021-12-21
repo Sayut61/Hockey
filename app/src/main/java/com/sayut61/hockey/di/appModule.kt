@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.GamesInfoDao
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.HockeyDB
 import com.sayut61.hockey.datalayer.datasource.loacaldatasource.PlayersInfoDao
-import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSource
+import com.sayut61.hockey.datalayer.datasource.remotedatasource.RemoteDataSourceImpl
 import com.sayut61.hockey.datalayer.repositories.*
 import com.sayut61.hockey.domain.*
 import dagger.Module
@@ -40,7 +40,7 @@ object AppModule {
     @Singleton
     @Provides
     fun providesPlayersRepositories(
-        remoteDataSource: RemoteDataSource,
+        remoteDataSource: RemoteDataSourceImpl,
         playersInfoDao: PlayersInfoDao
     ): PlayersRepository {
         return PlayersRepositoryImpl(remoteDataSource, playersInfoDao)
@@ -48,14 +48,14 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesTeamRepositories(remoteDataSource: RemoteDataSource): TeamsRepository {
+    fun providesTeamRepositories(remoteDataSource: RemoteDataSourceImpl): TeamsRepository {
         return TeamsRepositoryImpl(remoteDataSource)
     }
 
     @Singleton
     @Provides
     fun providesCalendarRepositories(
-        remoteDataSource: RemoteDataSource,
+        remoteDataSource: RemoteDataSourceImpl,
         gamesInfoDao: GamesInfoDao
     ): GamesRepository {
         return GamesRepositoryImpl(remoteDataSource, gamesInfoDao)
@@ -63,7 +63,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesMapRepositories(remoteDataSource: RemoteDataSource): MapRepository {
+    fun providesMapRepositories(remoteDataSource: RemoteDataSourceImpl): MapRepository {
         return MapRepositoryImpl(remoteDataSource)
     }
 
@@ -71,7 +71,7 @@ object AppModule {
     @Provides
     fun providesFavRepositories(
         gamesInfoDao: GamesInfoDao,
-        remoteDataSource: RemoteDataSource
+        remoteDataSource: RemoteDataSourceImpl
     ): GamesFavoriteRepository {
         return GamesFavoriteRepositoryImpl(gamesInfoDao, remoteDataSource)
     }
