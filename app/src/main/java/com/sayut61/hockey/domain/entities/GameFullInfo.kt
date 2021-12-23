@@ -10,7 +10,7 @@ data class GameFullInfo(
     val playersAwayTeam: List<PlayerNameAndNumber>?,
     val playersHomeTeam: List<PlayerNameAndNumber>?,
     val currentPeriod: Int,
-    val currentPeriodOrdinal: String,
+    val currentPeriodOrdinal: String?,
     val currentPeriodTimeRemaining: String,
     val periods: List<PeriodsInfo>,
     val homeTeamGoalsByPeriods: List<Int>,
