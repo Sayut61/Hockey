@@ -2,7 +2,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/my_colour_for_background"/>
     <item>
-        <bitmap android:src="@drawable/background_splash"
-            />
+        <bitmap
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background_splash" />
     </item>
 </layer-list>
