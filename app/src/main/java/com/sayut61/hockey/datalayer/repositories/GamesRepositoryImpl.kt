@@ -22,7 +22,7 @@ class GamesRepositoryImpl @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getGamesFullInfo(date: LocalDate): Flow<List<GameFullInfo>> = flow {
-        val cacheGamesOnDate = cacheGames[date]
+        var cacheGamesOnDate = cacheGames[date]
         cacheGamesOnDate?.let {
             emit(it)
         }
@@ -51,17 +51,19 @@ class GamesRepositoryImpl @Inject constructor(
             )
             getGameFullInfo(generalInfo)
         }
+        cacheGamesOnDate = result
+        emit(result)
 
-        var equals = true
-        for (i in 0..result.lastIndex)
-            if (result[i] != cacheGames[date]?.get(i)) {
-                equals = false
-                break
-            }
-        if (!equals) {
-            cacheGames.put(date, result)
-            emit(result)
-        }
+//        var equals = true
+//        for (i in 0..result.lastIndex)
+//            if (result[i] != cacheGames[date]?.get(i)) {
+//                equals = false
+//                break
+//            }
+//        if (!equals) {
+//            cacheGames.put(date, result)
+//            emit(result)
+//        }
     }
 
 

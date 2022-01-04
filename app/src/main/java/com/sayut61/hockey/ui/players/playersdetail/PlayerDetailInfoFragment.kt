@@ -48,8 +48,6 @@ class PlayerDetailInfoFragment : Fragment() {
             if (it == true) showProgressBar()
             else hideProgressBar()
         }
-
-
     }
 
     private fun showPlayerStatistics(playerStatisticsInfo: PlayerStatisticsInfo) {

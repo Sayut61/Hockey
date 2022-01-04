@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GamesFavoriteUseCases @Inject constructor(
     private val getGamesFavoriteRepository: GamesFavoriteRepository
 ) {
-    fun getFavoriteGames(): Flow<LoadingResult<List<GameFullInfo>>>{
+    fun getFavoriteGames(): Flow<List<GameFullInfo>>{
         return getGamesFavoriteRepository.getFavoriteGames()
     }
     suspend fun removeFromFavoriteGame(gameGeneralInfo: GameGeneralInfo){

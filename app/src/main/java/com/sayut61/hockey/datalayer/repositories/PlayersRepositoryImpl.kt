@@ -60,34 +60,18 @@ class PlayersRepositoryImpl @Inject constructor(
     }
 
     var cacheFavoritePlayers: List<PlayerStatisticsInfo>? = null
-    override fun getPlayersFromDB(): Flow<LoadingResult<List<PlayerStatisticsInfo>>> = flow {
-        emit(LoadingResult.Loading(true))
-        try {
+    override fun getPlayersFromDB(): Flow<List<PlayerStatisticsInfo>> = flow {
             cacheFavoritePlayers?.let {
-                emit(LoadingResult.SuccessResult(it))
-                emit(LoadingResult.Loading(false))
+                emit(it)
             }
             val playersFromDB = playersInfoDao.getPlayers()
             val photos = remoteDataSource.getPlayersPhoto()
             val result = playersFromDB.map { favoritePlayer ->
                 getPlayerStatById(favoritePlayer, photos)
             }
-            var equals = true
-            for (i in 0..result.lastIndex)
-                if (result[0] != cacheFavoritePlayers?.get(i)) {
-                    equals = false
-                    break
-                }
-            if (!equals) {
-                cacheFavoritePlayers = result
-                emit(LoadingResult.SuccessResult(result))
-            }
-            emit(LoadingResult.Loading(false))
-        } catch (ex: java.lang.Exception) {
-            emit(LoadingResult.ErrorResult(java.lang.Exception("Ошибка загрузки избранных игроков")))
-            emit(LoadingResult.Loading(false))
+            cacheFavoritePlayers = result
+            emit(result)
         }
-    }
 
     override suspend fun getPlayerStat(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo {
         val photos = remoteDataSource.getPlayersPhoto()
