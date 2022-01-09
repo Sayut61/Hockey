@@ -54,16 +54,6 @@ class GamesRepositoryImpl @Inject constructor(
         cacheGamesOnDate = result
         emit(result)
 
-//        var equals = true
-//        for (i in 0..result.lastIndex)
-//            if (result[i] != cacheGames[date]?.get(i)) {
-//                equals = false
-//                break
-//            }
-//        if (!equals) {
-//            cacheGames.put(date, result)
-//            emit(result)
-//        }
     }
 
 

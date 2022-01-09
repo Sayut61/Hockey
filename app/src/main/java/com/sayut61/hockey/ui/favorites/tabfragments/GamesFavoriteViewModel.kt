@@ -32,13 +32,7 @@ class GamesFavoriteViewModel @Inject constructor(
 
     fun refreshFavoriteFragment() {
         viewModelScope.launch {
-//            gamesFavoriteUseCases.getFavoriteGames().collect {
-//                when (it) {
-//                    is LoadingResult.SuccessResult -> _gamesFavoriteLiveData.value = it.data!!
-//                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
-//                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
-//                }
-//            }
+
             _progressBarLiveData.value = true
             try {
                 gamesFavoriteUseCases.getFavoriteGames().collect {

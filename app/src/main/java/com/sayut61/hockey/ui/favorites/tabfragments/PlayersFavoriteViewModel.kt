@@ -36,13 +36,7 @@ class PlayersFavoriteViewModel @Inject constructor(
 
     fun refreshFavoriteFragment() {
         viewModelScope.launch {
-//            playersUseCases.getPlayersListDB().collect {
-//                when (it) {
-//                    is LoadingResult.SuccessResult -> _playersFavoriteLiveData.value = it.data!!
-//                    is LoadingResult.ErrorResult -> _errorLiveData.value = it.error
-//                    is LoadingResult.Loading -> _progressBarLiveData.value = it.isLoading
-//                }
-//            }
+
             _progressBarLiveData.value = true
             try {
                 playersUseCases.getPlayersListDB().collect {

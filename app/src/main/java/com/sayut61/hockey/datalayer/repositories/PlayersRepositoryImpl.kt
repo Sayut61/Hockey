@@ -61,17 +61,19 @@ class PlayersRepositoryImpl @Inject constructor(
 
     var cacheFavoritePlayers: List<PlayerStatisticsInfo>? = null
     override fun getPlayersFromDB(): Flow<List<PlayerStatisticsInfo>> = flow {
-            cacheFavoritePlayers?.let {
-                emit(it)
-            }
-            val playersFromDB = playersInfoDao.getPlayers()
-            val photos = remoteDataSource.getPlayersPhoto()
-            val result = playersFromDB.map { favoritePlayer ->
-                getPlayerStatById(favoritePlayer, photos)
-            }
-            cacheFavoritePlayers = result
-            emit(result)
+        cacheFavoritePlayers?.let {
+            emit(it)
         }
+        val playersFromDB = playersInfoDao.getPlayers()
+        val photos = remoteDataSource.getPlayersPhoto()
+        val result = playersFromDB.map { favoritePlayer ->
+            getPlayerStatById(favoritePlayer, photos)
+        }
+        cacheFavoritePlayers = result
+        emit(result)
+
+    }
+
 
     override suspend fun getPlayerStat(playerFullInfo: PlayerFullInfo): PlayerStatisticsInfo {
         val photos = remoteDataSource.getPlayersPhoto()
