@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CalendarDetailViewModel @Inject constructor(
-    val gamesUseCases: GamesUseCases
+   private val gamesUseCases: GamesUseCases
 ) : ViewModel() {
 
     private val _getGameInfo = MutableLiveData<GameFullInfo>()

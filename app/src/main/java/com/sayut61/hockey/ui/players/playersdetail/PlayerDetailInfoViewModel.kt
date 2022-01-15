@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayerDetailInfoViewModel @Inject constructor(
-    val playersUseCases: PlayersUseCases
+    private val playersUseCases: PlayersUseCases
 ) : ViewModel() {
     private val _playerLiveData = MutableLiveData<PlayerFullInfo>()
     val playerLiveData: LiveData<PlayerFullInfo> = _playerLiveData

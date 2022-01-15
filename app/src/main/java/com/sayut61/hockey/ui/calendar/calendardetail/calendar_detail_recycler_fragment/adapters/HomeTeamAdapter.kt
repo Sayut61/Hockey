@@ -12,7 +12,7 @@ interface HomeTeamAdapterListener {
 }
 
 class HomeTeamAdapter(
-    val homePlayers: List<PlayerNameAndNumber>,
+    private val homePlayers: List<PlayerNameAndNumber>,
     val listener: HomeTeamAdapterListener
 ) : RecyclerView.Adapter<HomeTeamViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeTeamViewHolder {

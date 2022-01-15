@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeTeamRecyclerViewModel @Inject constructor(
-    val gamesUseCases: GamesUseCases
+   private val gamesUseCases: GamesUseCases
 ) : ViewModel() {
     private val _homePlayersLiveData = MutableLiveData<List<PlayerNameAndNumber>>()
     val homePlayersLiveData: LiveData<List<PlayerNameAndNumber>> = _homePlayersLiveData

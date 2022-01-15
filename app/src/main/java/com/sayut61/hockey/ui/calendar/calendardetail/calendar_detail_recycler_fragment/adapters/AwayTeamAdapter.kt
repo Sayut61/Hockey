@@ -12,7 +12,7 @@ interface AwayTeamAdapterListener {
 }
 
 class AwayTeamAdapter(
-    val awayPlayers: List<PlayerNameAndNumber>,
+    private val awayPlayers: List<PlayerNameAndNumber>,
     val listener: AwayTeamAdapterListener
 ) : RecyclerView.Adapter<AwayTeamViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwayTeamViewHolder {
