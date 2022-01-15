@@ -10,7 +10,7 @@ data class GameFullInfo(
     val playersAwayTeam: List<PlayerNameAndNumber>?,
     val playersHomeTeam: List<PlayerNameAndNumber>?,
     val currentPeriod: Int,
-    val currentPeriodOrdinal: String?,
+    val currentPeriodOrdinal: String = "",
     val currentPeriodTimeRemaining: String,
     val periods: List<PeriodsInfo>,
     val homeTeamGoalsByPeriods: List<Int>,
@@ -30,9 +30,9 @@ data class GameFullInfo(
 
 @Parcelize
 data class PlayerNameAndNumber(
-    val name: String,
-    val number: String,
+    val name: String? = "",
+    val number: String? = "",
     val id: Int,
-    val primaryPosition: String,
+    val primaryPosition: String? = "",
     val typePosition: String
 ) : Parcelable

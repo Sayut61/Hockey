@@ -17,6 +17,7 @@ class PlayersRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSourceImpl,
     private val playersInfoDao: PlayersInfoDao
 ) : PlayersRepository {
+    var needRefreshCache: Boolean = true
     var cachePlayers: List<PlayerGeneralInfo>? = null
     override fun getPlayersFromApi(): Flow<LoadingResult<List<PlayerGeneralInfo>>> = flow {
         emit(LoadingResult.Loading(true))
@@ -69,9 +70,22 @@ class PlayersRepositoryImpl @Inject constructor(
         val result = playersFromDB.map { favoritePlayer ->
             getPlayerStatById(favoritePlayer, photos)
         }
-        cacheFavoritePlayers = result
-        emit(result)
-
+        if(needRefreshCache){
+            cacheFavoritePlayers = result
+            needRefreshCache = false
+            emit(result)
+        } else {
+            var equals = true
+            for (i in 0..result.lastIndex)
+                if (result[i] != cacheFavoritePlayers?.get(i)) {
+                    equals = false
+                    break
+                }
+            if (!equals) {
+                cacheFavoritePlayers = result
+                emit(result)
+            }
+        }
     }
 
 
@@ -147,15 +161,12 @@ class PlayersRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addToFavoritePlayer(playerGeneralInfo: PlayerGeneralInfo) {
-        playersInfoDao.insert(
-            FavoritePlayer(
-                playerGeneralInfo.playerId,
-                playerGeneralInfo.fullName
-            )
-        )
+        playersInfoDao.insert(FavoritePlayer(playerGeneralInfo.playerId, playerGeneralInfo.fullName))
+        needRefreshCache = true
     }
 
     override suspend fun removeFromFavoritePlayer(playerId: Int) {
         playersInfoDao.delete(FavoritePlayer(playerId, ""))
+        needRefreshCache = true
     }
 }

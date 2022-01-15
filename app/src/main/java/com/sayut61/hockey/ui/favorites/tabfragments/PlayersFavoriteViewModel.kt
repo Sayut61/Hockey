@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayersFavoriteViewModel @Inject constructor(
-    val playersUseCases: PlayersUseCases
+    private val playersUseCases: PlayersUseCases
 ) : ViewModel() {
 
     private val _playersFavoriteLiveData = MutableLiveData<List<PlayerStatisticsInfo>>()

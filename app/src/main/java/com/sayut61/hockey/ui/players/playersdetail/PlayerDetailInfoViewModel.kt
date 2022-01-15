@@ -8,6 +8,7 @@ import com.sayut61.hockey.domain.entities.PlayerFullInfo
 import com.sayut61.hockey.domain.entities.PlayerStatisticsInfo
 import com.sayut61.hockey.domain.usecases.PlayersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
